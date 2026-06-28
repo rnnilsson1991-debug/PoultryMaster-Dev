@@ -1,3 +1,4 @@
+{
 (()=>{const ICON_INC=`<svg class="inline-icon" viewBox="0 0 64 64" aria-hidden="true"><rect x="11" y="17" width="42" height="34" rx="8" fill="#eef3ea" stroke="#5f6b61" stroke-width="3"/><path d="M22 17v-5h20v5" fill="none" stroke="#5f6b61" stroke-width="3" stroke-linecap="round"/><path d="M32 26c-6 0-10 6-10 12 0 5 3.7 8 10 8s10-3 10-8c0-6-4-12-10-12Z" fill="#f1c15b" stroke="#d7a947" stroke-width="2"/><circle cx="45" cy="26" r="3" fill="#18833b"/><path d="M15 52h34" stroke="#5f6b61" stroke-width="3" stroke-linecap="round"/></svg>`;const ICON_CHART=`<svg class="inline-icon" viewBox="0 0 64 64" aria-hidden="true"><rect x="10" y="10" width="44" height="44" rx="8" fill="#f7faf4" stroke="#dfe4d8" stroke-width="3"/><path d="M18 46V20M18 46h30" stroke="#5f6b61" stroke-width="3" stroke-linecap="round"/><path d="M22 40l8-10 8 6 10-18" fill="none" stroke="#18833b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="30" cy="30" r="2.5" fill="#d7b45a"/><circle cx="38" cy="36" r="2.5" fill="#d7b45a"/></svg>`;
 const I18N={
   sv:{dashboard:'Översikt',overview:'Översikt',eggs:'Ägg',candling:'Lysning',chicks:'Kycklingar',flock:'Flock',laying:'Värpning',activeEggs:'Aktiva ägg',incubators:'Kläckare',statistics:'Statistik',settings:'Inställningar',farmJournal:'Gårdsjournal',machines:'Maskiner',registerEvent:'Registrera ny händelse',registerSub:'Ägg, lysning, kycklingar, hälsa, vikt m.m.',mostImportant:'Viktigast idag',upcomingNotDone:'Kommande (ej utförda)',activeHatches:'Aktiva kläckningar',reportsTrends:'Rapporter och trender',appSettings:'Appinställningar',farmTimeline:'Gårdens tidslinje',incubatorAccessories:'Kläckare och tillbehör',today:'idag',total:'Totalt',hens:'Hönor',roosters:'Tuppar',unknown:'Okända',unknownGender:'Okänt',hen:'Höna',rooster:'Tupp',flockEmpty:'Inga fåglar ännu.',add:'Lägg till',nameId:'Namn / ID',breed:'Ras',sex:'Kön',hatchDate:'Kläckdatum',origin:'Ursprung',mother:'Mor',father:'Far',ringNumber:'Ringnummer',status:'Status',active:'Aktiv',breeding:'Avel',sold:'Såld',dead:'Död',notes:'Anteckningar',save:'Spara',photoCamera:'Bild / kamera',edit:'Redigera',delete:'Ta bort',lifeBook:'Livsbok',logWeight:'Logga vikt',logHealth:'Logga hälsa',parents:'Mor/Far',breedingStatus:'Avelsstatus',notAssessed:'Ej bedömd',production:'Produktion',eggsTotal:'Ägg totalt',last30Days:'Senaste 30 dagar',avgWeek:'Snitt/vecka',avgWeight:'Medelvikt',biggestEgg:'Största ägg',doubleYolks:'Dubbelgulor',savedBreedingEggs:'Sparade avelsägg',pedigree:'Avelsträd',offspring:'Avkommor',noOffspring:'Inga avkommor registrerade ännu.',lifeline:'Livslinje',noLifeline:'Ingen livslinje ännu.',flockIndividual:'flockindivid',register:'Registrera',editVerb:'Redigera'},
@@ -883,8 +884,9 @@ dash=function(){
    updateTaskProgressUI(tasks);
  }catch(e){}
 }
+}
 
-
+{
 if ('serviceWorker' in navigator && location.protocol !== 'file:') {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./sw.js').catch(() => {});
@@ -923,4 +925,1757 @@ dash=function(){
    const tasks=todayTasksFromEggs((state.eggs||[]).filter(e=>e.status==='Inkuberas'));
    updateTaskProgressUI(tasks);
  }catch(e){}
+}
+}
+
+{
+/* PoultryMaster v2.9.9 Dashboard I18N Safe Overlay
+   Rules: no layout changes, no app logic changes, no data changes.
+   This only translates already-rendered dashboard text based on the saved language setting. */
+(function(){
+  const KEY='egg_manager_v2';
+  const D={
+    sv:{tagline:'Komplett hantering av inkubering, flock och avel',overview:'Översikt',today:'idag',activeEggs:'Aktiva ägg',incubators:'Kläckare',chicks:'Kycklingar',flock:'Flock',statistics:'Statistik',settings:'Inställningar',farmJournal:'Gårdsjournal',machines:'Maskiner',reportsTrends:'Rapporter och trender',appSettings:'Appinställningar',farmTimeline:'Gårdens tidslinje',incubatorAccessories:'Kläckare och tillbehör',registerEvent:'Registrera ny händelse',registerSub:'Ägg, lysning, kycklingar, hälsa, vikt m.m.',mostImportant:'Viktigast idag',upcomingNotDone:'Kommande (ej utförda)',activeHatches:'Aktiva kläckningar',active:'Aktiva',inOperation:'i drift',zeroHatched:'0 kläckta',zeroRegistered:'0 registrerade',hatched:'kläckta',registered:'registrerade',day:'Dag',of:'av',allDoneToday:'Allt klart för idag',allTasksDoneMsg:'Alla planerade uppgifter är genomförda. PoultryMaster fortsätter hålla koll på gården.',todaysTip:'Dagens tips',allTasksDoneTip:'Bra jobbat. Nu återstår normal tillsyn och att hålla kläckaren stabil.'},
+    en:{tagline:'Complete management of incubation, flock and breeding',overview:'Overview',today:'today',activeEggs:'Active eggs',incubators:'Incubators',chicks:'Chicks',flock:'Flock',statistics:'Statistics',settings:'Settings',farmJournal:'Farm journal',machines:'Machines',reportsTrends:'Reports and trends',appSettings:'App settings',farmTimeline:'Farm timeline',incubatorAccessories:'Incubators and accessories',registerEvent:'Register new event',registerSub:'Eggs, candling, chicks, health, weight, etc.',mostImportant:'Most important today',upcomingNotDone:'Upcoming (not completed)',activeHatches:'Active hatches',active:'Active',inOperation:'in operation',zeroHatched:'0 hatched',zeroRegistered:'0 registered',hatched:'hatched',registered:'registered',day:'Day',of:'of',allDoneToday:'All done for today',allTasksDoneMsg:'All planned tasks are completed. PoultryMaster keeps monitoring the farm.',todaysTip:'Today’s tip',allTasksDoneTip:'Good work. Now normal supervision remains — keep the incubator stable.'},
+    da:{tagline:'Komplet håndtering af rugning, flok og avl',overview:'Oversigt',today:'i dag',activeEggs:'Aktive æg',incubators:'Rugemaskiner',chicks:'Kyllinger',flock:'Flok',statistics:'Statistik',settings:'Indstillinger',farmJournal:'Gårdsjournal',machines:'Maskiner',reportsTrends:'Rapporter og trends',appSettings:'Appindstillinger',farmTimeline:'Gårdens tidslinje',incubatorAccessories:'Rugemaskiner og tilbehør',registerEvent:'Registrér ny hændelse',registerSub:'Æg, lysning, kyllinger, sundhed, vægt m.m.',mostImportant:'Vigtigst i dag',upcomingNotDone:'Kommende (ikke udført)',activeHatches:'Aktive klækninger',active:'Aktive',inOperation:'i drift',zeroHatched:'0 klækket',zeroRegistered:'0 registreret',hatched:'klækket',registered:'registreret',day:'Dag',of:'af',allDoneToday:'Alt klart for i dag',allTasksDoneMsg:'Alle planlagte opgaver er udført. PoultryMaster holder fortsat øje med gården.',todaysTip:'Dagens tip',allTasksDoneTip:'Godt arbejde. Nu mangler kun normal tilsyn og at holde rugemaskinen stabil.'},
+    no:{tagline:'Komplett håndtering av ruging, flokk og avl',overview:'Oversikt',today:'i dag',activeEggs:'Aktive egg',incubators:'Rugemaskiner',chicks:'Kyllinger',flock:'Flokk',statistics:'Statistikk',settings:'Innstillinger',farmJournal:'Gårdsjournal',machines:'Maskiner',reportsTrends:'Rapporter og trender',appSettings:'Appinnstillinger',farmTimeline:'Gårdens tidslinje',incubatorAccessories:'Rugemaskiner og tilbehør',registerEvent:'Registrer ny hendelse',registerSub:'Egg, lysing, kyllinger, helse, vekt m.m.',mostImportant:'Viktigst i dag',upcomingNotDone:'Kommende (ikke utført)',activeHatches:'Aktive klekkinger',active:'Aktive',inOperation:'i drift',zeroHatched:'0 klekket',zeroRegistered:'0 registrert',hatched:'klekket',registered:'registrert',day:'Dag',of:'av',allDoneToday:'Alt klart for i dag',allTasksDoneMsg:'Alle planlagte oppgaver er utført. PoultryMaster holder fortsatt oversikt over gården.',todaysTip:'Dagens tips',allTasksDoneTip:'Godt jobbet. Nå gjenstår normalt tilsyn og å holde rugemaskinen stabil.'},
+    fi:{tagline:'Täydellinen hallinta haudontaan, parveen ja jalostukseen',overview:'Yleiskatsaus',today:'tänään',activeEggs:'Aktiiviset munat',incubators:'Hautomakoneet',chicks:'Poikaset',flock:'Parvi',statistics:'Tilastot',settings:'Asetukset',farmJournal:'Tilapäiväkirja',machines:'Laitteet',reportsTrends:'Raportit ja trendit',appSettings:'Sovelluksen asetukset',farmTimeline:'Tilan aikajana',incubatorAccessories:'Hautomakoneet ja tarvikkeet',registerEvent:'Lisää uusi tapahtuma',registerSub:'Munat, läpivalaisu, poikaset, terveys, paino jne.',mostImportant:'Tärkeintä tänään',upcomingNotDone:'Tulossa (ei tehty)',activeHatches:'Aktiiviset haudonnat',active:'Aktiiviset',inOperation:'käytössä',zeroHatched:'0 kuoriutunut',zeroRegistered:'0 rekisteröity',hatched:'kuoriutunut',registered:'rekisteröity',day:'Päivä',of:'/',allDoneToday:'Kaikki valmista tänään',allTasksDoneMsg:'Kaikki suunnitellut tehtävät on tehty. PoultryMaster jatkaa tilan seurantaa.',todaysTip:'Päivän vinkki',allTasksDoneTip:'Hyvää työtä. Nyt riittää normaali valvonta ja hautomakoneen pitäminen vakaana.'}
+  };
+  function getState(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return {}}}
+  function lang(){return (getState().farmSettings&&getState().farmSettings.language)||'sv'}
+  function tr(k){const l=lang();return (D[l]&&D[l][k])||D.sv[k]||k}
+  function setText(sel,val){document.querySelectorAll(sel).forEach(el=>{if(el)el.textContent=val})}
+  function setLabel(id,key){const el=document.getElementById(id);if(!el)return;const lab=el.closest('.stat')?.querySelector('.label');if(!lab)return;const sub=lab.querySelector('.sub');lab.childNodes.forEach(n=>{if(n.nodeType===3)n.nodeValue=''});lab.insertBefore(document.createTextNode(tr(key)),sub||null)}
+  function setSub(id,fn){const el=document.getElementById(id);if(el)el.textContent=fn(el.textContent||'')}
+  function dayText(txt){const m=String(txt).match(/(\d+)\D+(\d+)/);return m?`${tr('day')} ${m[1]} ${tr('of')} ${m[2]}`:txt}
+  function farmName(){const fs=getState().farmSettings||{};return fs.farmName||'Gården'}
+  function translateDashboard(){
+    setText('.top small',tr('tagline'));
+    setText('.dashboard-kicker',tr('overview').toUpperCase());
+    setLabel('s-eggs','activeEggs'); setLabel('s-inc','incubators'); setLabel('s-chicks','chicks'); setLabel('s-flock','flock');
+    setSub('s-eggs-sub',dayText);
+    setSub('s-inc-sub',txt=>{const n=(txt.match(/\d+/)||['0'])[0];return `${n} ${tr('inOperation')}`});
+    setSub('s-chicks-sub',txt=>{const n=(txt.match(/\d+/)||['0'])[0];return n==='0'?tr('zeroHatched'):`${n} ${tr('hatched')}`});
+    setSub('s-flock-sub',txt=>{const n=(txt.match(/\d+/)||['0'])[0];return n==='0'?tr('zeroRegistered'):`${n} ${tr('registered')}`});
+    const q=[['statistics','statistics','reportsTrends'],['settings','settings','appSettings'],['events','farmJournal','farmTimeline']];
+    q.forEach(([view,key,sub])=>{const b=document.querySelector(`.quick[data-view="${view}"]`);if(b){const d=b.querySelector(':scope > div');const s=b.querySelector('small');if(d)d.textContent=tr(key);if(s)s.textContent=tr(sub);}});
+    const m=[...document.querySelectorAll('.quick')].find(b=>b.getAttribute('data-action')==='incubators');if(m){const d=m.querySelector(':scope > div');const s=m.querySelector('small');if(d)d.textContent=tr('machines');if(s)s.textContent=tr('incubatorAccessories');}
+    setText('.reg-title',tr('registerEvent')); setText('.reg-sub',tr('registerSub'));
+    setText('.dash-title-task',tr('mostImportant')); setText('.dash-title-upcoming',tr('upcomingNotDone')); setText('.dash-title-hatches',tr('activeHatches'));
+    const title=document.querySelector('.farm-today-title'); if(title)title.textContent=`🌱 ${farmName()} ${tr('today')}`;
+    const stat=document.querySelector('.farm-today-status'); if(stat && /Allt klart|All done|Alt klart|Kaikki/.test(stat.textContent))stat.textContent=`🟢 ${tr('allDoneToday')}`;
+    const chip=document.querySelector('.farm-today-chip'); if(chip && /Allt klart|All done|Alt klart|Kaikki/.test(chip.textContent))chip.textContent=tr('allDoneToday');
+    const text=document.querySelector('.farm-today-text'); if(text && /Alla planerade|All planned|Alle planlagte|Kaikki suunnitellut/.test(text.textContent))text.textContent=tr('allTasksDoneMsg');
+    const mini=document.querySelectorAll('.farm-today-mini .status-chip');
+    if(mini[0]){const n=(mini[0].textContent.match(/\d+/)||['0'])[0];mini[0].textContent=`🥚 ${tr('active')}: ${n}`}
+    if(mini[1]){const n=(mini[1].textContent.match(/\d+/)||['0'])[0];mini[1].textContent=`🐣 ${tr('chicks')}: ${n}`}
+    if(mini[2]){const n=(mini[2].textContent.match(/\d+/)||['0'])[0];mini[2].textContent=`🐓 ${tr('flock')}: ${n}`}
+    const tip=document.querySelector('.farm-today-tip'); if(tip && /Dagens tips|Today/.test(tip.textContent))tip.textContent=`💡 ${tr('todaysTip')}: ${tr('allTasksDoneTip')}`;
+  }
+  let busy=false;function run(){if(busy)return;busy=true;requestAnimationFrame(()=>{try{translateDashboard()}finally{busy=false}})}
+  document.addEventListener('DOMContentLoaded',run); window.addEventListener('load',run); setInterval(run,700);
+  new MutationObserver(run).observe(document.documentElement,{childList:true,subtree:true,characterData:true});
+})();
+}
+
+{
+/* PoultryMaster v2.9.9 – Dashboard Final I18N polish
+   Dashboard-only safe layer: translates rendered dashboard text without touching stored data or other modules. */
+(function(){
+  const KEY='egg_manager_v2';
+  const L={
+    sv:{
+      tagline:'Komplett hantering av inkubering, flock och avel',overview:'Översikt',today:'idag',activeEggs:'Aktiva ägg',incubators:'Kläckare',chicks:'Kycklingar',flock:'Flock',statistics:'Statistik',settings:'Inställningar',farmJournal:'Gårdsjournal',machines:'Maskiner',reportsTrends:'Rapporter och trender',appSettings:'Appinställningar',farmTimeline:'Gårdens tidslinje',incubatorAccessories:'Kläckare och tillbehör',registerEvent:'Registrera ny händelse',registerSub:'Ägg, lysning, kycklingar, hälsa, vikt m.m.',mostImportant:'Viktigast idag',upcomingNotDone:'Kommande (ej utförda)',activeHatches:'Aktiva kläckningar',
+      active:'Aktiva',uncertain:'Osäkra',stopped:'Avbrutna',survivalRate:'Överlevnadsgrad',inOperation:'i drift',zeroHatched:'0 kläckta',zeroRegistered:'0 registrerade',hatched:'kläckta',registered:'registrerade',day:'Dag',of:'av',eggsInIncubator:'ägg i kläckare',noActive:'Inga aktiva',nextEvent:'Nästa händelse',estimatedHatch:'Beräknad kläckning',inDays:'om {n} dagar',inDaysCap:'Om {n} dagar',todayCap:'Idag',todaySlashPassed:'Idag / passerad',nothingPlanned:'Inget planerat',noEggsInIncubator:'Inga ägg i kläckare just nu.',addEgg:'+ Lägg till ägg',
+      allDoneToday:'Allt klart för idag',stable:'Stabil',allTasksDoneMsg:'Alla planerade uppgifter är genomförda. PoultryMaster fortsätter hålla koll på gården.',stableMsg:'Allt ser stabilt ut idag. Öppna korten för mer detaljer.',todaysTip:'Dagens tips',stableTip:'Fortsätt hålla temperatur och vattennivå stabilt.',allTasksDoneTip:'Bra jobbat. Nu återstår normal tillsyn och att hålla kläckaren stabil.',hatchClose:'Kläckning nära',lockdownToday:'Lockdown idag',candlingDay:'Lysningsdag',followUp:'Följ upp',stableStopped:'Stabil med avbrott',noActiveHatch:'Ingen aktiv kläckning',
+      todayWork:'Dagens arbete',done:'klara',allDoneBox:'🎉 Alla dagens uppgifter är slutförda.',noTasksToday:'✅ Inga planerade uppgifter idag.',firstCandling:'Första lysning',secondCandling:'Andra lysning',lockdown:'Lockdown',hatchDay:'Kläckdag',candlingSoon:'Kläckning',savedDone:'Klart och sparat i dagens logg.',undo:'Ångra',complete:'Klar',todayLower:'idag',noUpcoming:'Inga kommande moment.',noActiveHatchesYet:'Inga aktiva kläckningar ännu.',edit:'Redigera',delete:'Ta bort',lifeBook:'Livsbok',
+      insights:'PoultryMasters insikter',priority:'Prioritet',hatching:'Kläckning',followUpTag:'Uppföljning',statisticsTag:'Statistik',database:'Databas',candlingTag:'Lysning',chicksTag:'Kycklingar',layingTag:'Värpning',start:'Start',nextStep:'Nästa steg',actionToday:'Åtgärd idag',activeHatch:'Aktiv kläckning',uncertainEggs:'Osäkra ägg',hatchHistory:'Kläckningshistorik',buildingStats:'Bygger statistik',candlingPattern:'Lysningsmönster',weightFollowUp:'Viktuppföljning',layingMissing:'Värpningsdata saknas'
+    },
+    en:{
+      tagline:'Complete management of incubation, flock and breeding',overview:'Overview',today:'today',activeEggs:'Active eggs',incubators:'Incubators',chicks:'Chicks',flock:'Flock',statistics:'Statistics',settings:'Settings',farmJournal:'Farm journal',machines:'Machines',reportsTrends:'Reports and trends',appSettings:'App settings',farmTimeline:'Farm timeline',incubatorAccessories:'Incubators and accessories',registerEvent:'Register new event',registerSub:'Eggs, candling, chicks, health, weight, etc.',mostImportant:'Most important today',upcomingNotDone:'Upcoming (not completed)',activeHatches:'Active hatches',
+      active:'Active',uncertain:'Uncertain',stopped:'Stopped',survivalRate:'Survival rate',inOperation:'in operation',zeroHatched:'0 hatched',zeroRegistered:'0 registered',hatched:'hatched',registered:'registered',day:'Day',of:'of',eggsInIncubator:'eggs in incubator',noActive:'No active eggs',nextEvent:'Next event',estimatedHatch:'Estimated hatch',inDays:'in {n} days',inDaysCap:'In {n} days',todayCap:'Today',todaySlashPassed:'Today / overdue',nothingPlanned:'Nothing planned',noEggsInIncubator:'No eggs in the incubator right now.',addEgg:'+ Add egg',
+      allDoneToday:'All done for today',stable:'Stable',allTasksDoneMsg:'All planned tasks are completed. PoultryMaster keeps monitoring the farm.',stableMsg:'Everything looks stable today. Open the cards for more details.',todaysTip:'Today’s tip',stableTip:'Keep temperature and water level stable.',allTasksDoneTip:'Good work. Now normal supervision remains — keep the incubator stable.',hatchClose:'Hatch is close',lockdownToday:'Lockdown today',candlingDay:'Candling day',followUp:'Follow up',stableStopped:'Stable with stopped eggs',noActiveHatch:'No active hatch',
+      todayWork:'Today’s work',done:'done',allDoneBox:'🎉 All tasks for today are completed.',noTasksToday:'✅ No planned tasks today.',firstCandling:'First candling',secondCandling:'Second candling',lockdown:'Lockdown',hatchDay:'Hatch day',candlingSoon:'Hatch',savedDone:'Done and saved in today’s log.',undo:'Undo',complete:'Done',todayLower:'today',noUpcoming:'No upcoming actions.',noActiveHatchesYet:'No active hatches yet.',edit:'Edit',delete:'Delete',lifeBook:'Life book',
+      insights:'PoultryMaster insights',priority:'Priority',hatching:'Hatching',followUpTag:'Follow-up',statisticsTag:'Statistics',database:'Database',candlingTag:'Candling',chicksTag:'Chicks',layingTag:'Laying',start:'Start',nextStep:'Next step',actionToday:'Action today',activeHatch:'Active hatch',uncertainEggs:'Uncertain eggs',hatchHistory:'Hatch history',buildingStats:'Building statistics',candlingPattern:'Candling pattern',weightFollowUp:'Weight follow-up',layingMissing:'Laying data missing'
+    },
+    da:{
+      tagline:'Komplet håndtering af rugning, flok og avl',overview:'Oversigt',today:'i dag',activeEggs:'Aktive æg',incubators:'Rugemaskiner',chicks:'Kyllinger',flock:'Flok',statistics:'Statistik',settings:'Indstillinger',farmJournal:'Gårdsjournal',machines:'Maskiner',reportsTrends:'Rapporter og trends',appSettings:'Appindstillinger',farmTimeline:'Gårdens tidslinje',incubatorAccessories:'Rugemaskiner og tilbehør',registerEvent:'Registrér ny hændelse',registerSub:'Æg, lysning, kyllinger, sundhed, vægt m.m.',mostImportant:'Vigtigst i dag',upcomingNotDone:'Kommende (ikke udført)',activeHatches:'Aktive klækninger',
+      active:'Aktive',uncertain:'Usikre',stopped:'Afbrudte',survivalRate:'Overlevelsesgrad',inOperation:'i drift',zeroHatched:'0 klækket',zeroRegistered:'0 registreret',hatched:'klækket',registered:'registreret',day:'Dag',of:'af',eggsInIncubator:'æg i rugemaskine',noActive:'Ingen aktive',nextEvent:'Næste hændelse',estimatedHatch:'Forventet klækning',inDays:'om {n} dage',inDaysCap:'Om {n} dage',todayCap:'I dag',todaySlashPassed:'I dag / passeret',nothingPlanned:'Intet planlagt',noEggsInIncubator:'Ingen æg i rugemaskinen lige nu.',addEgg:'+ Tilføj æg',
+      allDoneToday:'Alt klart for i dag',stable:'Stabil',allTasksDoneMsg:'Alle planlagte opgaver er udført. PoultryMaster holder fortsat øje med gården.',stableMsg:'Alt ser stabilt ud i dag. Åbn kortene for flere detaljer.',todaysTip:'Dagens tip',stableTip:'Hold temperatur og vandniveau stabilt.',allTasksDoneTip:'Godt arbejde. Nu mangler kun normalt tilsyn og at holde rugemaskinen stabil.',hatchClose:'Klækning tæt på',lockdownToday:'Lockdown i dag',candlingDay:'Lysningsdag',followUp:'Følg op',stableStopped:'Stabil med afbrudte æg',noActiveHatch:'Ingen aktiv klækning',
+      todayWork:'Dagens arbejde',done:'klare',allDoneBox:'🎉 Alle dagens opgaver er færdige.',noTasksToday:'✅ Ingen planlagte opgaver i dag.',firstCandling:'Første lysning',secondCandling:'Anden lysning',lockdown:'Lockdown',hatchDay:'Klækkedag',candlingSoon:'Klækning',savedDone:'Klart og gemt i dagens log.',undo:'Fortryd',complete:'Klar',todayLower:'i dag',noUpcoming:'Ingen kommende trin.',noActiveHatchesYet:'Ingen aktive klækninger endnu.',edit:'Redigér',delete:'Slet',lifeBook:'Livsbog',
+      insights:'PoultryMaster indsigter',priority:'Prioritet',hatching:'Klækning',followUpTag:'Opfølgning',statisticsTag:'Statistik',database:'Database',candlingTag:'Lysning',chicksTag:'Kyllinger',layingTag:'Æglægning',start:'Start',nextStep:'Næste skridt',actionToday:'Handling i dag',activeHatch:'Aktiv klækning',uncertainEggs:'Usikre æg',hatchHistory:'Klækningshistorik',buildingStats:'Opbygger statistik',candlingPattern:'Lysningsmønster',weightFollowUp:'Vægtopfølgning',layingMissing:'Æglægningsdata mangler'
+    },
+    no:{
+      tagline:'Komplett håndtering av ruging, flokk og avl',overview:'Oversikt',today:'i dag',activeEggs:'Aktive egg',incubators:'Rugemaskiner',chicks:'Kyllinger',flock:'Flokk',statistics:'Statistikk',settings:'Innstillinger',farmJournal:'Gårdsjournal',machines:'Maskiner',reportsTrends:'Rapporter og trender',appSettings:'Appinnstillinger',farmTimeline:'Gårdens tidslinje',incubatorAccessories:'Rugemaskiner og tilbehør',registerEvent:'Registrer ny hendelse',registerSub:'Egg, lysing, kyllinger, helse, vekt m.m.',mostImportant:'Viktigst i dag',upcomingNotDone:'Kommende (ikke utført)',activeHatches:'Aktive klekkinger',
+      active:'Aktive',uncertain:'Usikre',stopped:'Avbrutte',survivalRate:'Overlevelsesgrad',inOperation:'i drift',zeroHatched:'0 klekket',zeroRegistered:'0 registrert',hatched:'klekket',registered:'registrert',day:'Dag',of:'av',eggsInIncubator:'egg i rugemaskin',noActive:'Ingen aktive',nextEvent:'Neste hendelse',estimatedHatch:'Beregnet klekking',inDays:'om {n} dager',inDaysCap:'Om {n} dager',todayCap:'I dag',todaySlashPassed:'I dag / passert',nothingPlanned:'Ingenting planlagt',noEggsInIncubator:'Ingen egg i rugemaskinen akkurat nå.',addEgg:'+ Legg til egg',
+      allDoneToday:'Alt klart for i dag',stable:'Stabil',allTasksDoneMsg:'Alle planlagte oppgaver er utført. PoultryMaster holder fortsatt oversikt over gården.',stableMsg:'Alt ser stabilt ut i dag. Åpne kortene for flere detaljer.',todaysTip:'Dagens tips',stableTip:'Hold temperatur og vannnivå stabilt.',allTasksDoneTip:'Godt jobbet. Nå gjenstår normalt tilsyn og å holde rugemaskinen stabil.',hatchClose:'Klekking nærmer seg',lockdownToday:'Lockdown i dag',candlingDay:'Lysingsdag',followUp:'Følg opp',stableStopped:'Stabil med avbrutte egg',noActiveHatch:'Ingen aktiv klekking',
+      todayWork:'Dagens arbeid',done:'klare',allDoneBox:'🎉 Alle dagens oppgaver er fullført.',noTasksToday:'✅ Ingen planlagte oppgaver i dag.',firstCandling:'Første lysing',secondCandling:'Andre lysing',lockdown:'Lockdown',hatchDay:'Klekkedag',candlingSoon:'Klekking',savedDone:'Klart og lagret i dagens logg.',undo:'Angre',complete:'Klar',todayLower:'i dag',noUpcoming:'Ingen kommende trinn.',noActiveHatchesYet:'Ingen aktive klekkinger ennå.',edit:'Rediger',delete:'Slett',lifeBook:'Livsbok',
+      insights:'PoultryMaster innsikt',priority:'Prioritet',hatching:'Klekking',followUpTag:'Oppfølging',statisticsTag:'Statistikk',database:'Database',candlingTag:'Lysing',chicksTag:'Kyllinger',layingTag:'Egglegging',start:'Start',nextStep:'Neste steg',actionToday:'Tiltak i dag',activeHatch:'Aktiv klekking',uncertainEggs:'Usikre egg',hatchHistory:'Klekkingshistorikk',buildingStats:'Bygger statistikk',candlingPattern:'Lysingsmønster',weightFollowUp:'Vektoppfølging',layingMissing:'Eggleggingsdata mangler'
+    },
+    fi:{
+      tagline:'Täydellinen hallinta haudontaan, parveen ja jalostukseen',overview:'Yleiskatsaus',today:'tänään',activeEggs:'Aktiiviset munat',incubators:'Hautomakoneet',chicks:'Poikaset',flock:'Parvi',statistics:'Tilastot',settings:'Asetukset',farmJournal:'Tilapäiväkirja',machines:'Laitteet',reportsTrends:'Raportit ja trendit',appSettings:'Sovelluksen asetukset',farmTimeline:'Tilan aikajana',incubatorAccessories:'Hautomakoneet ja tarvikkeet',registerEvent:'Lisää uusi tapahtuma',registerSub:'Munat, läpivalaisu, poikaset, terveys, paino jne.',mostImportant:'Tärkeintä tänään',upcomingNotDone:'Tulossa (ei tehty)',activeHatches:'Aktiiviset haudonnat',
+      active:'Aktiiviset',uncertain:'Epävarmat',stopped:'Keskeytetyt',survivalRate:'Selviytymisaste',inOperation:'käytössä',zeroHatched:'0 kuoriutunut',zeroRegistered:'0 rekisteröity',hatched:'kuoriutunut',registered:'rekisteröity',day:'Päivä',of:'/',eggsInIncubator:'munaa hautomakoneessa',noActive:'Ei aktiivisia',nextEvent:'Seuraava tapahtuma',estimatedHatch:'Arvioitu kuoriutuminen',inDays:'{n} päivän kuluttua',inDaysCap:'{n} päivän kuluttua',todayCap:'Tänään',todaySlashPassed:'Tänään / ohitettu',nothingPlanned:'Ei suunniteltua',noEggsInIncubator:'Hautomakoneessa ei ole munia juuri nyt.',addEgg:'+ Lisää muna',
+      allDoneToday:'Kaikki valmista tänään',stable:'Vakaa',allTasksDoneMsg:'Kaikki suunnitellut tehtävät on tehty. PoultryMaster jatkaa tilan seurantaa.',stableMsg:'Kaikki näyttää vakaalta tänään. Avaa kortit nähdäksesi lisätiedot.',todaysTip:'Päivän vinkki',stableTip:'Pidä lämpötila ja veden taso vakaana.',allTasksDoneTip:'Hyvää työtä. Nyt riittää normaali valvonta ja hautomakoneen pitäminen vakaana.',hatchClose:'Kuoriutuminen lähellä',lockdownToday:'Lockdown tänään',candlingDay:'Läpivalaisupäivä',followUp:'Seuraa',stableStopped:'Vakaa, keskeytyksiä mukana',noActiveHatch:'Ei aktiivista haudontaa',
+      todayWork:'Tämän päivän työ',done:'valmis',allDoneBox:'🎉 Kaikki tämän päivän tehtävät on tehty.',noTasksToday:'✅ Ei suunniteltuja tehtäviä tänään.',firstCandling:'Ensimmäinen läpivalaisu',secondCandling:'Toinen läpivalaisu',lockdown:'Lockdown',hatchDay:'Kuoriutumispäivä',candlingSoon:'Kuoriutuminen',savedDone:'Valmis ja tallennettu päivän lokiin.',undo:'Kumoa',complete:'Valmis',todayLower:'tänään',noUpcoming:'Ei tulevia vaiheita.',noActiveHatchesYet:'Ei aktiivisia haudontoja vielä.',edit:'Muokkaa',delete:'Poista',lifeBook:'Elämänkirja',
+      insights:'PoultryMasterin havainnot',priority:'Prioriteetti',hatching:'Haudonta',followUpTag:'Seuranta',statisticsTag:'Tilastot',database:'Tietokanta',candlingTag:'Läpivalaisu',chicksTag:'Poikaset',layingTag:'Muninta',start:'Aloitus',nextStep:'Seuraava askel',actionToday:'Toimi tänään',activeHatch:'Aktiivinen haudonta',uncertainEggs:'Epävarmat munat',hatchHistory:'Kuoriutumishistoria',buildingStats:'Tilastot kertyvät',candlingPattern:'Läpivalaisumalli',weightFollowUp:'Painonseuranta',layingMissing:'Munintatiedot puuttuvat'
+    }
+  };
+  function state(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return {}}}
+  function lang(){return (state().farmSettings&&state().farmSettings.language)||'sv'}
+  function tr(k){const l=lang();return (L[l]&&L[l][k])||L.sv[k]||k}
+  function farm(){const fs=state().farmSettings||{};return String(fs.farmName||'PoultryMaster').trim()||'PoultryMaster'}
+  function fmt(key,n){return tr(key).replace('{n}',n)}
+  function setText(sel,val){document.querySelectorAll(sel).forEach(el=>{if(el)el.textContent=val})}
+  function setLabel(id,key){const el=document.getElementById(id);if(!el)return;const lab=el.closest('.stat')?.querySelector('.label');if(!lab)return;const sub=lab.querySelector('.sub');[...lab.childNodes].forEach(n=>{if(n.nodeType===3)n.remove()});lab.insertBefore(document.createTextNode(tr(key)),sub||null)}
+  function extractNum(txt,def='0'){const m=String(txt||'').match(/-?\d+/);return m?m[0]:def}
+  function translateSubtitles(){
+    const se=document.getElementById('s-eggs-sub');
+    if(se){const nums=String(se.textContent).match(/\d+/g)||[];se.textContent=nums.length>=2?`${tr('day')} ${nums[0]} ${tr('of')} ${nums[1]}`:tr('noActive')}
+    const si=document.getElementById('s-inc-sub'); if(si){si.textContent=`${extractNum(si.textContent)} ${tr('inOperation')}`}
+    const sc=document.getElementById('s-chicks-sub'); if(sc){const n=extractNum(sc.textContent);sc.textContent=n==='0'?tr('zeroHatched'):`${n} ${tr('hatched')}`}
+    const sf=document.getElementById('s-flock-sub'); if(sf){const n=extractNum(sf.textContent);sf.textContent=n==='0'?tr('zeroRegistered'):`${n} ${tr('registered')}`}
+  }
+  function translateQuickCards(){
+    const q=[['statistics','statistics','reportsTrends'],['settings','settings','appSettings'],['events','farmJournal','farmTimeline']];
+    q.forEach(([view,key,sub])=>{const b=document.querySelector(`.quick[data-view="${view}"]`);if(!b)return;const d=b.querySelector(':scope > div');const s=b.querySelector('small');if(d)d.textContent=tr(key);if(s)s.textContent=tr(sub)});
+    const m=[...document.querySelectorAll('.quick')].find(b=>b.getAttribute('data-action')==='incubators');
+    if(m){const d=m.querySelector(':scope > div');const s=m.querySelector('small');if(d)d.textContent=tr('machines');if(s)s.textContent=tr('incubatorAccessories')}
+  }
+  function translateAccordions(){
+    const items=[['dash-tasks-card','mostImportant'],['dash-upcoming-card','upcomingNotDone'],['dash-hatches-card','activeHatches']];
+    items.forEach(([id,key])=>{const h=document.querySelector(`#${id} h3`);if(!h)return;const n=(h.textContent.match(/\(\d+\)/)||[''])[0];const open=/▼/.test(h.textContent);h.textContent=(open?'▼ ':'▶ ')+tr(key)+(n?' '+n:'')});
+  }
+  function translateFarmToday(){
+    const title=document.querySelector('.farm-today-title'); if(title)title.textContent=`🌱 ${farm()} ${tr('today')}`;
+    const statusEl=document.querySelector('.farm-today-status'), chipEl=document.querySelector('.farm-today-chip');
+    const raw=(statusEl?.textContent||chipEl?.textContent||'');
+    let key=/klart|done|klart|valmista/i.test(raw)?'allDoneToday':/Kläckning nära|Hatch is close|Klækning|Klekking|Kuoriutuminen/i.test(raw)?'hatchClose':/Lockdown/i.test(raw)?'lockdownToday':/Lysningsdag|Candling|Lysingsdag|Läpivalaisu/i.test(raw)?'candlingDay':/Följ|Follow|Følg|Seuraa/i.test(raw)?'followUp':/Ingen aktiv|No active|Ei aktiivista/i.test(raw)?'noActiveHatch':/Stabil med|Stable with|Vakaa/i.test(raw)?'stableStopped':'stable';
+    const icon=key==='hatchClose'||key==='noActiveHatch'?'🔴':(key==='lockdownToday'||key==='candlingDay'||key==='followUp')?'🟡':'🟢';
+    if(statusEl)statusEl.textContent=`${icon} ${tr(key)}`;
+    if(chipEl)chipEl.textContent=tr(key);
+    const txt=document.querySelector('.farm-today-text');
+    if(txt){
+      if(key==='allDoneToday')txt.textContent=tr('allTasksDoneMsg');
+      else if(key==='stable')txt.textContent=tr('stableMsg');
+    }
+    const mini=document.querySelectorAll('.farm-today-mini .status-chip');
+    if(mini[0])mini[0].textContent=`🥚 ${tr('active')}: ${extractNum(mini[0].textContent)}`;
+    if(mini[1])mini[1].textContent=`🐣 ${tr('chicks')}: ${extractNum(mini[1].textContent)}`;
+    if(mini[2])mini[2].textContent=`🐓 ${tr('flock')}: ${extractNum(mini[2].textContent)}`;
+    if(mini[3])mini[3].textContent=`📌 ${tr('todayWork')}: ${extractNum(mini[3].textContent)}`;
+    const tip=document.querySelector('.farm-today-tip');
+    if(tip){
+      const tipText=key==='allDoneToday'?tr('allTasksDoneTip'):tr('stableTip');
+      tip.textContent=`💡 ${tr('todaysTip')}: ${tipText}`;
+    }
+  }
+  function translateTasks(){
+    const ph=document.querySelector('.today-progress-head');
+    if(ph){const spans=ph.querySelectorAll('span');if(spans[0])spans[0].textContent=tr('todayWork');if(spans[1]){const nums=spans[1].textContent.match(/\d+/g)||['0','0'];spans[1].textContent=`${nums[0]}/${nums[1]} ${tr('done')}`}}
+    document.querySelectorAll('.task-check-text').forEach(el=>{
+      let txt=el.textContent;
+      const b=el.querySelector('b'); const id=b?b.textContent:extractNum(txt,'');
+      const icon=txt.includes('Lockdown')?'🔒':txt.includes('Kläck')||txt.includes('Hatch')?'🐣':'🔦';
+      const key=txt.includes('Första')||txt.includes('First')?'firstCandling':txt.includes('Andra')||txt.includes('Second')?'secondCandling':txt.includes('Lockdown')?'lockdown':'hatchDay';
+      el.innerHTML=`${icon} ${tr(key)}: <b>${id}</b>`;
+    });
+    document.querySelectorAll('.task-done-note').forEach(el=>el.textContent=tr('savedDone'));
+    document.querySelectorAll('.task-check-item button').forEach(btn=>{
+      if(/Ångra|Undo|Fortryd|Angre|Kumoa/i.test(btn.textContent))btn.textContent=tr('undo');
+      else btn.textContent=tr('complete');
+    });
+    const box=document.querySelector('.tasks-complete-box'); if(box)box.textContent=tr('allDoneBox');
+    const tasks=document.getElementById('tasks'); if(tasks && /Inga planerade|No planned|Ingen planlagte|Ei suunniteltuja/.test(tasks.textContent))tasks.innerHTML=`<div class="empty">${tr('noTasksToday')}</div>`;
+  }
+  function translateHatchSummary(){
+    const hs=document.getElementById('hatch-summary'); if(!hs)return;
+    hs.querySelectorAll('.hatch-summary-title').forEach(el=>el.textContent=tr('activeHatches'));
+    const h3=hs.querySelector('h3');
+    if(h3){const n=extractNum(h3.textContent);h3.textContent=`${n} ${tr('eggsInIncubator')}`}
+    const p=hs.querySelector('.hatch-summary-main .muted b');
+    if(p){const nums=p.textContent.match(/\d+/g)||[];if(nums.length>=2)p.textContent=`${tr('day')} ${nums[0]} ${tr('of')} ${nums[1]}`}
+    const boxes=hs.querySelectorAll('.hatch-meta-box');
+    if(boxes[0]){
+      const b=boxes[0].querySelector('b'), s=boxes[0].querySelector('small');
+      if(b)b.textContent=`🔦 ${tr('nextEvent')}`;
+      if(s){
+        const date=(s.innerHTML.match(/\d{4}-\d{2}-\d{2}/)||[''])[0];
+        const n=(s.textContent.match(/om\s+(\d+)|in\s+(\d+)|(\d+)\s+dag|(\d+)\s+day|(\d+)\s+päiv/i)||[]).filter(Boolean).pop();
+        if(/Inget|Nothing|Intet|Ingenting|Ei suunniteltua/.test(s.textContent))s.innerHTML=tr('nothingPlanned')+(date?`<br>${date}`:'');
+        else {
+          let ev=/Lockdown/i.test(s.textContent)?tr('lockdown'):/Lysning|Candling|Lysing|Läpivalaisu/i.test(s.textContent)?tr('candling')||tr('firstCandling'):tr('hatchDay');
+          s.innerHTML=`${ev} ${n?fmt('inDays',n):tr('todayLower')}${date?`<br>${date}`:''}`;
+        }
+      }
+    }
+    if(boxes[1]){
+      const b=boxes[1].querySelector('b'), s=boxes[1].querySelector('small');
+      if(b)b.textContent=`🐣 ${tr('estimatedHatch')}`;
+      if(s){
+        const date=(s.innerHTML.match(/\d{4}-\d{2}-\d{2}/)||[''])[0];
+        const n=(s.textContent.match(/(\d+)/)||[])[1]||'';
+        const txt=/passerad|overdue|passert|ohitettu/i.test(s.textContent)?tr('todaySlashPassed'):(n?fmt('inDaysCap',n):tr('todayCap'));
+        s.innerHTML=txt+(date?`<br>${date}`:'');
+      }
+    }
+    hs.querySelectorAll('.status-strip .status-chip').forEach(ch=>{
+      const n=extractNum(ch.textContent);
+      if(/Aktiva|Active|Aktive|Aktiiviset/.test(ch.textContent))ch.textContent=`🟢 ${tr('active')}: ${n}`;
+      else if(/Osäkra|Uncertain|Usikre|Epävarmat/.test(ch.textContent))ch.textContent=`🟡 ${tr('uncertain')}: ${n}`;
+      else if(/Avbrutna|Stopped|Afbrudte|Avbrutte|Keskeytetyt/.test(ch.textContent))ch.textContent=`🔴 ${tr('stopped')}: ${n}`;
+      else if(/Överlevnadsgrad|Survival|Overlevelse|Selviytymis/.test(ch.textContent))ch.textContent=`📈 ${tr('survivalRate')}: ${n}%`;
+    });
+    if(/Inga ägg|No eggs|Ingen æg|Ingen egg|ei ole munia/i.test(hs.textContent)){
+      hs.querySelector('.empty') && (hs.querySelector('.empty').textContent=tr('noEggsInIncubator'));
+      hs.querySelector('button') && (hs.querySelector('button').textContent=tr('addEgg'));
+    }
+  }
+  function translateUpcoming(){
+    const up=document.getElementById('upcoming'); if(!up)return;
+    if(/Inga kommande|No upcoming|Ingen kommende|Ei tulevia/.test(up.textContent)){up.innerHTML=`<div class="empty">${tr('noUpcoming')}</div>`;return}
+    [...up.children].forEach(div=>{
+      const date=(div.textContent.match(/\d{4}-\d{2}-\d{2}/)||[''])[0];
+      const left=(div.textContent.match(/om\s+(\d+)|in\s+(\d+)|(\d+)\s+d/i)||[]).filter(Boolean).pop();
+      let kind=/Första|First/.test(div.textContent)?tr('firstCandling'):/Andra|Second/.test(div.textContent)?tr('secondCandling'):/Lockdown/.test(div.textContent)?tr('lockdown'):tr('hatchDay');
+      const id=(div.textContent.match(/[A-ZÅÄÖ]{0,4}\d+|[A-Z]{1,4}/)||['']).pop();
+      div.innerHTML=`<b>${date}</b> (${left?fmt('inDays',left):tr('todayCap')}) – ${kind} ${id}`;
+    });
+  }
+  function translateHatchesList(){
+    const h=document.getElementById('hatches'); if(!h)return;
+    const l=lang();
+    const word={
+      egg:{sv:'Ägg',en:'Egg',da:'Æg',no:'Egg',fi:'Muna'},
+      breed:{sv:'Ras',en:'Breed',da:'Race',no:'Rase',fi:'Rotu'},
+      incubator:{sv:'Kläckare',en:'Incubator',da:'Rugemaskine',no:'Rugemaskin',fi:'Hautomakone'},
+      hatchesIn:{sv:'Kläcks om {n} dagar',en:'Hatches in {n} days',da:'Klækker om {n} dage',no:'Klekkes om {n} dager',fi:'Kuoriutuu {n} päivän kuluttua'},
+      hatchesTomorrow:{sv:'Kläcks imorgon',en:'Hatches tomorrow',da:'Klækker i morgen',no:'Klekkes i morgen',fi:'Kuoriutuu huomenna'},
+      hatchToday:{sv:'Kläckdag idag',en:'Hatch day today',da:'Klækkedag i dag',no:'Klekkedag i dag',fi:'Kuoriutumispäivä tänään'},
+      overdue:{sv:'{n} dagar över beräknad kläckning',en:'{n} days past estimated hatch',da:'{n} dage efter forventet klækning',no:'{n} dager over beregnet klekking',fi:'{n} päivää yli arvioidun kuoriutumisen'},
+      lockdownIn:{sv:'Lockdown om {n} dagar',en:'Lockdown in {n} days',da:'Lockdown om {n} dage',no:'Lockdown om {n} dager',fi:'Lockdown {n} päivän kuluttua'},
+      lockdownTomorrow:{sv:'Lockdown imorgon',en:'Lockdown tomorrow',da:'Lockdown i morgen',no:'Lockdown i morgen',fi:'Lockdown huomenna'},
+      lockdownToday:{sv:'Lockdown idag',en:'Lockdown today',da:'Lockdown i dag',no:'Lockdown i dag',fi:'Lockdown tänään'}
+    };
+    const w=(k)=>((word[k]&&word[k][l])||word[k].sv);
+    const replN=(s,n)=>s.replace('{n}',n);
+    if(/Inga aktiva kläckningar|No active hatches|Ingen aktive|Ei aktiivisia/.test(h.textContent)){
+      h.innerHTML=`<div class="card"><div class="body"><p>${tr('noActiveHatchesYet')}</p><button class="btn primary" data-action="add" data-type="egg">${tr('addEgg')}</button></div></div>`;return;
+    }
+    h.querySelectorAll('.card').forEach(card=>{
+      const head=card.querySelector('h3');
+      if(head){
+        const btnId=card.querySelector('[data-id]')?.getAttribute('data-id')||'';
+        const txt=head.textContent||'';
+        const id=(txt.match(/(?:Ägg|Egg|eggs|Æg|Muna)\s+([^\s]+)/i)||[])[1]||btnId;
+        const day=(txt.match(/(?:Dag|Day|Päivä)\s+(\d+)/i)||[])[1]||extractNum(txt);
+        head.innerHTML=`🥚 ${w('egg')}${id?' '+id:''} <span class="pill">${tr('day')} ${day}</span>`;
+      }
+      card.querySelectorAll('p').forEach(p=>{
+        p.innerHTML=p.innerHTML
+          .replace(/<b>(?:Ras|Breed|Race|Rase|Rotu):<\/b>/gi,`<b>${w('breed')}:</b>`)
+          .replace(/<b>(?:Kläckare|Incubator|Rugemaskine|Rugemaskin|Hautomakone|Rugemaskiner|Incubators):<\/b>/gi,`<b>${w('incubator')}:</b>`)
+          .replace(/<b>(?:Beräknad kläckning|Estimated hatch|Forventet klækning|Beregnet klekking|Arvioitu kuoriutuminen):<\/b>/gi,`<b>${tr('estimatedHatch')}:</b>`);
+      });
+      card.querySelectorAll('.body .pill').forEach(pill=>{
+        const txt=pill.textContent||'';
+        const n=(txt.match(/(\d+)/)||[])[1];
+        if(/Kläcks om|Hatches in|Klækker om|Klekkes om|Kuoriutuu/i.test(txt) && n) pill.textContent='🐣 '+replN(w('hatchesIn'),n);
+        else if(/Kläcks imorgon|Hatches tomorrow|Klækker i morgen|Klekkes i morgen|huomenna/i.test(txt)) pill.textContent='🐣 '+w('hatchesTomorrow');
+        else if(/Kläckdag idag|Hatch day today|Klækkedag|Klekkedag|Kuoriutumispäivä/i.test(txt)) pill.textContent='🐣 '+w('hatchToday');
+        else if(/över beräknad|past estimated|efter forventet|over beregnet|yli arvioidun/i.test(txt) && n) pill.textContent='⏳ '+replN(w('overdue'),n);
+        else if(/Lockdown om|Lockdown in/i.test(txt) && n) pill.textContent='🔒 '+replN(w('lockdownIn'),n);
+        else if(/Lockdown imorgon|Lockdown tomorrow|Lockdown i morgen|Lockdown huomenna/i.test(txt)) pill.textContent='🔒 '+w('lockdownTomorrow');
+        else if(/Lockdown idag|Lockdown today|Lockdown i dag|Lockdown tänään/i.test(txt)) pill.textContent='🔥 '+w('lockdownToday');
+      });
+    });
+    h.querySelectorAll('.actions button').forEach(btn=>{
+      if(/Livsbok|Life book|Livsbog|Elämänkirja/.test(btn.textContent))btn.textContent='📖 '+tr('lifeBook');
+      if(/Redigera|Edit|Redigér|Rediger|Muokkaa/.test(btn.textContent))btn.textContent=tr('edit');
+      if(/Ta bort|Delete|Slet|Poista/.test(btn.textContent))btn.textContent=tr('delete');
+    });
+  }
+  function translateInsights(){
+    const card=document.querySelector('.insight-card'); if(!card)return;
+    const head=card.querySelector('h3'); if(head){const pill=head.querySelector('.pill')?.outerHTML||'';head.innerHTML=`🧠 ${tr('insights')} ${pill}`}
+    const titleMap={'Åtgärd idag':'actionToday','Aktiv kläckning':'activeHatch','Osäkra ägg':'uncertainEggs','Kläckningshistorik':'hatchHistory','Bygger statistik':'buildingStats','Lysningsmönster':'candlingPattern','Viktuppföljning':'weightFollowUp','Värpningsdata saknas':'layingMissing','Nästa steg':'nextStep'};
+    const tagMap={'Prioritet':'priority','Kläckning':'hatching','Uppföljning':'followUpTag','Statistik':'statisticsTag','Databas':'database','Lysning':'candlingTag','Kycklingar':'chicksTag','Värpning':'layingTag','Start':'start'};
+    card.querySelectorAll('.insight-title').forEach(el=>{
+      const icon=(el.textContent.match(/^\S+/)||[''])[0]; const txt=el.textContent.replace(/^\S+\s*/,'').trim();
+      if(titleMap[txt])el.textContent=`${icon} ${tr(titleMap[txt])}`;
+    });
+    card.querySelectorAll('.insight-tag').forEach(el=>{const k=tagMap[el.textContent.trim()];if(k)el.textContent=tr(k)});
+  }
+  function translateStatic(){
+    setText('.top small',tr('tagline'));
+    setText('.dashboard-kicker',tr('overview').toUpperCase());
+    setLabel('s-eggs','activeEggs');setLabel('s-inc','incubators');setLabel('s-chicks','chicks');setLabel('s-flock','flock');
+    translateSubtitles();translateQuickCards();
+    setText('.reg-title',tr('registerEvent'));setText('.reg-sub',tr('registerSub'));
+    document.querySelectorAll('.nav').forEach(btn=>{const v=btn.getAttribute('data-view');const lab=btn.querySelector('.nav-label');if(lab&&L[lang()][v])lab.textContent=tr(v)});
+    translateAccordions();
+  }
+  function run(){
+    if(!document.getElementById('view-dashboard'))return;
+    translateStatic();translateFarmToday();translateTasks();translateHatchSummary();translateUpcoming();translateHatchesList();translateInsights();
+  }
+  let busy=false;
+  function schedule(){if(busy)return;busy=true;requestAnimationFrame(()=>{try{run()}catch(e){}busy=false})}
+  document.addEventListener('DOMContentLoaded',schedule);
+  window.addEventListener('load',schedule);
+  document.addEventListener('click',()=>setTimeout(schedule,60),true);
+  new MutationObserver(schedule).observe(document.documentElement,{childList:true,subtree:true,characterData:true});
+  setInterval(schedule,1000);
+})();
+}
+
+{
+/* PoultryMaster v2.9.9 – Egg module I18N overlay
+   Safe layer: translates rendered Egg module text only. No stored data changes. */
+(function(){
+  const KEY='egg_manager_v2';
+  const L={
+    sv:{eggsTitle:'Ägg & kläckare',add:'+ Lägg till',eggList:'Ägglista',incubators:'Kläckare',all:'Alla',active:'Aktiva',uncertain:'Osäkra',critical:'Kritiska',today:'Idag',soon:'Inom 7 dagar',noEggsFilter:'Inga ägg matchar filtret.',myIncubators:'Mina kläckare',manageIncubatorsText:'Hantera kläckare under Inställningar → Kläckare.',manageIncubators:'Hantera kläckare',noIncubators:'Inga kläckare registrerade.',unknownBreed:'Okänd ras',unknown:'Okänt',tapHide:'Tryck för att dölja detaljer',tapOpen:'Öppna kortet för mer detaljer',day:'Dag',of:'av',origin:'Ursprung',incubator:'Kläckare',startDate:'Startdatum',latestCandling:'Senaste lysning',noCandlingYet:'Ingen lysning ännu',batch:'Omgång',lifeBook:'Livsbok',events:'händelser',pmJudges:'PoultryMaster bedömer',pmMoreData:'Fortsätt samla observationer så blir bedömningen säkrare.',createChick:'Skapa kyckling',candling:'Lysning',edit:'Redigera',delete:'Ta bort',hatched:'Kläckt',stopped:'Avbrutet',hatching:'Kläckning',lockdown:'Lockdown',embryoDev:'Embryoutveckling',earlyDev:'Tidig utveckling',strong:'Stark',weakCritical:'Kritisk',next:'Nästa',firstCandling:'Första lysning',secondCandling:'Andra lysning',hatch:'Kläckning',followPlan:'Följ enligt plan',inDays:'om {n} dagar',todayLower:'idag',eggDone:'Avslutad – historiken finns kvar i Livsboken.',eggHatchedNext:'Skapa eller följ kycklingen i nästa livsfas.',hatchCanStart:'Kläckning kan börja',capacity:'Kapacitet',temperature:'Temperatur',humidity:'Fuktighet',turning:'Vändning',usedBy:'Används av',eggsUnit:'ägg',activeEggs:'aktiva ägg',standard:'Standard',noModel:'Ingen modell angiven',unnamedIncubator:'Namnlös kläckare'},
+    en:{eggsTitle:'Eggs & incubators',add:'+ Add',eggList:'Egg list',incubators:'Incubators',all:'All',active:'Active',uncertain:'Uncertain',critical:'Critical',today:'Today',soon:'Within 7 days',noEggsFilter:'No eggs match the filter.',myIncubators:'My incubators',manageIncubatorsText:'Manage incubators under Settings → Incubators.',manageIncubators:'Manage incubators',noIncubators:'No incubators registered.',unknownBreed:'Unknown breed',unknown:'Unknown',tapHide:'Tap to hide details',tapOpen:'Open the card for more details',day:'Day',of:'of',origin:'Origin',incubator:'Incubator',startDate:'Start date',latestCandling:'Latest candling',noCandlingYet:'No candling yet',batch:'Batch',lifeBook:'Life book',events:'events',pmJudges:'PoultryMaster assessment',pmMoreData:'Keep collecting observations so the assessment becomes more reliable.',createChick:'Create chick',candling:'Candling',edit:'Edit',delete:'Delete',hatched:'Hatched',stopped:'Stopped',hatching:'Hatching',lockdown:'Lockdown',embryoDev:'Embryo development',earlyDev:'Early development',strong:'Strong',weakCritical:'Critical',next:'Next',firstCandling:'First candling',secondCandling:'Second candling',hatch:'Hatch',followPlan:'Follow the plan',inDays:'in {n} days',todayLower:'today',eggDone:'Finished – the history remains in the Life book.',eggHatchedNext:'Create or follow the chick in the next life stage.',hatchCanStart:'Hatching may begin',capacity:'Capacity',temperature:'Temperature',humidity:'Humidity',turning:'Turning',usedBy:'Used by',eggsUnit:'eggs',activeEggs:'active eggs',standard:'Default',noModel:'No model specified',unnamedIncubator:'Unnamed incubator'},
+    da:{eggsTitle:'Æg & rugemaskiner',add:'+ Tilføj',eggList:'Ægliste',incubators:'Rugemaskiner',all:'Alle',active:'Aktive',uncertain:'Usikre',critical:'Kritiske',today:'I dag',soon:'Inden for 7 dage',noEggsFilter:'Ingen æg matcher filteret.',myIncubators:'Mine rugemaskiner',manageIncubatorsText:'Administrér rugemaskiner under Indstillinger → Rugemaskiner.',manageIncubators:'Administrér rugemaskiner',noIncubators:'Ingen rugemaskiner registreret.',unknownBreed:'Ukendt race',unknown:'Ukendt',tapHide:'Tryk for at skjule detaljer',tapOpen:'Åbn kortet for flere detaljer',day:'Dag',of:'af',origin:'Oprindelse',incubator:'Rugemaskine',startDate:'Startdato',latestCandling:'Seneste lysning',noCandlingYet:'Ingen lysning endnu',batch:'Hold',lifeBook:'Livsbog',events:'hændelser',pmJudges:'PoultryMaster vurderer',pmMoreData:'Fortsæt med at samle observationer, så vurderingen bliver sikrere.',createChick:'Opret kylling',candling:'Lysning',edit:'Redigér',delete:'Slet',hatched:'Klækket',stopped:'Afbrudt',hatching:'Klækning',lockdown:'Lockdown',embryoDev:'Embryoudvikling',earlyDev:'Tidlig udvikling',strong:'Stærk',weakCritical:'Kritisk',next:'Næste',firstCandling:'Første lysning',secondCandling:'Anden lysning',hatch:'Klækning',followPlan:'Følg planen',inDays:'om {n} dage',todayLower:'i dag',eggDone:'Afsluttet – historikken findes fortsat i Livsbogen.',eggHatchedNext:'Opret eller følg kyllingen i næste livsfase.',hatchCanStart:'Klækning kan begynde',capacity:'Kapacitet',temperature:'Temperatur',humidity:'Fugtighed',turning:'Vending',usedBy:'Bruges af',eggsUnit:'æg',activeEggs:'aktive æg',standard:'Standard',noModel:'Ingen model angivet',unnamedIncubator:'Unavngiven rugemaskine'},
+    no:{eggsTitle:'Egg & rugemaskiner',add:'+ Legg til',eggList:'Eggliste',incubators:'Rugemaskiner',all:'Alle',active:'Aktive',uncertain:'Usikre',critical:'Kritiske',today:'I dag',soon:'Innen 7 dager',noEggsFilter:'Ingen egg matcher filteret.',myIncubators:'Mine rugemaskiner',manageIncubatorsText:'Administrer rugemaskiner under Innstillinger → Rugemaskiner.',manageIncubators:'Administrer rugemaskiner',noIncubators:'Ingen rugemaskiner registrert.',unknownBreed:'Ukjent rase',unknown:'Ukjent',tapHide:'Trykk for å skjule detaljer',tapOpen:'Åpne kortet for flere detaljer',day:'Dag',of:'av',origin:'Opprinnelse',incubator:'Rugemaskin',startDate:'Startdato',latestCandling:'Siste lysing',noCandlingYet:'Ingen lysing ennå',batch:'Omgång',lifeBook:'Livsbok',events:'hendelser',pmJudges:'PoultryMaster vurderer',pmMoreData:'Fortsett å samle observasjoner, så blir vurderingen sikrere.',createChick:'Opprett kylling',candling:'Lysing',edit:'Rediger',delete:'Slett',hatched:'Klekket',stopped:'Avbrutt',hatching:'Klekking',lockdown:'Lockdown',embryoDev:'Embryoutvikling',earlyDev:'Tidlig utvikling',strong:'Sterk',weakCritical:'Kritisk',next:'Neste',firstCandling:'Første lysing',secondCandling:'Andre lysing',hatch:'Klekking',followPlan:'Følg planen',inDays:'om {n} dager',todayLower:'i dag',eggDone:'Avsluttet – historikken finnes fortsatt i Livsboken.',eggHatchedNext:'Opprett eller følg kyllingen i neste livsfase.',hatchCanStart:'Klekking kan begynne',capacity:'Kapasitet',temperature:'Temperatur',humidity:'Fuktighet',turning:'Vending',usedBy:'Brukes av',eggsUnit:'egg',activeEggs:'aktive egg',standard:'Standard',noModel:'Ingen modell angitt',unnamedIncubator:'Navnløs rugemaskin'},
+    fi:{eggsTitle:'Munat & hautomakoneet',add:'+ Lisää',eggList:'Munalista',incubators:'Hautomakoneet',all:'Kaikki',active:'Aktiiviset',uncertain:'Epävarmat',critical:'Kriittiset',today:'Tänään',soon:'7 päivän sisällä',noEggsFilter:'Yksikään muna ei vastaa suodatinta.',myIncubators:'Omat hautomakoneet',manageIncubatorsText:'Hallinnoi hautomakoneita kohdassa Asetukset → Hautomakoneet.',manageIncubators:'Hallinnoi hautomakoneita',noIncubators:'Ei rekisteröityjä hautomakoneita.',unknownBreed:'Tuntematon rotu',unknown:'Tuntematon',tapHide:'Piilota tiedot napauttamalla',tapOpen:'Avaa kortti nähdäksesi lisätiedot',day:'Päivä',of:'/',origin:'Alkuperä',incubator:'Hautomakone',startDate:'Aloituspäivä',latestCandling:'Viimeisin läpivalaisu',noCandlingYet:'Ei läpivalaisua vielä',batch:'Erä',lifeBook:'Elämänkirja',events:'tapahtumaa',pmJudges:'PoultryMaster arvioi',pmMoreData:'Jatka havaintojen keräämistä, jotta arvio tarkentuu.',createChick:'Luo poikanen',candling:'Läpivalaisu',edit:'Muokkaa',delete:'Poista',hatched:'Kuoriutunut',stopped:'Keskeytetty',hatching:'Kuoriutuminen',lockdown:'Lockdown',embryoDev:'Alkion kehitys',earlyDev:'Varhainen kehitys',strong:'Vahva',weakCritical:'Kriittinen',next:'Seuraava',firstCandling:'Ensimmäinen läpivalaisu',secondCandling:'Toinen läpivalaisu',hatch:'Kuoriutuminen',followPlan:'Seuraa suunnitelmaa',inDays:'{n} päivän kuluttua',todayLower:'tänään',eggDone:'Päättynyt – historia säilyy Elämänkirjassa.',eggHatchedNext:'Luo tai seuraa poikasta seuraavassa elämänvaiheessa.',hatchCanStart:'Kuoriutuminen voi alkaa',capacity:'Kapasiteetti',temperature:'Lämpötila',humidity:'Kosteus',turning:'Kääntö',usedBy:'Käytössä',eggsUnit:'munaa',activeEggs:'aktiivista munaa',standard:'Oletus',noModel:'Mallia ei ole määritetty',unnamedIncubator:'Nimetön hautomakone'}
+  };
+  function getState(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return {}}}
+  function lang(){return (getState().farmSettings&&getState().farmSettings.language)||'sv'}
+  function tr(k){const l=lang();return (L[l]&&L[l][k])||L.sv[k]||k}
+  function fmt(k,n){return tr(k).replace('{n}',n)}
+  function set(el,text){if(el&&el.textContent!==text)el.textContent=text}
+  function num(txt,fallback='0'){const m=String(txt||'').match(/\d+/);return m?m[0]:fallback}
+  function visibleEggModule(){const v=document.getElementById('view-eggs');return v&&!v.classList.contains('hidden')}
+  function translatePhaseText(txt){
+    return String(txt||'')
+      .replace('🐣 Kläckt','🐣 '+tr('hatched'))
+      .replace('⚫ Avbrutet','⚫ '+tr('stopped'))
+      .replace('🐣 Kläckning','🐣 '+tr('hatching'))
+      .replace('🟧 Lockdown','🟧 '+tr('lockdown'))
+      .replace('🟩 Embryoutveckling','🟩 '+tr('embryoDev'))
+      .replace('🟦 Tidig utveckling','🟦 '+tr('earlyDev'));
+  }
+  function translateStatusPill(el){
+    if(!el)return;let txt=el.textContent.trim();
+    const map={Inkuberas:tr('active'),Kläckt:tr('hatched'),Osäkert:tr('uncertain'),Obefruktat:'Infertile','Dött embryo':'Dead embryo',Blodring:'Blood ring',Kasserat:'Discarded'};
+    if(lang()==='sv')return;
+    if(map[txt])set(el,map[txt]);
+  }
+  function translateHealth(el){
+    if(!el)return;let t=el.textContent;
+    if(/Kläckt|Hatched|Klækket|Klekket|Kuoriutunut/.test(t))set(el,'🐣 '+tr('hatched'));
+    else if(/Stark|Strong|Stærk|Sterk|Vahva/.test(t))set(el,'🟢 '+tr('strong'));
+    else if(/Kritisk|Critical|Kriittinen/.test(t))set(el,'🔴 '+tr('weakCritical'));
+    else if(/Osäker|Uncertain|Usikker|Epävarma|Usikre/.test(t))set(el,'🟡 '+tr('uncertain'));
+  }
+  function translateNext(el){
+    if(!el)return;let t=el.textContent,n=num(t,'');
+    if(/Skapa eller följ/.test(t))return set(el,'🐣 '+tr('eggHatchedNext'));
+    if(/Avslutad/.test(t))return set(el,'📖 '+tr('eggDone'));
+    if(/Första lysning idag/.test(t))return set(el,'🔦 '+tr('firstCandling')+' '+tr('todayLower'));
+    if(/Andra lysning idag/.test(t))return set(el,'🔦 '+tr('secondCandling')+' '+tr('todayLower'));
+    if(/Lockdown idag/.test(t))return set(el,'🔒 '+tr('lockdown')+' '+tr('todayLower'));
+    if(/Kläckning kan börja/.test(t))return set(el,'🐣 '+tr('hatchCanStart'));
+    if(/Nästa:/.test(t)){
+      let kind=/Första/.test(t)?tr('firstCandling'):/Andra/.test(t)?tr('secondCandling'):/Lockdown/.test(t)?tr('lockdown'):tr('hatch');
+      return set(el,'📅 '+tr('next')+': '+kind+' '+fmt('inDays',n));
+    }
+    if(/Följ enligt plan/.test(t))return set(el,'📅 '+tr('followPlan'));
+  }
+  function translateEggCard(card){
+    card.querySelectorAll('.pill').forEach(translateStatusPill);
+    const sub=card.querySelector('.egg-subline'); if(sub){sub.childNodes.forEach(n=>{if(n.nodeType===3)n.nodeValue=translatePhaseText(n.nodeValue).replace('Okänd ras',tr('unknownBreed'))})}
+    const hint=card.querySelector('.egg-expand-hint'); if(hint){if(/dölja|hide|skjule|piilota/i.test(hint.textContent))set(hint,tr('tapHide'));else set(hint,tr('tapOpen'))}
+    const day=card.querySelector('.egg-day'); if(day){const m=day.textContent.match(/(\d+)\D+(\d+)/);if(m)set(day,`${tr('day')} ${m[1]} ${tr('of')} ${m[2]}`)}
+    translateHealth(card.querySelector('.egg-health'));
+    card.querySelectorAll('.egg-progress-top span:first-child').forEach(el=>set(el,translatePhaseText(el.textContent)));
+    translateNext(card.querySelector('.egg-next'));
+    const labels={Ursprung:'origin',Kläckare:'incubator',Startdatum:'startDate','Senaste lysning':'latestCandling',Omgång:'batch',Livsbok:'lifeBook',Kapacitet:'capacity',Temperatur:'temperature',Fuktighet:'humidity',Vändning:'turning','Används av':'usedBy'};
+    card.querySelectorAll('.egg-detail-box b,.machine-grid b').forEach(b=>{const k=labels[b.textContent.trim()];if(k)set(b,tr(k))});
+    card.querySelectorAll('.egg-detail-box span').forEach(s=>{
+      if(s.textContent.trim()==='Okänt')set(s,tr('unknown'));
+      if(s.textContent.includes('Ingen lysning ännu'))set(s,tr('noCandlingYet'));
+      if(/\d+\s+händelser/.test(s.textContent))set(s,`${num(s.textContent)} ${tr('events')}`);
+    });
+    const pm=card.querySelector('.egg-pm-box b'); if(pm)set(pm,'🧠 '+tr('pmJudges'));
+    const conc=card.querySelector('.egg-pm-conclusion'); if(conc&&/Fortsätt samla observationer/.test(conc.textContent))set(conc,tr('pmMoreData'));
+    card.querySelectorAll('button').forEach(btn=>{
+      if(/Skapa kyckling|Create chick|Opret kylling|Opprett kylling|Luo poikanen/.test(btn.textContent))set(btn,'🐣 '+tr('createChick'));
+      else if(/Livsbok|Life book|Livsbog|Elämänkirja/.test(btn.textContent))set(btn,'📖 '+tr('lifeBook'));
+      else if(/Lysning|Candling|Läpivalaisu|Lysing/.test(btn.textContent))set(btn,'🔦 '+tr('candling'));
+      else if(/Redigera|Edit|Redigér|Rediger|Muokkaa/.test(btn.textContent))set(btn,tr('edit'));
+      else if(/Ta bort|Delete|Slet|Slett|Poista/.test(btn.textContent))set(btn,tr('delete'));
+    });
+  }
+  function translateIncubators(){
+    const list=document.getElementById('egg-list'); if(!list)return;
+    list.querySelectorAll('p.muted').forEach(p=>{if(/Mina kläckare|My incubators|Mine/.test(p.textContent))p.innerHTML=`<b>${tr('myIncubators')}</b><br>${tr('manageIncubatorsText')}`});
+    list.querySelectorAll('button').forEach(b=>{if(/Hantera kläckare|Manage incubators|Administr/.test(b.textContent))set(b,tr('manageIncubators'))});
+    list.querySelectorAll('.empty').forEach(e=>{if(/Inga kläckare/.test(e.textContent))set(e,tr('noIncubators'))});
+    list.querySelectorAll('.machine-card').forEach(card=>{
+      card.querySelectorAll('.pill').forEach(p=>{if(/Standard|Default|Oletus/.test(p.textContent))set(p,tr('standard'))});
+      card.querySelectorAll('.machine-title').forEach(t=>{if(t.textContent.includes('Namnlös kläckare'))t.textContent=t.textContent.replace('Namnlös kläckare',tr('unnamedIncubator'))});
+      card.querySelectorAll('.machine-meta').forEach(m=>{if(m.textContent.includes('Ingen modell angiven'))set(m,m.textContent.replace('Ingen modell angiven',tr('noModel')))});
+      card.querySelectorAll('.machine-grid b').forEach(b=>{const k={Kapacitet:'capacity',Temperatur:'temperature',Fuktighet:'humidity',Lockdown:'lockdown',Vändning:'turning','Används av':'usedBy'}[b.textContent.trim()];if(k)set(b,tr(k))});
+      card.querySelectorAll('.machine-grid span').forEach(s=>{s.textContent=s.textContent.replace(/ägg/g,tr('eggsUnit')).replace(/aktiva ägg/g,tr('activeEggs')).replace('/dygn','/day')});
+      card.querySelectorAll('button').forEach(btn=>{if(/Redigera|Edit|Redigér|Rediger|Muokkaa/.test(btn.textContent))set(btn,tr('edit')); if(/Ta bort|Delete|Slet|Slett|Poista/.test(btn.textContent))set(btn,tr('delete'))});
+    });
+  }
+  function translateEggs(){
+    const sec=document.getElementById('view-eggs'); if(!sec)return;
+    set(document.getElementById('eggs-title-main'),tr('eggsTitle'));
+    const add=sec.querySelector('[data-action="add-current"]'); if(add)set(add,tr('add'));
+    set(document.getElementById('tab-eggs'),tr('eggList'));
+    set(document.getElementById('tab-inc'),tr('incubators'));
+    const filterNames={all:'📦 '+tr('all'),active:'🟢 '+tr('active'),uncertain:'🟡 '+tr('uncertain'),critical:'🔴 '+tr('critical'),today:'🔦 '+tr('today'),soon:'🐣 '+tr('soon')};
+    sec.querySelectorAll('.egg-filter-bar button').forEach(btn=>{const f=btn.dataset.filter;if(filterNames[f])set(btn,`${filterNames[f]} (${num(btn.textContent)})`)});
+    sec.querySelectorAll('.card .body').forEach(b=>{if(/Inga ägg matchar filtret/.test(b.textContent))set(b,tr('noEggsFilter'))});
+    sec.querySelectorAll('.egg-card-v2').forEach(translateEggCard);
+    translateIncubators();
+  }
+  function run(){translateEggs()}
+  let busy=false;function schedule(){if(busy)return;busy=true;requestAnimationFrame(()=>{try{run()}catch(e){}busy=false})}
+  document.addEventListener('DOMContentLoaded',schedule);window.addEventListener('load',schedule);document.addEventListener('click',()=>setTimeout(schedule,80),true);
+  new MutationObserver(schedule).observe(document.documentElement,{childList:true,subtree:true,characterData:true});setInterval(schedule,900);
+})();
+}
+
+{
+/* PoultryMaster v2.9.9 – Egg module final I18N polish
+   Safe layer: translates remaining UI-generated egg texts only. User data such as breeds, farm names, IDs and incubator names are preserved. */
+(function(){
+  const KEY='egg_manager_v2';
+  const T={
+    sv:{batchStart:'Omgång start',uncertain:'Osäkert',clearVessels:'Tydliga blodkärl',promising:'Ser lovande ut',bloodRing:'Blodring',infertile:'Obefruktat',deadEmbryo:'Dött embryo',discarded:'Kasserat',pmAbnormal:'Ägget visar avvikande tecken. Behåll bara ägget vidare om du vill bekräfta med ytterligare kontroll.',pmLowProb:'Otillräcklig sannolikhet – bekräfta innan beslut.',pmGoodProb:'Mycket god sannolikhet – fortsätt enligt plan.',pmNormal:'Ägget bedöms ha goda förutsättningar att fortsätta utvecklas normalt.',incubatorPrefix:'Kläckare',noImage:'Ingen bild',latestCandling:'Senaste lysning',nextSecondCandling:'Andra lysning',nextFirstCandling:'Första lysning',nextLockdown:'Lockdown / sista kontroll',nextHatch:'Beräknad kläckning'},
+    en:{batchStart:'Batch start',uncertain:'Uncertain',clearVessels:'Clear blood vessels',promising:'Looks promising',bloodRing:'Blood ring',infertile:'Infertile',deadEmbryo:'Dead embryo',discarded:'Discarded',pmAbnormal:'The egg shows abnormal signs. Only keep it going if you want to confirm with an additional check.',pmLowProb:'Insufficient probability — confirm before making a decision.',pmGoodProb:'Very good probability — continue according to plan.',pmNormal:'The egg appears to have good conditions to continue developing normally.',incubatorPrefix:'Incubator',noImage:'No image',latestCandling:'Latest candling',nextSecondCandling:'Second candling',nextFirstCandling:'First candling',nextLockdown:'Lockdown / final check',nextHatch:'Estimated hatch'},
+    da:{batchStart:'Hold start',uncertain:'Usikkert',clearVessels:'Tydelige blodkar',promising:'Ser lovende ud',bloodRing:'Blodring',infertile:'Ubefrugtet',deadEmbryo:'Dødt embryo',discarded:'Kasseret',pmAbnormal:'Ægget viser afvigende tegn. Behold kun ægget videre, hvis du vil bekræfte med en ekstra kontrol.',pmLowProb:'Utilstrækkelig sandsynlighed — bekræft før beslutning.',pmGoodProb:'Meget god sandsynlighed — fortsæt efter planen.',pmNormal:'Ægget vurderes at have gode forudsætninger for at fortsætte normal udvikling.',incubatorPrefix:'Rugemaskine',noImage:'Intet billede',latestCandling:'Seneste lysning',nextSecondCandling:'Anden lysning',nextFirstCandling:'Første lysning',nextLockdown:'Lockdown / sidste kontrol',nextHatch:'Forventet klækning'},
+    no:{batchStart:'Omgång start',uncertain:'Usikkert',clearVessels:'Tydelige blodårer',promising:'Ser lovende ut',bloodRing:'Blodring',infertile:'Ubefruktet',deadEmbryo:'Dødt embryo',discarded:'Kassert',pmAbnormal:'Egget viser avvikende tegn. Behold egget videre bare hvis du vil bekrefte med en ekstra kontroll.',pmLowProb:'Utilstrekkelig sannsynlighet — bekreft før beslutning.',pmGoodProb:'Svært god sannsynlighet — fortsett etter planen.',pmNormal:'Egget vurderes å ha gode forutsetninger for å fortsette normal utvikling.',incubatorPrefix:'Rugemaskin',noImage:'Ingen bilde',latestCandling:'Siste lysing',nextSecondCandling:'Andre lysing',nextFirstCandling:'Første lysing',nextLockdown:'Lockdown / siste kontroll',nextHatch:'Beregnet klekking'},
+    fi:{batchStart:'Erän aloitus',uncertain:'Epävarma',clearVessels:'Selvät verisuonet',promising:'Näyttää lupaavalta',bloodRing:'Verirengas',infertile:'Hedelmöittymätön',deadEmbryo:'Kuollut alkio',discarded:'Hylätty',pmAbnormal:'Munassa näkyy poikkeavia merkkejä. Jatka vain, jos haluat varmistaa tilanteen lisätarkastuksella.',pmLowProb:'Riittämätön todennäköisyys — varmista ennen päätöstä.',pmGoodProb:'Erittäin hyvä todennäköisyys — jatka suunnitelman mukaan.',pmNormal:'Munalla arvioidaan olevan hyvät edellytykset jatkaa normaalia kehitystä.',incubatorPrefix:'Hautomakone',noImage:'Ei kuvaa',latestCandling:'Viimeisin läpivalaisu',nextSecondCandling:'Toinen läpivalaisu',nextFirstCandling:'Ensimmäinen läpivalaisu',nextLockdown:'Lockdown / viimeinen tarkistus',nextHatch:'Arvioitu kuoriutuminen'}
+  };
+  function st(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return {}}}
+  function lang(){return (st().farmSettings&&st().farmSettings.language)||'sv'}
+  function tr(k){const l=lang();return (T[l]&&T[l][k])||T.sv[k]||k}
+  function inEggs(){const v=document.getElementById('view-eggs');return v&&!v.classList.contains('hidden')}
+  function walkText(root,cb){const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode(n){return n.nodeValue&&n.nodeValue.trim()?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT}});let n;while(n=w.nextNode())cb(n)}
+  function repl(txt){
+    let s=String(txt);
+    const replacements=[
+      [/Omgång start/g,tr('batchStart')],
+      [/Senaste lysning/g,tr('latestCandling')],
+      [/Osäkert/g,tr('uncertain')],
+      [/Tydliga blodkärl/g,tr('clearVessels')],
+      [/Ser lovande ut/g,tr('promising')],
+      [/Blodring/g,tr('bloodRing')],
+      [/Obefruktat/g,tr('infertile')],
+      [/Dött embryo/g,tr('deadEmbryo')],
+      [/Kasserat/g,tr('discarded')],
+      [/Ägget visar avvikande tecken\. Behåll bara ägget vidare om du vill bekräfta med ytterligare kontroll\./g,tr('pmAbnormal')],
+      [/Otillräcklig sannolikhet – bekräfta innan beslut\./g,tr('pmLowProb')],
+      [/Mycket god sannolikhet – fortsätt enligt plan\./g,tr('pmGoodProb')],
+      [/Ägget bedöms ha goda förutsättningar att fortsätta utvecklas normalt\./g,tr('pmNormal')],
+      [/Kläckare:/g,tr('incubatorPrefix')+':'],
+      [/Ingen bild/g,tr('noImage')],
+      [/Andra lysning/g,tr('nextSecondCandling')],
+      [/Första lysning/g,tr('nextFirstCandling')],
+      [/Lockdown \/ sista kontroll/g,tr('nextLockdown')],
+      [/Beräknad kläckning/g,tr('nextHatch')]
+    ];
+    replacements.forEach(([a,b])=>{s=s.replace(a,b)});
+    return s;
+  }
+  function run(){
+    if(!inEggs())return;
+    const sec=document.getElementById('view-eggs');
+    walkText(sec,n=>{const v=repl(n.nodeValue); if(v!==n.nodeValue)n.nodeValue=v});
+  }
+  let busy=false;function sched(){if(busy)return;busy=true;requestAnimationFrame(()=>{try{run()}catch(e){}busy=false})}
+  document.addEventListener('DOMContentLoaded',sched);window.addEventListener('load',sched);document.addEventListener('click',()=>setTimeout(sched,80),true);
+  new MutationObserver(sched).observe(document.documentElement,{childList:true,subtree:true,characterData:true});setInterval(sched,800);
+})();
+}
+
+{
+/* PoultryMaster v2.9.9 – Eggs Final Polish
+   Scope: Egg module + Life book UI labels only.
+   Rule: interface/system text is translated; user-entered data, notes, breeds, IDs, farm names and incubator names are preserved. */
+(function(){
+  const KEY='egg_manager_v2';
+  const L={
+    sv:{
+      eggsTitle:'Ägg & kläckare',add:'+ Lägg till',eggList:'Ägglista',incubators:'Kläckare',all:'Alla',active:'Aktiva',uncertain:'Osäkra',critical:'Kritiska',today:'Idag',soon:'Inom 7 dagar',
+      activeOne:'Aktiv',criticalOne:'Kritisk',uncertainOne:'Osäkert',strong:'Stark',weakCritical:'Kritisk',hatched:'Kläckt',stopped:'Avbrutet',discarded:'Kasserat',infertile:'Obefruktat',deadEmbryo:'Dött embryo',bloodRing:'Blodring',
+      unknown:'Okänd',unknownBreed:'Okänd ras',origin:'Ursprung',incubator:'Kläckare',startDate:'Startdatum',latestCandling:'Senaste lysning',noCandlingYet:'Ingen lysning ännu',batch:'Omgång',batchStart:'Omgång start',
+      lifeBook:'Livsbok',events:'händelser',pmJudges:'PoultryMaster bedömer',pmMoreData:'Fortsätt med att samla observationer, så blir bedömningen säkrare.',
+      createChick:'Skapa kyckling',candling:'Lysning',edit:'Redigera',delete:'Ta bort',tapHide:'Tryck för att dölja detaljer',tapOpen:'Öppna kortet för fler detaljer',
+      day:'Dag',of:'av',next:'Nästa',nextFirstCandling:'Första lysning',nextSecondCandling:'Andra lysning',nextLockdown:'Lockdown / sista kontroll',nextHatch:'Beräknad kläckning',
+      embryoDev:'Embryoutveckling',earlyDev:'Tidig utveckling',hatching:'Kläckning',lockdown:'Lockdown',hatch:'Kläckning',followPlan:'Följ planen',inDays:'om {n} dagar',todayLower:'idag',
+      pmAbnormal:'Ägget visar avvikande tecken. Behåll bara ägget vidare om du vill bekräfta med ytterligare kontroll.',pmLowProb:'Otillräcklig sannolikhet – bekräfta innan beslut.',pmGoodProb:'Mycket god sannolikhet – fortsätt enligt plan.',pmNormal:'Ägget bedöms ha goda förutsättningar att fortsätta utvecklas normalt.',
+      noImage:'Ingen bild',myIncubators:'Mina kläckare',manageIncubators:'Hantera kläckare',manageIncubatorsText:'Hantera kläckare under Inställningar → Kläckare.',capacity:'Kapacitet',temperature:'Temperatur',humidity:'Fuktighet',turning:'Vändning',usedBy:'Används av',eggsUnit:'ägg',activeEggs:'aktiva ägg',standard:'Standard',noModel:'Ingen modell angiven',unnamedIncubator:'Namnlös kläckare',noIncubators:'Inga kläckare registrerade.',
+      lbTitle:'Livsbok',lbEggRegistered:'Ägget registrerades',lbAddedBatch:'Kopplades till omgång',lbMarkedHatched:'Markerades som kläckt',lbDevelopmentStopped:'Utvecklingen avbröts',lbCandlingDay:'Lysning dag {n}',lbHatchedChick:'Kläcktes / registrerades som kyckling',lbMovedFlock:'Flyttades vidare mot flock',lbRegisteredFlock:'Registrerades i flocken',lbRinged:'Ringmärktes',lbBreedingStatus:'Avelsstatus uppdaterad',srcEgg:'Ägg',srcBatch:'Omgång',srcCandling:'Lysning',srcChick:'Kyckling',srcFlock:'Flock',srcBreeding:'Avel',gender:'Kön',ring:'Ring',ringNumber:'Ringnummer'
+    },
+    en:{
+      eggsTitle:'Eggs & incubators',add:'+ Add',eggList:'Egg list',incubators:'Incubators',all:'All',active:'Active',uncertain:'Uncertain',critical:'Critical',today:'Today',soon:'Within 7 days',
+      activeOne:'Active',criticalOne:'Critical',uncertainOne:'Uncertain',strong:'Strong',weakCritical:'Critical',hatched:'Hatched',stopped:'Stopped',discarded:'Discarded',infertile:'Infertile',deadEmbryo:'Dead embryo',bloodRing:'Blood ring',
+      unknown:'Unknown',unknownBreed:'Unknown breed',origin:'Origin',incubator:'Incubator',startDate:'Start date',latestCandling:'Latest candling',noCandlingYet:'No candling yet',batch:'Batch',batchStart:'Batch start',
+      lifeBook:'Life book',events:'events',pmJudges:'PoultryMaster assessment',pmMoreData:'Keep collecting observations to make the assessment more reliable.',
+      createChick:'Create chick',candling:'Candling',edit:'Edit',delete:'Delete',tapHide:'Tap to hide details',tapOpen:'Open the card for more details',
+      day:'Day',of:'of',next:'Next',nextFirstCandling:'First candling',nextSecondCandling:'Second candling',nextLockdown:'Lockdown / final check',nextHatch:'Estimated hatch',
+      embryoDev:'Embryo development',earlyDev:'Early development',hatching:'Hatching',lockdown:'Lockdown',hatch:'Hatch',followPlan:'Follow the plan',inDays:'in {n} days',todayLower:'today',
+      pmAbnormal:'The egg shows abnormal signs. Only keep it going if you want to confirm with an additional check.',pmLowProb:'Insufficient probability — confirm before making a decision.',pmGoodProb:'Very good probability — continue according to plan.',pmNormal:'The egg appears to have good conditions to continue developing normally.',
+      noImage:'No image',myIncubators:'My incubators',manageIncubators:'Manage incubators',manageIncubatorsText:'Manage incubators under Settings → Incubators.',capacity:'Capacity',temperature:'Temperature',humidity:'Humidity',turning:'Turning',usedBy:'Used by',eggsUnit:'eggs',activeEggs:'active eggs',standard:'Standard',noModel:'No model specified',unnamedIncubator:'Unnamed incubator',noIncubators:'No incubators registered.',
+      lbTitle:'Life book',lbEggRegistered:'Egg registered',lbAddedBatch:'Added to batch',lbMarkedHatched:'Marked as hatched',lbDevelopmentStopped:'Development stopped',lbCandlingDay:'Candling day {n}',lbHatchedChick:'Hatched / registered as chick',lbMovedFlock:'Moved toward flock',lbRegisteredFlock:'Registered in flock',lbRinged:'Ring marked',lbBreedingStatus:'Breeding status updated',srcEgg:'Egg',srcBatch:'Batch',srcCandling:'Candling',srcChick:'Chick',srcFlock:'Flock',srcBreeding:'Breeding',gender:'Sex',ring:'Ring',ringNumber:'Ring number'
+    },
+    da:{
+      eggsTitle:'Æg & rugemaskiner',add:'+ Tilføj',eggList:'Ægliste',incubators:'Rugemaskiner',all:'Alle',active:'Aktive',uncertain:'Usikre',critical:'Kritiske',today:'I dag',soon:'Inden 7 dage',
+      activeOne:'Aktiv',criticalOne:'Kritisk',uncertainOne:'Usikkert',strong:'Stærk',weakCritical:'Kritisk',hatched:'Klækket',stopped:'Afbrudt',discarded:'Kasseret',infertile:'Ubefrugtet',deadEmbryo:'Dødt embryo',bloodRing:'Blodring',
+      unknown:'Ukendt',unknownBreed:'Ukendt race',origin:'Oprindelse',incubator:'Rugemaskine',startDate:'Startdato',latestCandling:'Seneste lysning',noCandlingYet:'Ingen lysning endnu',batch:'Hold',batchStart:'Hold start',
+      lifeBook:'Livsbog',events:'hændelser',pmJudges:'PoultryMaster vurderer',pmMoreData:'Fortsæt med at samle observationer, så vurderingen bliver mere sikker.',
+      createChick:'Opret kylling',candling:'Lysning',edit:'Redigér',delete:'Slet',tapHide:'Tryk for at skjule detaljer',tapOpen:'Åbn kortet for flere detaljer',
+      day:'Dag',of:'af',next:'Næste',nextFirstCandling:'Første lysning',nextSecondCandling:'Anden lysning',nextLockdown:'Lockdown / sidste kontrol',nextHatch:'Forventet klækning',
+      embryoDev:'Embryoudvikling',earlyDev:'Tidlig udvikling',hatching:'Klækning',lockdown:'Lockdown',hatch:'Klækning',followPlan:'Følg planen',inDays:'om {n} dage',todayLower:'i dag',
+      pmAbnormal:'Ægget viser afvigende tegn. Behold kun ægget videre, hvis du vil bekræfte med en ekstra kontrol.',pmLowProb:'Utilstrækkelig sandsynlighed — bekræft før beslutning.',pmGoodProb:'Meget god sandsynlighed — fortsæt efter planen.',pmNormal:'Ægget vurderes at have gode forudsætninger for at fortsætte normal udvikling.',
+      noImage:'Intet billede',myIncubators:'Mine rugemaskiner',manageIncubators:'Administrér rugemaskiner',manageIncubatorsText:'Administrér rugemaskiner under Indstillinger → Rugemaskiner.',capacity:'Kapacitet',temperature:'Temperatur',humidity:'Fugtighed',turning:'Vending',usedBy:'Bruges af',eggsUnit:'æg',activeEggs:'aktive æg',standard:'Standard',noModel:'Ingen model angivet',unnamedIncubator:'Unavngiven rugemaskine',noIncubators:'Ingen rugemaskiner registreret.',
+      lbTitle:'Livsbog',lbEggRegistered:'Æg registreret',lbAddedBatch:'Tilføjet til hold',lbMarkedHatched:'Markeret som klækket',lbDevelopmentStopped:'Udviklingen stoppede',lbCandlingDay:'Lysning dag {n}',lbHatchedChick:'Klækket / registreret som kylling',lbMovedFlock:'Flyttet mod flok',lbRegisteredFlock:'Registreret i flokken',lbRinged:'Ringmærket',lbBreedingStatus:'Avlsstatus opdateret',srcEgg:'Æg',srcBatch:'Hold',srcCandling:'Lysning',srcChick:'Kylling',srcFlock:'Flok',srcBreeding:'Avl',gender:'Køn',ring:'Ring',ringNumber:'Ringnummer'
+    },
+    no:{
+      eggsTitle:'Egg & rugemaskiner',add:'+ Legg til',eggList:'Eggliste',incubators:'Rugemaskiner',all:'Alle',active:'Aktive',uncertain:'Usikre',critical:'Kritiske',today:'I dag',soon:'Innen 7 dager',
+      activeOne:'Aktiv',criticalOne:'Kritisk',uncertainOne:'Usikkert',strong:'Sterk',weakCritical:'Kritisk',hatched:'Klekket',stopped:'Avbrutt',discarded:'Kassert',infertile:'Ubefruktet',deadEmbryo:'Dødt embryo',bloodRing:'Blodring',
+      unknown:'Ukjent',unknownBreed:'Ukjent rase',origin:'Opprinnelse',incubator:'Rugemaskin',startDate:'Startdato',latestCandling:'Siste lysing',noCandlingYet:'Ingen lysing ennå',batch:'Omgång',batchStart:'Omgång start',
+      lifeBook:'Livsbok',events:'hendelser',pmJudges:'PoultryMaster vurderer',pmMoreData:'Fortsett å samle observasjoner, så blir vurderingen sikrere.',
+      createChick:'Opprett kylling',candling:'Lysing',edit:'Rediger',delete:'Slett',tapHide:'Trykk for å skjule detaljer',tapOpen:'Åpne kortet for flere detaljer',
+      day:'Dag',of:'av',next:'Neste',nextFirstCandling:'Første lysing',nextSecondCandling:'Andre lysing',nextLockdown:'Lockdown / siste kontroll',nextHatch:'Beregnet klekking',
+      embryoDev:'Embryoutvikling',earlyDev:'Tidlig utvikling',hatching:'Klekking',lockdown:'Lockdown',hatch:'Klekking',followPlan:'Følg planen',inDays:'om {n} dager',todayLower:'i dag',
+      pmAbnormal:'Egget viser avvikende tegn. Behold egget videre bare hvis du vil bekrefte med en ekstra kontroll.',pmLowProb:'Utilstrekkelig sannsynlighet — bekreft før beslutning.',pmGoodProb:'Svært god sannsynlighet — fortsett etter planen.',pmNormal:'Egget vurderes å ha gode forutsetninger for å fortsette normal utvikling.',
+      noImage:'Ingen bilde',myIncubators:'Mine rugemaskiner',manageIncubators:'Administrer rugemaskiner',manageIncubatorsText:'Administrer rugemaskiner under Innstillinger → Rugemaskiner.',capacity:'Kapasitet',temperature:'Temperatur',humidity:'Fuktighet',turning:'Vending',usedBy:'Brukes av',eggsUnit:'egg',activeEggs:'aktive egg',standard:'Standard',noModel:'Ingen modell angitt',unnamedIncubator:'Navnløs rugemaskin',noIncubators:'Ingen rugemaskiner registrert.',
+      lbTitle:'Livsbok',lbEggRegistered:'Egg registrert',lbAddedBatch:'Koblet til omgang',lbMarkedHatched:'Markert som klekket',lbDevelopmentStopped:'Utviklingen stoppet',lbCandlingDay:'Lysing dag {n}',lbHatchedChick:'Klekket / registrert som kylling',lbMovedFlock:'Flyttet videre mot flokk',lbRegisteredFlock:'Registrert i flokken',lbRinged:'Ringmerket',lbBreedingStatus:'Avlsstatus oppdatert',srcEgg:'Egg',srcBatch:'Omgång',srcCandling:'Lysing',srcChick:'Kylling',srcFlock:'Flokk',srcBreeding:'Avl',gender:'Kjønn',ring:'Ring',ringNumber:'Ringnummer'
+    },
+    fi:{
+      eggsTitle:'Munat & hautomakoneet',add:'+ Lisää',eggList:'Munalista',incubators:'Hautomakoneet',all:'Kaikki',active:'Aktiiviset',uncertain:'Epävarmat',critical:'Kriittiset',today:'Tänään',soon:'7 päivän sisällä',
+      activeOne:'Aktiivinen',criticalOne:'Kriittinen',uncertainOne:'Epävarma',strong:'Vahva',weakCritical:'Kriittinen',hatched:'Kuoriutunut',stopped:'Keskeytetty',discarded:'Hylätty',infertile:'Hedelmöittymätön',deadEmbryo:'Kuollut alkio',bloodRing:'Verirengas',
+      unknown:'Tuntematon',unknownBreed:'Tuntematon rotu',origin:'Alkuperä',incubator:'Hautomakone',startDate:'Aloituspäivä',latestCandling:'Viimeisin läpivalaisu',noCandlingYet:'Ei läpivalaisua vielä',batch:'Erä',batchStart:'Erän aloitus',
+      lifeBook:'Elämänkirja',events:'tapahtumaa',pmJudges:'PoultryMaster arvioi',pmMoreData:'Jatka havaintojen keräämistä, jotta arvio tarkentuu.',
+      createChick:'Luo poikanen',candling:'Läpivalaisu',edit:'Muokkaa',delete:'Poista',tapHide:'Piilota tiedot napauttamalla',tapOpen:'Avaa kortti nähdäksesi lisätiedot',
+      day:'Päivä',of:'/',next:'Seuraava',nextFirstCandling:'Ensimmäinen läpivalaisu',nextSecondCandling:'Toinen läpivalaisu',nextLockdown:'Lockdown / viimeinen tarkistus',nextHatch:'Arvioitu kuoriutuminen',
+      embryoDev:'Alkion kehitys',earlyDev:'Varhainen kehitys',hatching:'Kuoriutuminen',lockdown:'Lockdown',hatch:'Kuoriutuminen',followPlan:'Noudata suunnitelmaa',inDays:'{n} päivän päästä',todayLower:'tänään',
+      pmAbnormal:'Munassa näkyy poikkeavia merkkejä. Jatka vain, jos haluat varmistaa tilanteen lisätarkastuksella.',pmLowProb:'Riittämätön todennäköisyys — varmista ennen päätöstä.',pmGoodProb:'Erittäin hyvä todennäköisyys — jatka suunnitelman mukaan.',pmNormal:'Munalla arvioidaan olevan hyvät edellytykset jatkaa normaalia kehitystä.',
+      noImage:'Ei kuvaa',myIncubators:'Omat hautomakoneet',manageIncubators:'Hallinnoi hautomakoneita',manageIncubatorsText:'Hallinnoi hautomakoneita kohdassa Asetukset → Hautomakoneet.',capacity:'Kapasiteetti',temperature:'Lämpötila',humidity:'Kosteus',turning:'Kääntö',usedBy:'Käytössä',eggsUnit:'munaa',activeEggs:'aktiivista munaa',standard:'Vakio',noModel:'Mallia ei ole ilmoitettu',unnamedIncubator:'Nimetön hautomakone',noIncubators:'Hautomakoneita ei ole rekisteröity.',
+      lbTitle:'Elämänkirja',lbEggRegistered:'Muna rekisteröity',lbAddedBatch:'Lisätty erään',lbMarkedHatched:'Merkitty kuoriutuneeksi',lbDevelopmentStopped:'Kehitys keskeytyi',lbCandlingDay:'Läpivalaisu päivä {n}',lbHatchedChick:'Kuoriutunut / rekisteröity poikaseksi',lbMovedFlock:'Siirretty kohti parvea',lbRegisteredFlock:'Rekisteröity parveen',lbRinged:'Rengastettu',lbBreedingStatus:'Jalostustila päivitetty',srcEgg:'Muna',srcBatch:'Erä',srcCandling:'Läpivalaisu',srcChick:'Poikanen',srcFlock:'Parvi',srcBreeding:'Jalostus',gender:'Sukupuoli',ring:'Rengas',ringNumber:'Rengasnumero'
+    }
+  };
+  const sv=L.sv;
+  function state(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return {}}}
+  function lang(){return (state().farmSettings&&state().farmSettings.language)||'sv'}
+  function tr(k,vars){let v=(L[lang()]&&L[lang()][k])||sv[k]||k;if(vars)Object.keys(vars).forEach(x=>v=v.replace('{'+x+'}',vars[x]));return v}
+  function set(el,txt){if(el&&el.textContent!==txt)el.textContent=txt}
+  function visible(id){const el=document.getElementById(id);return el&&!el.classList.contains('hidden')}
+  function replaceTextNode(root, map){
+    if(!root)return;
+    const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode(n){return n.nodeValue&&n.nodeValue.trim()?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT}});
+    let n; while(n=walker.nextNode()){
+      let s=n.nodeValue;
+      map.forEach(([rx,val])=>{s=s.replace(rx,typeof val==='function'?val():val)});
+      if(s!==n.nodeValue)n.nodeValue=s;
+    }
+  }
+  function baseMap(){return [
+    [/Ägg & inkubatorer/g,tr('eggsTitle')],[/Ägg & kläckare/g,tr('eggsTitle')],[/Ägglista/g,tr('eggList')],[/Inkubatorer/g,tr('incubators')],[/Kläckare/g,tr('incubators')],
+    [/Alla/g,tr('all')],[/Aktiva/g,tr('active')],[/Osäkra/g,tr('uncertain')],[/Kritiska/g,tr('critical')],[/Idag/g,tr('today')],[/Inom 7 dagar/g,tr('soon')],
+    [/Aktiv\b/g,tr('activeOne')],[/Kritisk\b/g,tr('criticalOne')],[/Osäkert/g,tr('uncertainOne')],[/Stark/g,tr('strong')],
+    [/Kläckt/g,tr('hatched')],[/Avbrutet/g,tr('stopped')],[/Kasserat/g,tr('discarded')],[/Obefruktat/g,tr('infertile')],[/Dött embryo/g,tr('deadEmbryo')],[/Blodring/g,tr('bloodRing')],
+    [/Okänd ras/g,tr('unknownBreed')],[/Okänd/g,tr('unknown')],[/Ursprung/g,tr('origin')],[/Startdatum/g,tr('startDate')],[/Senaste lysning/g,tr('latestCandling')],[/Ingen lysning ännu/g,tr('noCandlingYet')],
+    [/Omgång start/g,tr('batchStart')],[/Omgång/g,tr('batch')],[/Livsbok/g,tr('lifeBook')],[/händelser/g,tr('events')],[/PoultryMaster bedömer/g,tr('pmJudges')],
+    [/Fortsätt med att samla observationer, så blir bedömningen säkrare\./g,tr('pmMoreData')],[/Skapa kyckling/g,tr('createChick')],[/Lysning/g,tr('candling')],[/Redigera/g,tr('edit')],[/Ta bort/g,tr('delete')],
+    [/Tryck för att dölja detaljer/g,tr('tapHide')],[/Öppna kortet för fler detaljer/g,tr('tapOpen')],[/Dag/g,tr('day')],[/ av /g,' '+tr('of')+' '],[/Nästa/g,tr('next')],
+    [/Första lysning/g,tr('nextFirstCandling')],[/Andra lysning/g,tr('nextSecondCandling')],[/Lockdown \/ sista kontroll/g,tr('nextLockdown')],[/Beräknad kläckning/g,tr('nextHatch')],
+    [/Embryoutveckling/g,tr('embryoDev')],[/Tidig utveckling/g,tr('earlyDev')],[/Kläckning/g,tr('hatching')],[/Följ planen/g,tr('followPlan')],
+    [/om (\d+) dagar/g,(_,n)=>tr('inDays',{n})],[/idag/g,tr('todayLower')],
+    [/Ägget visar avvikande tecken\. Behåll bara ägget vidare om du vill bekräfta med ytterligare kontroll\./g,tr('pmAbnormal')],
+    [/Otillräcklig sannolikhet – bekräfta innan beslut\./g,tr('pmLowProb')],[/Otillräckligt sannolikhet – bekräfta innan beslut\./g,tr('pmLowProb')],
+    [/Mycket god sannolikhet – fortsätt enligt plan\./g,tr('pmGoodProb')],[/Ägget bedöms ha goda förutsättningar att fortsätta utvecklas normalt\./g,tr('pmNormal')],
+    [/Ingen bild/g,tr('noImage')],[/Mina kläckare/g,tr('myIncubators')],[/Hantera kläckare/g,tr('manageIncubators')],[/Hantera kläckare under Inställningar → Kläckare\./g,tr('manageIncubatorsText')],
+    [/Kapacitet/g,tr('capacity')],[/Temperatur/g,tr('temperature')],[/Fuktighet/g,tr('humidity')],[/Vändning/g,tr('turning')],[/Används av/g,tr('usedBy')],[/aktiva ägg/g,tr('activeEggs')],[/ägg/g,tr('eggsUnit')],[/Ingen modell angiven/g,tr('noModel')],[/Namnlös kläckare/g,tr('unnamedIncubator')],[/Inga kläckare registrerade\./g,tr('noIncubators')]
+  ]}
+  function translateEggs(){
+    const sec=document.getElementById('view-eggs'); if(!sec)return;
+    set(document.getElementById('eggs-title-main'),tr('eggsTitle'));
+    const add=sec.querySelector('[data-action="add-current"]'); if(add)set(add,tr('add'));
+    set(document.getElementById('tab-eggs'),tr('eggList'));
+    set(document.getElementById('tab-inc'),tr('incubators'));
+    replaceTextNode(sec, baseMap());
+  }
+  function translateLifeBook(){
+    const modal=document.getElementById('lifebook-modal'); if(!modal || !modal.classList.contains('active'))return;
+    const title=document.getElementById('lifebook-title'); if(title)title.textContent=title.textContent.replace(/Livsbok|Life book|Elämänkirja/g,tr('lbTitle'));
+    modal.querySelectorAll('.life-title').forEach(el=>{
+      let s=el.textContent.trim();
+      let m=s.match(/^Lysning dag\s*(\d+)/i); if(m){set(el,tr('lbCandlingDay',{n:m[1]}));return;}
+      const exact={
+        'Ägget registrerades':'lbEggRegistered','Kopplades till omgång':'lbAddedBatch','Markerades som kläckt':'lbMarkedHatched','Utvecklingen avbröts':'lbDevelopmentStopped','Kläcktes / registrerades som kyckling':'lbHatchedChick','Flyttades vidare mot flock':'lbMovedFlock','Registrerades i flocken':'lbRegisteredFlock','Ringmärktes':'lbRinged','Avelsstatus uppdaterad':'lbBreedingStatus'
+      };
+      if(exact[s])set(el,tr(exact[s]));
+    });
+    // Translate source words in metadata only; leave descriptive notes untouched.
+    modal.querySelectorAll('.life-meta').forEach(el=>{
+      let s=el.textContent;
+      s=s.replace(/·\s*Ägg\b/g,'· '+tr('srcEgg')).replace(/·\s*Omgång\b/g,'· '+tr('srcBatch')).replace(/·\s*Lysning\b/g,'· '+tr('srcCandling')).replace(/·\s*Kyckling\b/g,'· '+tr('srcChick')).replace(/·\s*Flock\b/g,'· '+tr('srcFlock')).replace(/·\s*Avel\b/g,'· '+tr('srcBreeding'));
+      s=s.replace(/Kön:/g,tr('gender')+':').replace(/Ring:/g,tr('ring')+':').replace(/Ringnummer:/g,tr('ringNumber')+':');
+      if(s!==el.textContent)el.textContent=s;
+    });
+  }
+  function run(){translateEggs();translateLifeBook();}
+  let busy=false;function schedule(){if(busy)return;busy=true;requestAnimationFrame(()=>{try{run()}catch(e){}busy=false})}
+  document.addEventListener('DOMContentLoaded',schedule);window.addEventListener('load',schedule);document.addEventListener('click',()=>setTimeout(schedule,80),true);
+  new MutationObserver(schedule).observe(document.documentElement,{childList:true,subtree:true,characterData:true});setInterval(schedule,900);
+})();
+}
+
+{
+/* PoultryMaster v2.9.9 – Candling module I18N overlay
+   Safe layer: translates rendered Candling module UI/system text only.
+   User-entered notes, IDs, farm names, breeds and machine names remain stored as-is. */
+(function(){
+  const KEY='egg_manager_v2';
+  function getLang(){try{return (JSON.parse(localStorage.getItem(KEY)||'{}').farmSettings||{}).language||'sv'}catch(e){return 'sv'}}
+  const L={
+    sv:{title:'Lysningsloggar',add:'+ Logga lysning',search:'Sök ägg, ras, omgång...',active:'Aktiva',stopped:'Avbrutna',hatched:'Kläckta',all:'Alla',intro:'Visar ägg först. Öppna journalen under varje ägg för att följa lysningarna dag för dag.',aliveActive:'Levande / aktiv',unknown:'Okänd',uncertain:'Osäker',unknownBreed:'Okänd ras',latestCandling:'Senaste lysning',noCandling:'Ingen lysning loggad ännu',lastUpdated:'Senast uppdaterad',incubator:'Kläckare',noImage:'Ingen bild',oneImage:'1 bild',vitality:'Livskraft',vitalityStrong:'Livskraft: Stark',vitalityCritical:'Livskraft: Kritisk',vitalityUncertain:'Livskraft: Osäker',vitalityUnknown:'Livskraft: Okänd',vitalityPromising:'Livskraft: Lovande',vitalityUnclear:'Livskraft: Oklar',day:'Dag',of:'av',lockdown:'Lockdown',nextControl:'Nästa planerade kontroll',firstCandling:'Första lysning',secondCandling:'Andra lysning',lockdownControl:'Lockdown / sista kontroll',lastPlannedDone:'Sista planerade lysning utförd',todayLower:'idag',tomorrow:'imorgon',inDays:'om {n} dagar',analysis:'PoultryMasters analys',probability:'Sannolikhet',assessment:'Bedömning',basis:'Analysunderlag',trend:'Utvecklingstrend',recommendation:'Rekommendation',conclusion:'Slutsats',whyAssessment:'Varför denna bedömning?',whyConclusion:'Varför drar PoultryMaster denna slutsats?',disclaimer:'Bedömningen baseras på registrerade observationer och fungerar som beslutsstöd. Den ersätter inte din egen slutliga bedömning.',moduleLock:'Candling Module 2.3 – Probability Insight',logCandling:'+ Logga lysning',editEgg:'Redigera ägg',lifeBook:'Livsbok',showHistory:'Visa historik',hideHistory:'Dölj historik',noHistory:'Ingen historik ännu.',security:'Säkerhet',edit:'Redigera',delete:'Ta bort',veryLow:'Mycket låg',limited:'Begränsat',veryStrong:'Mycket starkt',high:'Hög',insufficient:'Otillräckligt',trendNone:'Ingen tydlig trend ännu',trendDown:'Försämrad / avvikande',trendNoChange:'Oförändrad',trendHard:'Svårbedömd',trendUp:'Stabilt ökande',trendEarly:'Tidigt positiv',trendUnclear:'Oklart mönster',noAssessment:'Ingen lysning är registrerad ännu. PoultryMaster har därför inte tillräckligt underlag för att bedöma utvecklingen.',noHistoryReason:'Ingen lysningshistorik finns sparad för ägget.',logFirst:'Logga första lysningen när ägget nått planerad kontrollpunkt.',noConclusion:'Ingen slutsats kan dras ännu. Första lysningen behövs för att PoultryMaster ska kunna börja följa utvecklingen.',abnormalAssess:'Utvecklingen avviker från en normal positiv kurva. PoultryMaster ser tecken som gör att ägget bör följas extra noggrant innan ett slutligt beslut tas.',abnormalRec:'Gör en bekräftande lysning innan ägget klassas som avbrutet, särskilt om observationen var svår eller osäker.',abnormalConclusion:'Ägget visar avvikande tecken. Behåll bara ägget vidare om du vill bekräfta med ytterligare kontroll.',uncertainAssess:'Utvecklingen går inte att bedöma helt säkert utifrån nuvarande underlag. Tidigare observationer kan fortfarande tala för utveckling, men osäkerheten behöver följas upp.',uncertainRec:'Jämför vid nästa lysning och leta efter tydligare kärlnät, ökad mörk embryomassa eller rörelse.',uncertainConclusion:'Det finns fortfarande möjlighet till utveckling, men underlaget är inte starkt nog för en säker slutsats.',strongAssess:'Utvecklingen ser mycket stabil ut. Flera positiva lysningar eller tydliga observationer talar för att embryot utvecklas enligt förväntan.',followPlan:'Fortsätt enligt plan.',strongConclusion:'Ägget bedöms ha goda förutsättningar att fortsätta utvecklas normalt. Inga registrerade observationer tyder just nu på avvikande utveckling.',earlyAssess:'Första positiva tecken är registrerade. PoultryMaster ser ett lovande utgångsläge, men fler observationer behövs innan säkerheten blir hög.',earlyRec:'Fortsätt följa utvecklingen vid nästa planerade kontroll.',earlyConclusion:'Ägget visar lovande tecken, men behöver minst en uppföljande positiv lysning för en starkare bedömning.',noPatternAssess:'PoultryMaster hittar inget tydligt mönster i observationerna ännu.',collectData:'Fortsätt samla data och gör nästa lysning enligt plan.',noSureConclusion:'Det går inte att dra någon säker slutsats utifrån nuvarande information.',probNoData:'Oklart underlag – mer data behövs.',probMissing:'Ingen sannolikhet ännu – första lysningen saknas.',probLow:'Otillräckligt sannolikhet – bekräfta innan beslut.',probAbnormal:'Avvikande tecken – följ upp noggrant.',probVeryStrong:'Mycket starkt underlag – fortsätt enligt plan.',probGood:'Mycket god sannolikhet – fortsätt enligt plan.',probPromising:'Lovande sannolikhet – behöver följas upp.',probLimited:'Begränsat sannolikhet – bedömningen är osäker.',probUnclear:'Oklart läge – fler observationer behövs.',hardShell:'Svårbedömt skal sänker säkerheten.',clearVessels:'Tydliga blodkärl',promising:'Ser lovande ut',bloodRing:'Blodring',infertile:'Obefruktat',deadEmbryo:'Dött embryo',discarded:'Kasserat',confidence100:'100 % säker',confidenceGood:'Ganska säker',confidenceUncertain:'Osäker',confidenceVeryUncertain:'Mycket osäker',notGiven:'Ej angiven',noEggs:'Inga ägg matchar filtret.'},
+    en:{title:'Candling logs',add:'+ Log candling',search:'Search eggs, breed, batch...',active:'Active',stopped:'Stopped',hatched:'Hatched',all:'All',intro:'Eggs are shown first. Open the journal under each egg to follow candling day by day.',aliveActive:'Alive / active',unknown:'Unknown',uncertain:'Uncertain',unknownBreed:'Unknown breed',latestCandling:'Latest candling',noCandling:'No candling logged yet',lastUpdated:'Last updated',incubator:'Incubator',noImage:'No image',oneImage:'1 image',vitality:'Vitality',vitalityStrong:'Vitality: Strong',vitalityCritical:'Vitality: Critical',vitalityUncertain:'Vitality: Uncertain',vitalityUnknown:'Vitality: Unknown',vitalityPromising:'Vitality: Promising',vitalityUnclear:'Vitality: Unclear',day:'Day',of:'of',lockdown:'Lockdown',nextControl:'Next planned check',firstCandling:'First candling',secondCandling:'Second candling',lockdownControl:'Lockdown / final check',lastPlannedDone:'Last planned candling completed',todayLower:'today',tomorrow:'tomorrow',inDays:'in {n} days',analysis:'PoultryMaster analysis',probability:'Probability',assessment:'Assessment',basis:'Analysis basis',trend:'Development trend',recommendation:'Recommendation',conclusion:'Conclusion',whyAssessment:'Why this assessment?',whyConclusion:'Why does PoultryMaster draw this conclusion?',disclaimer:'The assessment is based on registered observations and works as decision support. It does not replace your own final judgement.',moduleLock:'Candling Module 2.3 – Probability Insight',logCandling:'+ Log candling',editEgg:'Edit egg',lifeBook:'Life book',showHistory:'Show history',hideHistory:'Hide history',noHistory:'No history yet.',security:'Confidence',edit:'Edit',delete:'Delete',veryLow:'Very low',limited:'Limited',veryStrong:'Very strong',high:'High',insufficient:'Insufficient',trendNone:'No clear trend yet',trendDown:'Worsening / abnormal',trendNoChange:'Unchanged',trendHard:'Hard to assess',trendUp:'Stable increase',trendEarly:'Early positive',trendUnclear:'Unclear pattern',noAssessment:'No candling has been registered yet. PoultryMaster therefore does not have enough data to assess development.',noHistoryReason:'No candling history has been saved for this egg.',logFirst:'Log the first candling when the egg reaches the planned check point.',noConclusion:'No conclusion can be drawn yet. The first candling is needed before PoultryMaster can start tracking development.',abnormalAssess:'Development deviates from a normal positive curve. PoultryMaster sees signs that the egg should be followed extra carefully before a final decision is made.',abnormalRec:'Do a confirming candling before classifying the egg as stopped, especially if the observation was difficult or uncertain.',abnormalConclusion:'The egg shows abnormal signs. Only keep it going if you want to confirm with an additional check.',uncertainAssess:'Development cannot be assessed with full confidence from the current data. Earlier observations may still suggest development, but the uncertainty needs follow-up.',uncertainRec:'Compare at the next candling and look for clearer vessel networks, increased dark embryo mass or movement.',uncertainConclusion:'Development is still possible, but the evidence is not strong enough for a confident conclusion.',strongAssess:'Development looks very stable. Several positive candlings or clear observations suggest that the embryo is developing as expected.',followPlan:'Continue according to plan.',strongConclusion:'The egg appears to have good conditions to continue developing normally. No registered observations currently indicate abnormal development.',earlyAssess:'The first positive signs have been registered. PoultryMaster sees a promising starting point, but more observations are needed before confidence becomes high.',earlyRec:'Continue following development at the next planned check.',earlyConclusion:'The egg shows promising signs, but needs at least one follow-up positive candling for a stronger assessment.',noPatternAssess:'PoultryMaster cannot find a clear pattern in the observations yet.',collectData:'Continue collecting data and do the next candling according to plan.',noSureConclusion:'No safe conclusion can be drawn from the current information.',probNoData:'Unclear basis – more data is needed.',probMissing:'No probability yet – first candling is missing.',probLow:'Insufficient probability – confirm before making a decision.',probAbnormal:'Abnormal signs – follow up carefully.',probVeryStrong:'Very strong basis – continue according to plan.',probGood:'Very good probability – continue according to plan.',probPromising:'Promising probability – needs follow-up.',probLimited:'Limited probability – the assessment is uncertain.',probUnclear:'Unclear situation – more observations are needed.',hardShell:'Hard-to-assess shell lowers confidence.',clearVessels:'Clear blood vessels',promising:'Looks promising',bloodRing:'Blood ring',infertile:'Infertile',deadEmbryo:'Dead embryo',discarded:'Discarded',confidence100:'100% certain',confidenceGood:'Fairly certain',confidenceUncertain:'Uncertain',confidenceVeryUncertain:'Very uncertain',notGiven:'Not provided',noEggs:'No eggs match the filter.'},
+    da:{title:'Lysningslogge',add:'+ Log lysning',search:'Søg æg, race, hold...',active:'Aktive',stopped:'Afbrudte',hatched:'Klækkede',all:'Alle',intro:'Æg vises først. Åbn journalen under hvert æg for at følge lysningerne dag for dag.',aliveActive:'Levende / aktiv',unknown:'Ukendt',uncertain:'Usikker',unknownBreed:'Ukendt race',latestCandling:'Seneste lysning',noCandling:'Ingen lysning logget endnu',lastUpdated:'Senest opdateret',incubator:'Rugemaskine',noImage:'Intet billede',oneImage:'1 billede',vitality:'Livskraft',vitalityStrong:'Livskraft: Stærk',vitalityCritical:'Livskraft: Kritisk',vitalityUncertain:'Livskraft: Usikker',vitalityUnknown:'Livskraft: Ukendt',vitalityPromising:'Livskraft: Lovende',vitalityUnclear:'Livskraft: Uklar',day:'Dag',of:'af',lockdown:'Lockdown',nextControl:'Næste planlagte kontrol',firstCandling:'Første lysning',secondCandling:'Anden lysning',lockdownControl:'Lockdown / sidste kontrol',lastPlannedDone:'Sidste planlagte lysning udført',todayLower:'i dag',tomorrow:'i morgen',inDays:'om {n} dage',analysis:'PoultryMaster analyse',probability:'Sandsynlighed',assessment:'Vurdering',basis:'Analysegrundlag',trend:'Udviklingstrend',recommendation:'Anbefaling',conclusion:'Konklusion',whyAssessment:'Hvorfor denne vurdering?',whyConclusion:'Hvorfor drager PoultryMaster denne konklusion?',disclaimer:'Vurderingen baseres på registrerede observationer og fungerer som beslutningsstøtte. Den erstatter ikke din egen endelige vurdering.',moduleLock:'Candling Module 2.3 – Probability Insight',logCandling:'+ Log lysning',editEgg:'Redigér æg',lifeBook:'Livsbog',showHistory:'Vis historik',hideHistory:'Skjul historik',noHistory:'Ingen historik endnu.',security:'Sikkerhed',edit:'Redigér',delete:'Slet',veryLow:'Meget lav',limited:'Begrænset',veryStrong:'Meget stærk',high:'Høj',insufficient:'Utilstrækkelig',trendNone:'Ingen tydelig trend endnu',trendDown:'Forværret / afvigende',trendNoChange:'Uændret',trendHard:'Svær at vurdere',trendUp:'Stabilt stigende',trendEarly:'Tidligt positiv',trendUnclear:'Uklart mønster',noAssessment:'Ingen lysning er registreret endnu. PoultryMaster har derfor ikke nok grundlag til at vurdere udviklingen.',noHistoryReason:'Ingen lysningshistorik er gemt for ægget.',logFirst:'Log den første lysning når ægget når planlagt kontrolpunkt.',noConclusion:'Ingen konklusion kan drages endnu. Første lysning er nødvendig.',abnormalAssess:'Udviklingen afviger fra en normal positiv kurve. PoultryMaster ser tegn på at ægget bør følges ekstra nøje før en endelig beslutning.',abnormalRec:'Lav en bekræftende lysning før ægget klassificeres som afbrudt, især hvis observationen var svær eller usikker.',abnormalConclusion:'Ægget viser afvigende tegn. Behold det kun videre hvis du vil bekræfte med en ekstra kontrol.',uncertainAssess:'Udviklingen kan ikke vurderes helt sikkert ud fra nuværende grundlag.',uncertainRec:'Sammenlign ved næste lysning og se efter tydeligere karnet, mørkere embryomasse eller bevægelse.',uncertainConclusion:'Udvikling er stadig mulig, men grundlaget er ikke stærkt nok til en sikker konklusion.',strongAssess:'Udviklingen ser meget stabil ud. Flere positive lysninger eller tydelige observationer taler for normal udvikling.',followPlan:'Fortsæt efter planen.',strongConclusion:'Ægget vurderes at have gode forudsætninger for normal udvikling.',earlyAssess:'De første positive tegn er registreret. Flere observationer er nødvendige.',earlyRec:'Fortsæt med at følge udviklingen ved næste planlagte kontrol.',earlyConclusion:'Ægget viser lovende tegn, men behøver mindst én opfølgende positiv lysning.',noPatternAssess:'PoultryMaster finder endnu intet tydeligt mønster i observationerne.',collectData:'Fortsæt med at samle data og lys efter planen.',noSureConclusion:'Der kan ikke drages en sikker konklusion ud fra nuværende information.',probNoData:'Uklart grundlag – mere data er nødvendig.',probMissing:'Ingen sandsynlighed endnu – første lysning mangler.',probLow:'Utilstrækkelig sandsynlighed – bekræft før beslutning.',probAbnormal:'Afvigende tegn – følg op nøje.',probVeryStrong:'Meget stærkt grundlag – fortsæt efter planen.',probGood:'Meget god sandsynlighed – fortsæt efter planen.',probPromising:'Lovende sandsynlighed – kræver opfølgning.',probLimited:'Begrænset sandsynlighed – vurderingen er usikker.',probUnclear:'Uklart læge – flere observationer behøves.',hardShell:'Svært vurderbart skal sænker sikkerheden.',clearVessels:'Tydelige blodkar',promising:'Ser lovende ud',bloodRing:'Blodring',infertile:'Ubefrugtet',deadEmbryo:'Dødt embryo',discarded:'Kasseret',confidence100:'100 % sikker',confidenceGood:'Ganske sikker',confidenceUncertain:'Usikker',confidenceVeryUncertain:'Meget usikker',notGiven:'Ikke angivet',noEggs:'Ingen æg matcher filteret.'},
+    no:{title:'Lysingslogger',add:'+ Logg lysing',search:'Søk egg, rase, omgang...',active:'Aktive',stopped:'Avbrutte',hatched:'Klekket',all:'Alle',intro:'Egg vises først. Åpne journalen under hvert egg for å følge lysingene dag for dag.',aliveActive:'Levende / aktiv',unknown:'Ukjent',uncertain:'Usikker',unknownBreed:'Ukjent rase',latestCandling:'Siste lysing',noCandling:'Ingen lysing logget ennå',lastUpdated:'Sist oppdatert',incubator:'Rugemaskin',noImage:'Ingen bilde',oneImage:'1 bilde',vitality:'Livskraft',vitalityStrong:'Livskraft: Sterk',vitalityCritical:'Livskraft: Kritisk',vitalityUncertain:'Livskraft: Usikker',vitalityUnknown:'Livskraft: Ukjent',vitalityPromising:'Livskraft: Lovende',vitalityUnclear:'Livskraft: Uklar',day:'Dag',of:'av',lockdown:'Lockdown',nextControl:'Neste planlagte kontroll',firstCandling:'Første lysing',secondCandling:'Andre lysing',lockdownControl:'Lockdown / siste kontroll',lastPlannedDone:'Siste planlagte lysing utført',todayLower:'i dag',tomorrow:'i morgen',inDays:'om {n} dager',analysis:'PoultryMaster-analyse',probability:'Sannsynlighet',assessment:'Vurdering',basis:'Analysegrunnlag',trend:'Utviklingstrend',recommendation:'Anbefaling',conclusion:'Konklusjon',whyAssessment:'Hvorfor denne vurderingen?',whyConclusion:'Hvorfor trekker PoultryMaster denne konklusjonen?',disclaimer:'Vurderingen er basert på registrerte observasjoner og fungerer som beslutningsstøtte. Den erstatter ikke din egen endelige vurdering.',moduleLock:'Candling Module 2.3 – Probability Insight',logCandling:'+ Logg lysing',editEgg:'Rediger egg',lifeBook:'Livsbok',showHistory:'Vis historikk',hideHistory:'Skjul historikk',noHistory:'Ingen historikk ennå.',security:'Sikkerhet',edit:'Rediger',delete:'Slett',veryLow:'Svært lav',limited:'Begrenset',veryStrong:'Svært sterk',high:'Høy',insufficient:'Utilstrekkelig',trendNone:'Ingen tydelig trend ennå',trendDown:'Forverret / avvikende',trendNoChange:'Uendret',trendHard:'Vanskelig å vurdere',trendUp:'Stabilt økende',trendEarly:'Tidlig positiv',trendUnclear:'Uklart mønster',noAssessment:'Ingen lysing er registrert ennå. PoultryMaster har derfor ikke nok grunnlag til å vurdere utviklingen.',noHistoryReason:'Ingen lysingshistorikk er lagret for egget.',logFirst:'Logg første lysing når egget har nådd planlagt kontrollpunkt.',noConclusion:'Ingen konklusjon kan trekkes ennå. Første lysing trengs.',abnormalAssess:'Utviklingen avviker fra en normal positiv kurve. PoultryMaster ser tegn på at egget bør følges ekstra nøye før endelig beslutning.',abnormalRec:'Gjør en bekreftende lysing før egget klassifiseres som avbrutt, spesielt hvis observasjonen var vanskelig eller usikker.',abnormalConclusion:'Egget viser avvikende tegn. Behold det bare videre hvis du vil bekrefte med en ekstra kontroll.',uncertainAssess:'Utviklingen kan ikke vurderes helt sikkert ut fra nåværende grunnlag.',uncertainRec:'Sammenlign ved neste lysing og se etter tydeligere årenett, mørkere embryomasse eller bevegelse.',uncertainConclusion:'Utvikling er fortsatt mulig, men grunnlaget er ikke sterkt nok for en sikker konklusjon.',strongAssess:'Utviklingen ser svært stabil ut. Flere positive lysinger eller tydelige observasjoner tyder på normal utvikling.',followPlan:'Fortsett etter planen.',strongConclusion:'Egget vurderes å ha gode forutsetninger for å fortsette normal utvikling.',earlyAssess:'De første positive tegnene er registrert. Flere observasjoner trengs.',earlyRec:'Fortsett å følge utviklingen ved neste planlagte kontroll.',earlyConclusion:'Egget viser lovende tegn, men trenger minst én oppfølgende positiv lysing.',noPatternAssess:'PoultryMaster finner ikke et tydelig mønster i observasjonene ennå.',collectData:'Fortsett å samle data og gjør neste lysing etter planen.',noSureConclusion:'Det kan ikke trekkes en sikker konklusjon ut fra nåværende informasjon.',probNoData:'Uklart grunnlag – mer data trengs.',probMissing:'Ingen sannsynlighet ennå – første lysing mangler.',probLow:'Utilstrekkelig sannsynlighet – bekreft før beslutning.',probAbnormal:'Avvikende tegn – følg opp nøye.',probVeryStrong:'Svært sterkt grunnlag – fortsett etter planen.',probGood:'Svært god sannsynlighet – fortsett etter planen.',probPromising:'Lovende sannsynlighet – trenger oppfølging.',probLimited:'Begrenset sannsynlighet – vurderingen er usikker.',probUnclear:'Uklart läge – flere observasjoner trengs.',hardShell:'Vanskelig skall senker sikkerheten.',clearVessels:'Tydelige blodårer',promising:'Ser lovende ut',bloodRing:'Blodring',infertile:'Ubefruktet',deadEmbryo:'Dødt embryo',discarded:'Kassert',confidence100:'100 % sikker',confidenceGood:'Ganske sikker',confidenceUncertain:'Usikker',confidenceVeryUncertain:'Svært usikker',notGiven:'Ikke angitt',noEggs:'Ingen egg matcher filteret.'},
+    fi:{title:'Läpivalaisulokit',add:'+ Kirjaa läpivalaisu',search:'Etsi munia, rotua, erää...',active:'Aktiiviset',stopped:'Keskeytetyt',hatched:'Kuoriutuneet',all:'Kaikki',intro:'Munat näytetään ensin. Avaa päiväkirja munan alta seurataksesi läpivalaisuja päivä päivältä.',aliveActive:'Elossa / aktiivinen',unknown:'Tuntematon',uncertain:'Epävarma',unknownBreed:'Tuntematon rotu',latestCandling:'Viimeisin läpivalaisu',noCandling:'Läpivalaisua ei ole vielä kirjattu',lastUpdated:'Viimeksi päivitetty',incubator:'Hautomakone',noImage:'Ei kuvaa',oneImage:'1 kuva',vitality:'Elinvoima',vitalityStrong:'Elinvoima: Vahva',vitalityCritical:'Elinvoima: Kriittinen',vitalityUncertain:'Elinvoima: Epävarma',vitalityUnknown:'Elinvoima: Tuntematon',vitalityPromising:'Elinvoima: Lupaava',vitalityUnclear:'Elinvoima: Epäselvä',day:'Päivä',of:'/',lockdown:'Lockdown',nextControl:'Seuraava suunniteltu tarkistus',firstCandling:'Ensimmäinen läpivalaisu',secondCandling:'Toinen läpivalaisu',lockdownControl:'Lockdown / viimeinen tarkistus',lastPlannedDone:'Viimeinen suunniteltu läpivalaisu tehty',todayLower:'tänään',tomorrow:'huomenna',inDays:'{n} päivän kuluttua',analysis:'PoultryMaster-analyysi',probability:'Todennäköisyys',assessment:'Arvio',basis:'Analyysin peruste',trend:'Kehityssuunta',recommendation:'Suositus',conclusion:'Johtopäätös',whyAssessment:'Miksi tämä arvio?',whyConclusion:'Miksi PoultryMaster tekee tämän johtopäätöksen?',disclaimer:'Arvio perustuu kirjattuihin havaintoihin ja toimii päätöksenteon tukena. Se ei korvaa omaa lopullista arviotasi.',moduleLock:'Candling Module 2.3 – Probability Insight',logCandling:'+ Kirjaa läpivalaisu',editEgg:'Muokkaa munaa',lifeBook:'Elämänkirja',showHistory:'Näytä historia',hideHistory:'Piilota historia',noHistory:'Ei historiaa vielä.',security:'Varmuus',edit:'Muokkaa',delete:'Poista',veryLow:'Erittäin matala',limited:'Rajallinen',veryStrong:'Erittäin vahva',high:'Korkea',insufficient:'Riittämätön',trendNone:'Ei selvää suuntaa vielä',trendDown:'Heikkenevä / poikkeava',trendNoChange:'Muuttumaton',trendHard:'Vaikea arvioida',trendUp:'Tasaisesti kasvava',trendEarly:'Varhainen positiivinen',trendUnclear:'Epäselvä kaava',noAssessment:'Läpivalaisua ei ole vielä kirjattu. PoultryMasterilla ei siksi ole tarpeeksi tietoa kehityksen arvioimiseksi.',noHistoryReason:'Tälle munalle ei ole tallennettu läpivalaisuhistoriaa.',logFirst:'Kirjaa ensimmäinen läpivalaisu suunnitellussa tarkistuspisteessä.',noConclusion:'Johtopäätöstä ei voi vielä tehdä. Ensimmäinen läpivalaisu tarvitaan.',abnormalAssess:'Kehitys poikkeaa normaalista positiivisesta käyrästä. Munaa tulisi seurata erityisen huolellisesti ennen lopullista päätöstä.',abnormalRec:'Tee varmistava läpivalaisu ennen kuin luokittelet munan keskeytyneeksi, varsinkin jos havainto oli vaikea tai epävarma.',abnormalConclusion:'Munassa näkyy poikkeavia merkkejä. Jatka vain, jos haluat varmistaa lisätarkistuksella.',uncertainAssess:'Kehitystä ei voida arvioida täysin varmasti nykyisten tietojen perusteella.',uncertainRec:'Vertaa seuraavassa läpivalaisussa ja etsi selvempää suoniverkostoa, tummempaa alkiomassaa tai liikettä.',uncertainConclusion:'Kehitys on vielä mahdollinen, mutta näyttö ei riitä varmaan johtopäätökseen.',strongAssess:'Kehitys näyttää hyvin vakaalta. Useat positiiviset havainnot viittaavat normaaliin kehitykseen.',followPlan:'Jatka suunnitelman mukaan.',strongConclusion:'Munalla arvioidaan olevan hyvät edellytykset jatkaa normaalia kehitystä.',earlyAssess:'Ensimmäiset positiiviset merkit on kirjattu. Lisähavaintoja tarvitaan.',earlyRec:'Jatka kehityksen seuraamista seuraavassa suunnitellussa tarkistuksessa.',earlyConclusion:'Muna näyttää lupaavalta, mutta tarvitsee vähintään yhden positiivisen jatkotarkistuksen.',noPatternAssess:'PoultryMaster ei löydä vielä selvää kaavaa havainnoista.',collectData:'Jatka tietojen keräämistä ja tee seuraava läpivalaisu suunnitelman mukaan.',noSureConclusion:'Nykyisten tietojen perusteella ei voida tehdä varmaa johtopäätöstä.',probNoData:'Epäselvä peruste – lisää tietoa tarvitaan.',probMissing:'Ei todennäköisyyttä vielä – ensimmäinen läpivalaisu puuttuu.',probLow:'Riittämätön todennäköisyys – varmista ennen päätöstä.',probAbnormal:'Poikkeavia merkkejä – seuraa tarkasti.',probVeryStrong:'Erittäin vahva peruste – jatka suunnitelman mukaan.',probGood:'Erittäin hyvä todennäköisyys – jatka suunnitelman mukaan.',probPromising:'Lupaava todennäköisyys – tarvitsee seurantaa.',probLimited:'Rajallinen todennäköisyys – arvio on epävarma.',probUnclear:'Epäselvä tilanne – lisää havaintoja tarvitaan.',hardShell:'Vaikeasti arvioitava kuori laskee varmuutta.',clearVessels:'Selvät verisuonet',promising:'Näyttää lupaavalta',bloodRing:'Verirengas',infertile:'Hedelmöittymätön',deadEmbryo:'Kuollut alkio',discarded:'Hylätty',confidence100:'100 % varma',confidenceGood:'Melko varma',confidenceUncertain:'Epävarma',confidenceVeryUncertain:'Hyvin epävarma',notGiven:'Ei annettu',noEggs:'Mikään muna ei vastaa suodatinta.'}
+  };
+  function tr(k,vars){const lang=getLang();let s=(L[lang]&&L[lang][k])||L.sv[k]||k;if(vars)Object.keys(vars).forEach(v=>s=s.replace(new RegExp('\\{'+v+'\\}','g'),vars[v]));return s}
+  function inCandling(){const sec=document.getElementById('view-candling');return sec && !sec.classList.contains('hidden')}
+  function setHeader(){const h=document.getElementById('candling-title-main'); if(h)h.textContent=tr('title'); const b=document.querySelector('#view-candling [data-action="add"][data-type="candling"]'); if(b)b.textContent=tr('add')}
+  function walk(root,fn){const tw=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{if(!n.nodeValue.trim())return NodeFilter.FILTER_REJECT;let p=n.parentElement;if(!p)return NodeFilter.FILTER_REJECT;if(['SCRIPT','STYLE','TEXTAREA','INPUT'].includes(p.tagName))return NodeFilter.FILTER_REJECT;return NodeFilter.FILTER_ACCEPT;}});let nodes=[];while(tw.nextNode())nodes.push(tw.currentNode);nodes.forEach(fn)}
+  function repl(s){
+    const R=[
+      [/Sök ägg, ras, omgång\.\.\./g,tr('search')], [/Visar ägg först\. Öppna journalen under varje ägg för att följa lysningarna dag för dag\./g,tr('intro')],
+      [/Aktiva/g,tr('active')], [/Avbrutna/g,tr('stopped')], [/Kläckta/g,tr('hatched')], [/Alla/g,tr('all')],
+      [/Levande \/ aktiv/g,tr('aliveActive')], [/Okänd ras/g,tr('unknownBreed')], [/Okänd/g,tr('unknown')], [/Osäker/g,tr('uncertain')], [/Osäkert/g,tr('uncertain')],
+      [/Senaste lysning/g,tr('latestCandling')], [/Ingen lysning loggad ännu/g,tr('noCandling')], [/Senast uppdaterad/g,tr('lastUpdated')],
+      [/Kläckare:/g,tr('incubator')+':'], [/Ingen bild/g,tr('noImage')], [/1 bild/g,tr('oneImage')],
+      [/Livskraft: Stark/g,tr('vitalityStrong')], [/Livskraft: Kritisk/g,tr('vitalityCritical')], [/Livskraft: Osäker/g,tr('vitalityUncertain')], [/Livskraft: Okänd/g,tr('vitalityUnknown')], [/Livskraft: Lovande/g,tr('vitalityPromising')], [/Livskraft: Oklar/g,tr('vitalityUnclear')], [/Livskraft/g,tr('vitality')],
+      [/Dag (\d+) av (\d+)/g,(m,a,b)=>`${tr('day')} ${a} ${tr('of')} ${b}`], [/Dag (\d+)/g,(m,a)=>`${tr('day')} ${a}`], [/Lockdown/g,tr('lockdown')],
+      [/Nästa planerade kontroll/g,tr('nextControl')], [/Första lysning/g,tr('firstCandling')], [/Andra lysning/g,tr('secondCandling')], [/Lockdown \/ sista kontroll/g,tr('lockdownControl')], [/Sista planerade lysning utförd/g,tr('lastPlannedDone')], [/idag/g,tr('todayLower')], [/imorgon/g,tr('tomorrow')], [/om (\d+) dagar/g,(m,n)=>tr('inDays',{n})],
+      [/PoultryMasters analys/g,tr('analysis')], [/Sannolikhet/g,tr('probability')], [/Bedömning/g,tr('assessment')], [/Analysunderlag/g,tr('basis')], [/Utvecklingstrend/g,tr('trend')], [/Rekommendation/g,tr('recommendation')], [/Slutsats/g,tr('conclusion')],
+      [/Varför denna bedömning\?/g,tr('whyAssessment')], [/Varför drar PoultryMaster denna slutsats\?/g,tr('whyConclusion')], [/Bedömningen baseras på registrerade observationer och fungerar som beslutsstöd\. Den ersätter inte din egen slutliga bedömning\./g,tr('disclaimer')], [/Candling Module 2\.3 – Probability Insight/g,tr('moduleLock')],
+      [/\+ Logga lysning/g,tr('logCandling')], [/Redigera ägg/g,tr('editEgg')], [/Livsbok/g,tr('lifeBook')], [/Visa historik/g,tr('showHistory')], [/Dölj historik/g,tr('hideHistory')], [/Ingen historik ännu\./g,tr('noHistory')], [/Säkerhet:/g,tr('security')+':'], [/Redigera/g,tr('edit')], [/Ta bort/g,tr('delete')],
+      [/Mycket låg/g,tr('veryLow')], [/Begränsat/g,tr('limited')], [/Mycket starkt/g,tr('veryStrong')], [/Hög/g,tr('high')], [/Otillräckligt/g,tr('insufficient')],
+      [/Ingen tydlig trend ännu/g,tr('trendNone')], [/Försämrad \/ avvikande/g,tr('trendDown')], [/Oförändrad/g,tr('trendNoChange')], [/Svårbedömd/g,tr('trendHard')], [/Stabilt ökande/g,tr('trendUp')], [/Tidigt positiv/g,tr('trendEarly')], [/Oklart mönster/g,tr('trendUnclear')],
+      [/Ingen lysning är registrerad ännu\. PoultryMaster har därför inte tillräckligt underlag för att bedöma utvecklingen\./g,tr('noAssessment')], [/Ingen lysningshistorik finns sparad för ägget\./g,tr('noHistoryReason')], [/Logga första lysningen när ägget nått planerad kontrollpunkt\./g,tr('logFirst')], [/Ingen slutsats kan dras ännu\. Första lysningen behövs för att PoultryMaster ska kunna börja följa utvecklingen\./g,tr('noConclusion')],
+      [/Utvecklingen avviker från en normal positiv kurva\. PoultryMaster ser tecken som gör att ägget bör följas extra noggrant innan ett slutligt beslut tas\./g,tr('abnormalAssess')], [/Gör en bekräftande lysning innan ägget klassas som avbrutet, särskilt om observationen var svår eller osäker\./g,tr('abnormalRec')], [/Ägget visar avvikande tecken\. Behåll bara ägget vidare om du vill bekräfta med ytterligare kontroll\./g,tr('abnormalConclusion')],
+      [/Utvecklingen går inte att bedöma helt säkert utifrån nuvarande underlag\. Tidigare observationer kan fortfarande tala för utveckling, men osäkerheten behöver följas upp\./g,tr('uncertainAssess')], [/Jämför vid nästa lysning och leta efter tydligare kärlnät, ökad mörk embryomassa eller rörelse\./g,tr('uncertainRec')], [/Det finns fortfarande möjlighet till utveckling, men underlaget är inte starkt nog för en säker slutsats\./g,tr('uncertainConclusion')],
+      [/Utvecklingen ser mycket stabil ut\. Flera positiva lysningar eller tydliga observationer talar för att embryot utvecklas enligt förväntan\./g,tr('strongAssess')], [/Fortsätt enligt plan\./g,tr('followPlan')], [/Ägget bedöms ha goda förutsättningar att fortsätta utvecklas normalt\. Inga registrerade observationer tyder just nu på avvikande utveckling\./g,tr('strongConclusion')],
+      [/Första positiva tecken är registrerade\. PoultryMaster ser ett lovande utgångsläge, men fler observationer behövs innan säkerheten blir hög\./g,tr('earlyAssess')], [/Fortsätt följa utvecklingen vid nästa planerade kontroll\./g,tr('earlyRec')], [/Ägget visar lovande tecken, men behöver minst en uppföljande positiv lysning för en starkare bedömning\./g,tr('earlyConclusion')],
+      [/PoultryMaster hittar inget tydligt mönster i observationerna ännu\./g,tr('noPatternAssess')], [/Fortsätt samla data och gör nästa lysning enligt plan\./g,tr('collectData')], [/Det går inte att dra någon säker slutsats utifrån nuvarande information\./g,tr('noSureConclusion')],
+      [/Oklart underlag – mer data behövs\./g,tr('probNoData')], [/Ingen sannolikhet ännu – första lysningen saknas\./g,tr('probMissing')], [/Otillräckligt sannolikhet – bekräfta innan beslut\./g,tr('probLow')], [/Avvikande tecken – följ upp noggrant\./g,tr('probAbnormal')], [/Mycket starkt underlag – fortsätt enligt plan\./g,tr('probVeryStrong')], [/Mycket god sannolikhet – fortsätt enligt plan\./g,tr('probGood')], [/Lovande sannolikhet – behöver följas upp\./g,tr('probPromising')], [/Begränsat sannolikhet – bedömningen är osäker\./g,tr('probLimited')], [/Oklart läge – fler observationer behövs\./g,tr('probUnclear')], [/Svårbedömt skal sänker säkerheten\./g,tr('hardShell')],
+      [/Tydliga blodkärl/g,tr('clearVessels')], [/Ser lovande ut/g,tr('promising')], [/Blodring/g,tr('bloodRing')], [/Obefruktat/g,tr('infertile')], [/Dött embryo/g,tr('deadEmbryo')], [/Kasserat/g,tr('discarded')],
+      [/100 % säker/g,tr('confidence100')], [/Ganska säker/g,tr('confidenceGood')], [/Mycket osäker/g,tr('confidenceVeryUncertain')], [/Ej angiven/g,tr('notGiven')], [/Inga ägg matchar filtret\./g,tr('noEggs')]
+    ];
+    R.forEach(([a,b])=>{s=s.replace(a,b)});return s;
+  }
+  function run(){if(!inCandling())return;setHeader();const sec=document.getElementById('view-candling');const search=sec.querySelector('#candling-search');if(search)search.placeholder=tr('search');walk(sec,n=>{const v=repl(n.nodeValue);if(v!==n.nodeValue)n.nodeValue=v});}
+  let busy=false;function schedule(){if(busy)return;busy=true;requestAnimationFrame(()=>{try{run()}catch(e){}busy=false})}
+  document.addEventListener('DOMContentLoaded',schedule);window.addEventListener('load',schedule);document.addEventListener('click',()=>setTimeout(schedule,80),true);document.addEventListener('input',()=>setTimeout(schedule,80),true);
+  new MutationObserver(schedule).observe(document.documentElement,{childList:true,subtree:true,characterData:true});setInterval(schedule,900);
+})();
+}
+
+{
+/* PoultryMaster v2.9.9 – Candling Final Polish
+   Final safe overlay for candling module: UI/system labels only.
+   User notes, breeds, farm names, egg IDs and machine names stay unchanged. */
+(function(){
+  const KEY='egg_manager_v2';
+  function state(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return {}}}
+  function lang(){return (state().farmSettings||{}).language||'sv'}
+  const D={
+    sv:{evidence:'Analysunderlag',trend:'Utvecklingstrend',obs:'Observation',confidence:'Säkerhet',confidenceNot:'Ej angiven',confidence100:'100 % säker',edit:'Redigera',delete:'Ta bort',hideHistory:'Dölj historik',showHistory:'Visa historik',clearVessels:'Tydliga blodkärl',movement:'Rörelse observerad',fillsEgg:'Embryot fyller större delen av ägget',airCellNormal:'Luftblåsa normal',bloodVessels:'Blodkärl synliga',darkMass:'Mörk embryomassa',noMovement:'Ingen rörelse',unknown:'Osäkert',latest:'Senaste lysning',lastUpdated:'Senast uppdaterad',noImage:'Ingen bild',lifeBook:'Livsbok',editEgg:'Redigera ägg',log:'+ Logga lysning',alive:'Levande / aktiv',day:'Dag',of:'av',nextCheck:'Nästa planerade kontroll',analysis:'PoultryMasters analys'},
+    en:{evidence:'Evidence',trend:'Trend',obs:'Observation',confidence:'Confidence',confidenceNot:'Not provided',confidence100:'100% certain',edit:'Edit',delete:'Delete',hideHistory:'Hide history',showHistory:'Show history',clearVessels:'Clear blood vessels',movement:'Movement observed',fillsEgg:'Embryo fills most of the egg',airCellNormal:'Air cell normal',bloodVessels:'Blood vessels visible',darkMass:'Dark embryo mass',noMovement:'No movement',unknown:'Uncertain',latest:'Latest candling',lastUpdated:'Last updated',noImage:'No image',lifeBook:'Life book',editEgg:'Edit egg',log:'+ Log candling',alive:'Alive / active',day:'Day',of:'of',nextCheck:'Next planned check',analysis:'PoultryMaster analysis'},
+    da:{evidence:'Grundlag',trend:'Trend',obs:'Observation',confidence:'Sikkerhed',confidenceNot:'Ikke angivet',confidence100:'100 % sikker',edit:'Redigér',delete:'Slet',hideHistory:'Skjul historik',showHistory:'Vis historik',clearVessels:'Tydelige blodkar',movement:'Bevægelse observeret',fillsEgg:'Embryo fylder størstedelen af ægget',airCellNormal:'Luftblære normal',bloodVessels:'Blodkar synlige',darkMass:'Mørk embryomasse',noMovement:'Ingen bevægelse',unknown:'Usikker',latest:'Seneste lysning',lastUpdated:'Senest opdateret',noImage:'Intet billede',lifeBook:'Livsbog',editEgg:'Redigér æg',log:'+ Log lysning',alive:'Levende / aktiv',day:'Dag',of:'af',nextCheck:'Næste planlagte kontrol',analysis:'PoultryMaster-analyse'},
+    no:{evidence:'Vurderingsgrunnlag',trend:'Trend',obs:'Observasjon',confidence:'Sikkerhet',confidenceNot:'Ikke oppgitt',confidence100:'100 % sikker',edit:'Rediger',delete:'Slett',hideHistory:'Skjul historikk',showHistory:'Vis historikk',clearVessels:'Tydelige blodårer',movement:'Bevegelse observert',fillsEgg:'Embryo fyller størstedelen av egget',airCellNormal:'Luftblære normal',bloodVessels:'Blodårer synlige',darkMass:'Mørk embryomasse',noMovement:'Ingen bevegelse',unknown:'Usikker',latest:'Siste lysing',lastUpdated:'Sist oppdatert',noImage:'Ingen bilde',lifeBook:'Livsbok',editEgg:'Rediger egg',log:'+ Logg lysing',alive:'Levende / aktiv',day:'Dag',of:'av',nextCheck:'Neste planlagte kontroll',analysis:'PoultryMaster-analyse'},
+    fi:{evidence:'Perusteet',trend:'Trendi',obs:'Havainto',confidence:'Varmuus',confidenceNot:'Ei annettu',confidence100:'100 % varma',edit:'Muokkaa',delete:'Poista',hideHistory:'Piilota historia',showHistory:'Näytä historia',clearVessels:'Selvät verisuonet',movement:'Liikettä havaittu',fillsEgg:'Alkio täyttää suurimman osan munasta',airCellNormal:'Ilmatila normaali',bloodVessels:'Verisuonia näkyy',darkMass:'Tumma alkiomassa',noMovement:'Ei liikettä',unknown:'Epävarma',latest:'Viimeisin läpivalaisu',lastUpdated:'Viimeksi päivitetty',noImage:'Ei kuvaa',lifeBook:'Elämänkirja',editEgg:'Muokkaa munaa',log:'+ Kirjaa läpivalaisu',alive:'Elossa / aktiivinen',day:'Päivä',of:'/',nextCheck:'Seuraava suunniteltu tarkistus',analysis:'PoultryMaster-analyysi'}
+  };
+  function t(k){return (D[lang()]&&D[lang()][k])||D.sv[k]||k}
+  function sec(){return document.getElementById('view-candling')}
+  function active(){const s=sec();return s&&!s.classList.contains('hidden')}
+  function walk(root,fn){if(!root)return;const tw=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{if(!n.nodeValue.trim())return NodeFilter.FILTER_REJECT;const p=n.parentElement;if(!p||['SCRIPT','STYLE','TEXTAREA','INPUT'].includes(p.tagName))return NodeFilter.FILTER_REJECT;return NodeFilter.FILTER_ACCEPT;}});const a=[];while(tw.nextNode())a.push(tw.currentNode);a.forEach(fn)}
+  function repl(s){
+    const R=[
+      [/Analysis basis/g,t('evidence')],[/Development trend/g,t('trend')],[/Analysunderlag/g,t('evidence')],[/Utvecklingstrend/g,t('trend')],
+      [/Confidence:/g,t('confidence')+':'],[/Confidence/g,t('confidence')],[/Not provided/g,t('confidenceNot')],[/100% certain/g,t('confidence100')],[/100 % certain/g,t('confidence100')],[/100 % säker/g,t('confidence100')],
+      [/Edit/g,t('edit')],[/Delete/g,t('delete')],[/Redigera/g,t('edit')],[/Ta bort/g,t('delete')],
+      [/Hide history/g,t('hideHistory')],[/Show history/g,t('showHistory')],[/Dölj historik/g,t('hideHistory')],[/Visa historik/g,t('showHistory')],
+      [/Clear blood vessels/g,t('clearVessels')],[/Tydliga blodkärl/g,t('clearVessels')],
+      [/Rörelse observerad/g,t('movement')],[/Movement observed/g,t('movement')],
+      [/Embryot fyller större delen av ägget/g,t('fillsEgg')],[/Embryo fills most of the egg/g,t('fillsEgg')],
+      [/Luftblåsa normal/g,t('airCellNormal')],[/Air cell normal/g,t('airCellNormal')],
+      [/Blodkärl synliga/g,t('bloodVessels')],[/Blood vessels visible/g,t('bloodVessels')],
+      [/Mörk embryo-liknande klump/g,t('darkMass')],[/Mörk embryomassa/g,t('darkMass')],[/Dark embryo mass/g,t('darkMass')],
+      [/Ingen rörelse/g,t('noMovement')],[/No movement/g,t('noMovement')],
+      [/Osäkert/g,t('unknown')],[/Osäker/g,t('unknown')],[/Uncertain/g,t('unknown')],
+      [/Latest candling/g,t('latest')],[/Senaste lysning/g,t('latest')],
+      [/Last updated/g,t('lastUpdated')],[/Senast uppdaterad/g,t('lastUpdated')],
+      [/No image/g,t('noImage')],[/Ingen bild/g,t('noImage')],
+      [/Life book/g,t('lifeBook')],[/Livsbok/g,t('lifeBook')],
+      [/Edit egg/g,t('editEgg')],[/Redigera ägg/g,t('editEgg')],
+      [/\+ Log candling/g,t('log')],[/\+ Logga lysning/g,t('log')],
+      [/Alive \/ active/g,t('alive')],[/Levande \/ aktiv/g,t('alive')],
+      [/Day (\d+) of (\d+)/g,(m,a,b)=> lang()==='fi'?`${t('day')} ${a} ${t('of')} ${b}`:`${t('day')} ${a} ${t('of')} ${b}`],
+      [/Dag (\d+) av (\d+)/g,(m,a,b)=>`${t('day')} ${a} ${t('of')} ${b}`],
+      [/Next planned check/g,t('nextCheck')],[/Nästa planerade kontroll/g,t('nextCheck')],
+      [/PoultryMaster analysis/g,t('analysis')],[/PoultryMasters analys/g,t('analysis')]
+    ];
+    R.forEach(([a,b])=>{s=s.replace(a,b)});return s;
+  }
+  function polishHistory(){
+    const s=sec(); if(!s)return;
+    s.querySelectorAll('.candling-timeline-title,.candling-timeline-meta,.candling-history-item,.candling-obs-chip,.candling-assessment-part strong').forEach(el=>{
+      const before=el.textContent; const after=repl(before); if(after!==before)el.textContent=after;
+    });
+  }
+  function run(){if(!active())return; const s=sec(); walk(s,n=>{const v=repl(n.nodeValue); if(v!==n.nodeValue)n.nodeValue=v}); polishHistory();}
+  let busy=false;function sched(){if(busy)return;busy=true;requestAnimationFrame(()=>{try{run()}catch(e){}busy=false})}
+  document.addEventListener('DOMContentLoaded',sched);window.addEventListener('load',sched);document.addEventListener('click',()=>setTimeout(sched,70),true);document.addEventListener('input',()=>setTimeout(sched,70),true);
+  new MutationObserver(sched).observe(document.documentElement,{childList:true,subtree:true,characterData:true});setInterval(sched,800);
+})();
+}
+
+{
+/* PoultryMaster v2.9.9 – Candling Final Polish
+   Safe overlay: fixes remaining Candling I18N system text only.
+   User notes/observations, breeds, IDs, farm names and machine names are not changed. */
+(function(){
+  const KEY='egg_manager_v2';
+  function st(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return {}}}
+  function lang(){return (st().farmSettings||{}).language||'sv'}
+  const L={
+    sv:{whyTitle:'Varför drar PoultryMaster denna slutsats?',positive:'3 positiva lysningar är registrerade.',highConf:'1 observation har markerats med hög säkerhet.',movement:'Observationerna nämner rörelse, hjärtslag, liv eller tydlig aktivitet.',clear:'Observationerna beskriver tydliga blodkärl, stark utveckling eller stor embryomassa.',latest:'Senaste markerade observationer: {items}.',disclaimer:'Bedömningen baseras på registrerade observationer och fungerar som beslutsstöd. Den ersätter inte din egen slutliga bedömning.',evidence:'Analysunderlag',trend:'Utvecklingstrend',confidence:'Säkerhet',notProvided:'Ej angiven',certain:'100 % säker',obs:'Observation',edit:'Redigera',delete:'Ta bort',hide:'Dölj historik',show:'Visa historik',clearVessels:'Tydliga blodkärl',moveObs:'Rörelse observerad',fills:'Embryot fyller större delen av ägget',air:'Luftblåsa normal',noImage:'Ingen bild'},
+    en:{whyTitle:'Why does PoultryMaster draw this conclusion?',positive:'3 positive candlings are registered.',highConf:'1 observation has been marked with high confidence.',movement:'The observations mention movement, heartbeat, life, or clear activity.',clear:'The observations describe clear blood vessels, strong development, or a large embryo mass.',latest:'Latest marked observations: {items}.',disclaimer:'The assessment is based on registered observations and is intended as decision support. It does not replace your own final judgment.',evidence:'Evidence',trend:'Trend',confidence:'Confidence',notProvided:'Not provided',certain:'100% certain',obs:'Observation',edit:'Edit',delete:'Delete',hide:'Hide history',show:'Show history',clearVessels:'Clear blood vessels',moveObs:'Movement observed',fills:'Embryo fills most of the egg',air:'Air cell normal',noImage:'No image'},
+    da:{whyTitle:'Hvorfor drager PoultryMaster denne konklusion?',positive:'3 positive lysninger er registreret.',highConf:'1 observation er markeret med høj sikkerhed.',movement:'Observationerne nævner bevægelse, hjerteslag, liv eller tydelig aktivitet.',clear:'Observationerne beskriver tydelige blodkar, stærk udvikling eller stor embryomasse.',latest:'Seneste markerede observationer: {items}.',disclaimer:'Vurderingen er baseret på registrerede observationer og fungerer som beslutningsstøtte. Den erstatter ikke din egen endelige vurdering.',evidence:'Grundlag',trend:'Trend',confidence:'Sikkerhed',notProvided:'Ikke angivet',certain:'100 % sikker',obs:'Observation',edit:'Redigér',delete:'Slet',hide:'Skjul historik',show:'Vis historik',clearVessels:'Tydelige blodkar',moveObs:'Bevægelse observeret',fills:'Embryo fylder størstedelen af ægget',air:'Luftblære normal',noImage:'Intet billede'},
+    no:{whyTitle:'Hvorfor trekker PoultryMaster denne konklusjonen?',positive:'3 positive lysinger er registrert.',highConf:'1 observasjon er markert med høy sikkerhet.',movement:'Observasjonene nevner bevegelse, hjerteslag, liv eller tydelig aktivitet.',clear:'Observasjonene beskriver tydelige blodårer, sterk utvikling eller stor embryomasse.',latest:'Siste markerte observasjoner: {items}.',disclaimer:'Vurderingen er basert på registrerte observasjoner og fungerer som beslutningsstøtte. Den erstatter ikke din egen endelige vurdering.',evidence:'Vurderingsgrunnlag',trend:'Trend',confidence:'Sikkerhet',notProvided:'Ikke oppgitt',certain:'100 % sikker',obs:'Observasjon',edit:'Rediger',delete:'Slett',hide:'Skjul historikk',show:'Vis historikk',clearVessels:'Tydelige blodårer',moveObs:'Bevegelse observert',fills:'Embryo fyller størstedelen av egget',air:'Luftblære normal',noImage:'Ingen bilde'},
+    fi:{whyTitle:'Miksi PoultryMaster tekee tämän johtopäätöksen?',positive:'3 positiivista läpivalaisua on rekisteröity.',highConf:'1 havainto on merkitty suurella varmuudella.',movement:'Havainnoissa mainitaan liike, sydämenlyönti, elonmerkit tai selvä aktiivisuus.',clear:'Havainnot kuvaavat selviä verisuonia, vahvaa kehitystä tai suurta alkiomassaa.',latest:'Viimeisimmät merkityt havainnot: {items}.',disclaimer:'Arvio perustuu rekisteröityihin havaintoihin ja toimii päätöksenteon tukena. Se ei korvaa omaa lopullista arviotasi.',evidence:'Perusteet',trend:'Trendi',confidence:'Varmuus',notProvided:'Ei annettu',certain:'100 % varma',obs:'Havainto',edit:'Muokkaa',delete:'Poista',hide:'Piilota historia',show:'Näytä historia',clearVessels:'Selvät verisuonet',moveObs:'Liikettä havaittu',fills:'Alkio täyttää suurimman osan munasta',air:'Ilmatila normaali',noImage:'Ei kuvaa'}
+  };
+  function t(k){return (L[lang()]&&L[lang()][k])||L.sv[k]||k}
+  function sec(){return document.getElementById('view-candling')}
+  function active(){const x=sec();return x&&!x.classList.contains('hidden')}
+  const itemMap={
+    'rörelse observerad':'moveObs','movement observed':'moveObs','bevægelse observeret':'moveObs','bevegelse observert':'moveObs','liikettä havaittu':'moveObs',
+    'tydliga blodkärl':'clearVessels','clear blood vessels':'clearVessels','tydelige blodkar':'clearVessels','tydelige blodårer':'clearVessels','selvät verisuonet':'clearVessels',
+    'embryot fyller större delen av ägget':'fills','embryo fills most of the egg':'fills','embryo fylder størstedelen af ægget':'fills','embryo fyller størstedelen av egget':'fills','alkio täyttää suurimman osan munasta':'fills',
+    'luftblåsa normal':'air','air cell normal':'air','luftblære normal':'air','ilmatila normaali':'air'
+  };
+  function translateItems(str){
+    return String(str||'').split(/,\s*/).map(x=>{const k=itemMap[x.trim().toLowerCase()];return k?t(k):x.trim()}).filter(Boolean).join(', ');
+  }
+  function repl(s){
+    let v=String(s);
+    const latestRegexes=[
+      /Senaste markerade observationer:\s*([^\.]+)\./g,
+      /Latest marked observations:\s*([^\.]+)\./g,
+      /Seneste markerede observationer:\s*([^\.]+)\./g,
+      /Siste markerte observasjoner:\s*([^\.]+)\./g,
+      /Viimeisimmät merkityt havainnot:\s*([^\.]+)\./g
+    ];
+    latestRegexes.forEach(rx=>{v=v.replace(rx,(m,items)=>t('latest').replace('{items}',translateItems(items)))});
+    const R=[
+      [/Why does PoultryMaster draw this conclusion\?/g,t('whyTitle')],[/Varför drar PoultryMaster denna slutsats\?/g,t('whyTitle')],[/Hvorfor drager PoultryMaster denne konklusion\?/g,t('whyTitle')],[/Hvorfor trekker PoultryMaster denne konklusjonen\?/g,t('whyTitle')],[/Miksi PoultryMaster tekee tämän johtopäätöksen\?/g,t('whyTitle')],
+      [/3 positiva lysningar är registrerade\./g,t('positive')],[/3 positive candlings are registered\./g,t('positive')],[/3 positive lysninger er registreret\./g,t('positive')],[/3 positive lysinger er registrert\./g,t('positive')],[/3 positiivista läpivalaisua on rekisteröity\./g,t('positive')],
+      [/1 observation har markerats med hög säkerhet\./g,t('highConf')],[/1 observation has been marked with high confidence\./g,t('highConf')],[/1 observation er markeret med høj sikkerhed\./g,t('highConf')],[/1 observasjon er markert med høy sikkerhet\./g,t('highConf')],[/1 havainto on merkitty suurella varmuudella\./g,t('highConf')],
+      [/Observationerna nämner rörelse, hjärtslag, liv eller tydlig aktivitet\./g,t('movement')],[/The observations mention movement, heartbeat, life, or clear activity\./g,t('movement')],[/Observationerne nævner bevægelse, hjerteslag, liv eller tydelig aktivitet\./g,t('movement')],[/Observasjonene nevner bevegelse, hjerteslag, liv eller tydelig aktivitet\./g,t('movement')],[/Havainnoissa mainitaan liike, sydämenlyönti, elonmerkit tai selvä aktiivisuus\./g,t('movement')],
+      [/Observationerna beskriver tydliga blodkärl, stark utveckling eller stor embryomassa\./g,t('clear')],[/The observations describe clear blood vessels, strong development, or a large embryo mass\./g,t('clear')],[/Observationerne beskriver tydelige blodkar, stærk udvikling eller stor embryomasse\./g,t('clear')],[/Observasjonene beskriver tydelige blodårer, sterk utvikling eller stor embryomasse\./g,t('clear')],[/Havainnot kuvaavat selviä verisuonia, vahvaa kehitystä tai suurta alkiomassaa\./g,t('clear')],
+      [/Assessmenten baseras på registrerade observationer och fungerar som beslutsstöd\. Den ersätter inte din egen slutliga bedömning\./g,t('disclaimer')],[/The assessment is based on registered observations and is intended as decision support\. It does not replace your own final judgment\./g,t('disclaimer')],[/Vurderingen er baseret på registrerede observationer og fungerer som beslutningsstøtte\. Den erstatter ikke din egen endelige vurdering\./g,t('disclaimer')],[/Vurderingen er basert på registrerte observasjoner og fungerer som beslutningsstøtte\. Den erstatter ikke din egen endelige vurdering\./g,t('disclaimer')],[/Arvio perustuu rekisteröityihin havaintoihin ja toimii päätöksenteon tukena\. Se ei korvaa omaa lopullista arviotasi\./g,t('disclaimer')],
+      [/Analysis basis/g,t('evidence')],[/Development trend/g,t('trend')],[/Analysunderlag/g,t('evidence')],[/Utvecklingstrend/g,t('trend')],
+      [/Confidence:/g,t('confidence')+':'],[/Not provided/g,t('notProvided')],[/100% certain/g,t('certain')],[/100 % säker/g,t('certain')],
+      [/Hide history/g,t('hide')],[/Show history/g,t('show')],[/Dölj historik/g,t('hide')],[/Visa historik/g,t('show')],
+      [/No image/g,t('noImage')],[/Ingen bild/g,t('noImage')]
+    ];
+    R.forEach(([rx,to])=>v=v.replace(rx,to));
+    return v;
+  }
+  function walk(root,fn){
+    if(!root)return;
+    const tw=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{
+      if(!n.nodeValue.trim())return NodeFilter.FILTER_REJECT;
+      const p=n.parentElement;
+      if(!p||['SCRIPT','STYLE','TEXTAREA','INPUT'].includes(p.tagName))return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT;
+    }});
+    const nodes=[]; while(tw.nextNode())nodes.push(tw.currentNode); nodes.forEach(fn);
+  }
+  function styleWhyBox(){
+    const s=sec(); if(!s)return;
+    // add a tiny readability boost without changing layout philosophy
+    s.querySelectorAll('.candling-assessment-box li, .candling-disclaimer').forEach(el=>{el.style.lineHeight='1.45'});
+  }
+  function run(){
+    if(!active())return;
+    const s=sec();
+    walk(s,n=>{const nv=repl(n.nodeValue); if(nv!==n.nodeValue)n.nodeValue=nv});
+    styleWhyBox();
+  }
+  let busy=false;function sched(){if(busy)return;busy=true;requestAnimationFrame(()=>{try{run()}catch(e){}busy=false})}
+  document.addEventListener('DOMContentLoaded',sched);window.addEventListener('load',sched);document.addEventListener('click',()=>setTimeout(sched,80),true);document.addEventListener('input',()=>setTimeout(sched,80),true);
+  new MutationObserver(sched).observe(document.documentElement,{childList:true,subtree:true,characterData:true});setInterval(sched,900);
+})();
+}
+
+{
+/* PoultryMaster v2.9.9 – Candling Complete
+   Final micro-polish: fixes remaining candling UI labels only.
+   User notes, breeds, IDs, farm names and machine names remain unchanged. */
+(function(){
+  const KEY='egg_manager_v2';
+  function st(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return {}}}
+  function lang(){return (st().farmSettings||{}).language||'sv'}
+  const L={
+    sv:{latestConfidence:'Senaste säkerhetsnivå',uncertain:'Osäker',certain:'100 % säker'},
+    en:{latestConfidence:'Latest confidence level',uncertain:'Uncertain',certain:'100% certain'},
+    da:{latestConfidence:'Seneste sikkerhedsniveau',uncertain:'Usikker',certain:'100 % sikker'},
+    no:{latestConfidence:'Siste sikkerhetsnivå',uncertain:'Usikker',certain:'100 % sikker'},
+    fi:{latestConfidence:'Viimeisin varmuustaso',uncertain:'Epävarma',certain:'100 % varma'}
+  };
+  function t(k){return (L[lang()]&&L[lang()][k])||L.sv[k]||k}
+  function sec(){return document.getElementById('view-candling')}
+  function active(){const s=sec();return s&&!s.classList.contains('hidden')}
+  function walk(root,fn){
+    const tw=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{
+      if(!n.nodeValue.trim())return NodeFilter.FILTER_REJECT;
+      const p=n.parentElement;
+      if(!p||['SCRIPT','STYLE','TEXTAREA','INPUT'].includes(p.tagName))return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT;
+    }});
+    const nodes=[];while(tw.nextNode())nodes.push(tw.currentNode);nodes.forEach(fn);
+  }
+  function repl(v){
+    v=String(v);
+    v=v.replace(/Uncertaint/g,t('uncertain'));
+    v=v.replace(/Uncertainty/g,t('uncertain'));
+    v=v.replace(/Senaste säkerhetsnivå/g,t('latestConfidence'));
+    v=v.replace(/Latest confidence level/g,t('latestConfidence'));
+    v=v.replace(/Seneste sikkerhedsniveau/g,t('latestConfidence'));
+    v=v.replace(/Siste sikkerhetsnivå/g,t('latestConfidence'));
+    v=v.replace(/Viimeisin varmuustaso/g,t('latestConfidence'));
+    v=v.replace(/100 % certain/g,t('certain'));
+    return v;
+  }
+  function run(){if(!active())return;walk(sec(),n=>{const nv=repl(n.nodeValue);if(nv!==n.nodeValue)n.nodeValue=nv})}
+  let busy=false;function sched(){if(busy)return;busy=true;requestAnimationFrame(()=>{try{run()}catch(e){}busy=false})}
+  document.addEventListener('DOMContentLoaded',sched);window.addEventListener('load',sched);
+  document.addEventListener('click',()=>setTimeout(sched,70),true);document.addEventListener('input',()=>setTimeout(sched,70),true);
+  new MutationObserver(sched).observe(document.documentElement,{childList:true,subtree:true,characterData:true});setInterval(sched,1000);
+})();
+}
+
+{
+/* PoultryMaster v2.9.9 – Safe Chick I18N Form Fix
+   Scope: only chick module + chick registration dialog.
+   No MutationObserver. No event interception. No data changes. */
+(function(){
+  const KEY='egg_manager_v2';
+  const D={
+    sv:{add:'+ Lägg till',chicks:'Kycklingar',journalTitle:'🐣 Digital uppväxtjournal',journalText:'Följ varje kyckling från kläckning till flock: ålder, vikt, hälsa, utveckling och livsbok.',empty:'Inga kycklingar ännu.',register:'Registrera kyckling',edit:'Redigera kyckling',id:'Kyckling-ID / namn',linkedEgg:'Kopplat ägg',selectEgg:'Välj ägg',breed:'Ras',hatchDate:'Kläckdatum',sex:'Kön',unknown:'Okänt',hen:'Höna',rooster:'Tupp',status:'Status',alive:'Lever',observe:'Observeras',treatment:'Behandling',moved:'Flyttad till flock',dead:'Död',weight:'Vikt gram',mother:'Mor',father:'Far',ring:'Ringnummer',photo:'Bild / kamera',notes:'Anteckningar',save:'Spara',close:'Stäng',quickRegister:'🐣 Registrera kyckling'},
+    en:{add:'+ Add',chicks:'Chicks',journalTitle:'🐣 Digital growth journal',journalText:'Follow each chick from hatch to flock: age, weight, health, development and life book.',empty:'No chicks yet.',register:'Register chick',edit:'Edit chick',id:'Chick ID / name',linkedEgg:'Linked egg',selectEgg:'Select egg',breed:'Breed',hatchDate:'Hatch date',sex:'Sex',unknown:'Unknown',hen:'Hen',rooster:'Rooster',status:'Status',alive:'Alive',observe:'Under observation',treatment:'Treatment',moved:'Moved to flock',dead:'Deceased',weight:'Weight (g)',mother:'Mother',father:'Father',ring:'Ring number',photo:'Photo / camera',notes:'Notes',save:'Save',close:'Close',quickRegister:'🐣 Register chick'},
+    da:{add:'+ Tilføj',chicks:'Kyllinger',journalTitle:'🐣 Digital vækstjournal',journalText:'Følg hver kylling fra klækning til flok: alder, vægt, sundhed, udvikling og livsbog.',empty:'Ingen kyllinger endnu.',register:'Registrér kylling',edit:'Redigér kylling',id:'Kylling-ID / navn',linkedEgg:'Tilknyttet æg',selectEgg:'Vælg æg',breed:'Race',hatchDate:'Klækkedato',sex:'Køn',unknown:'Ukendt',hen:'Høne',rooster:'Hane',status:'Status',alive:'Lever',observe:'Observeres',treatment:'Behandling',moved:'Flyttet til flok',dead:'Død',weight:'Vægt (g)',mother:'Mor',father:'Far',ring:'Ringnummer',photo:'Billede / kamera',notes:'Noter',save:'Gem',close:'Luk',quickRegister:'🐣 Registrér kylling'},
+    no:{add:'+ Legg til',chicks:'Kyllinger',journalTitle:'🐣 Digital vekstjournal',journalText:'Følg hver kylling fra klekking til flokk: alder, vekt, helse, utvikling og livsbok.',empty:'Ingen kyllinger ennå.',register:'Registrer kylling',edit:'Rediger kylling',id:'Kylling-ID / navn',linkedEgg:'Koblet egg',selectEgg:'Velg egg',breed:'Rase',hatchDate:'Klekkedato',sex:'Kjønn',unknown:'Ukjent',hen:'Høne',rooster:'Hane',status:'Status',alive:'Lever',observe:'Observeres',treatment:'Behandling',moved:'Flyttet til flokk',dead:'Død',weight:'Vekt (g)',mother:'Mor',father:'Far',ring:'Ringnummer',photo:'Bilde / kamera',notes:'Notater',save:'Lagre',close:'Lukk',quickRegister:'🐣 Registrer kylling'},
+    fi:{add:'+ Lisää',chicks:'Poikaset',journalTitle:'🐣 Digitaalinen kasvupäiväkirja',journalText:'Seuraa jokaista poikasta kuoriutumisesta parveen: ikä, paino, terveys, kehitys ja elämänkirja.',empty:'Ei poikasia vielä.',register:'Lisää poikanen',edit:'Muokkaa poikasta',id:'Poikasen ID / nimi',linkedEgg:'Liitetty muna',selectEgg:'Valitse muna',breed:'Rotu',hatchDate:'Kuoriutumispäivä',sex:'Sukupuoli',unknown:'Tuntematon',hen:'Kana',rooster:'Kukko',status:'Status',alive:'Elossa',observe:'Tarkkailussa',treatment:'Hoito',moved:'Siirretty parveen',dead:'Kuollut',weight:'Paino (g)',mother:'Emo',father:'Isä',ring:'Rengasnumero',photo:'Kuva / kamera',notes:'Muistiinpanot',save:'Tallenna',close:'Sulje',quickRegister:'🐣 Lisää poikanen'}
+  };
+  function getState(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return {}}}
+  function lang(){return (getState().farmSettings||{}).language||'sv'}
+  function tx(k){const l=lang();return (D[l]&&D[l][k])||D.sv[k]||k}
+  function farm(){const fs=getState().farmSettings||{};return String(fs.farmName||'PoultryMaster').trim()||'PoultryMaster'}
+  function norm(s){return String(s||'').trim().replace(/\s+/g,' ')}
+  function put(el,v){if(el&&el.textContent!==v)el.textContent=v}
+  const labelKey={
+    'Kyckling-ID / namn':'id','Chick ID / name':'id','Kylling-ID / navn':'id','Poikasen ID / nimi':'id',
+    'Kopplat ägg':'linkedEgg','Linked egg':'linkedEgg','Tilknyttet æg':'linkedEgg','Koblet egg':'linkedEgg','Liitetty muna':'linkedEgg',
+    'Ras':'breed','Breed':'breed','Race':'breed','Rase':'breed','Rotu':'breed',
+    'Kläckdatum':'hatchDate','Hatch date':'hatchDate','Klækkedato':'hatchDate','Klekkedato':'hatchDate','Kuoriutumispäivä':'hatchDate',
+    'Kön':'sex','Sex':'sex','Køn':'sex','Kjønn':'sex','Sukupuoli':'sex','Status':'status',
+    'Vikt gram':'weight','Weight (g)':'weight','Vægt (g)':'weight','Vekt (g)':'weight','Paino (g)':'weight',
+    'Mor':'mother','Mother':'mother','Emo':'mother','Far':'father','Father':'father','Isä':'father',
+    'Ringnummer':'ring','Ring number':'ring','Rengasnummer':'ring','Rengasnumero':'ring',
+    'Bild / kamera':'photo','Photo / camera':'photo','Billede / kamera':'photo','Bilde / kamera':'photo','Kuva / kamera':'photo',
+    'Anteckningar':'notes','Notes':'notes','Noter':'notes','Notater':'notes','Muistiinpanot':'notes'
+  };
+  const optionKey={
+    'Välj ägg':'selectEgg','Select egg':'selectEgg','Vælg æg':'selectEgg','Velg egg':'selectEgg','Valitse muna':'selectEgg',
+    'Okänt':'unknown','Unknown':'unknown','Ukendt':'unknown','Ukjent':'unknown','Tuntematon':'unknown',
+    'Höna':'hen','Hen':'hen','Høne':'hen','Kana':'hen','Tupp':'rooster','Rooster':'rooster','Hane':'rooster','Kukko':'rooster',
+    'Lever':'alive','Alive':'alive','Elossa':'alive','Observeras':'observe','Under observation':'observe','Observeres':'observe','Tarkkailussa':'observe',
+    'Behandling':'treatment','Treatment':'treatment','Hoito':'treatment','Flyttad till flock':'moved','Moved to flock':'moved','Flyttet til flok':'moved','Flyttet til flokk':'moved','Siirretty parveen':'moved',
+    'Död':'dead','Deceased':'dead','Kuollut':'dead'
+  };
+  function chickModalOpen(){
+    const m=document.getElementById('modal'), f=document.getElementById('form');
+    return !!(m&&m.classList.contains('active')&&f&&f.elements&&f.elements.hatchDate&&f.elements.ringNumber&&f.elements.eggId&&f.elements.gender);
+  }
+  function translateModal(){
+    if(!chickModalOpen())return;
+    const title=document.getElementById('modal-title');
+    const old=norm(title&&title.textContent);
+    const editing=/Redigera|Edit|Redigér|Rediger|Muokkaa/i.test(old);
+    put(title,editing?tx('edit'):tx('register'));
+    document.querySelectorAll('#fields label').forEach(label=>{const k=labelKey[norm(label.textContent)]; if(k)put(label,tx(k));});
+    document.querySelectorAll('#fields select option').forEach(opt=>{const k=optionKey[norm(opt.textContent)]; if(k)opt.textContent=tx(k);});
+    const submit=document.querySelector('#form button[type="submit"],#form button.btn.primary,#form button');
+    if(submit)put(submit,tx('save'));
+    const close=document.querySelector('#modal .x'); if(close)close.setAttribute('aria-label',tx('close'));
+  }
+  function translateView(){
+    const s=document.getElementById('view-chicks'); if(!s)return;
+    const h=s.querySelector('#chicks-title-main'); if(h)put(h,`${farm()} – ${tx('chicks')}`);
+    const add=s.querySelector('button[data-action="add"][data-type="chick"]'); if(add)put(add,tx('add'));
+    const ht=s.querySelector('.chick-hero-title'); if(ht)put(ht,tx('journalTitle'));
+    const hb=s.querySelector('.chick-hero-text'); if(hb)put(hb,tx('journalText'));
+    s.querySelectorAll('.empty,.card .body').forEach(el=>{if(/^No chicks yet\.|^Inga kycklingar ännu\.|^Ingen kyllinger/.test(norm(el.textContent))||norm(el.textContent)==='Ei poikasia vielä.')put(el,tx('empty'));});
+  }
+  function translateQuick(){document.querySelectorAll('[data-action="quick-add"][data-type="chick"]').forEach(b=>put(b,tx('quickRegister')))}
+  function run(){try{translateView();translateModal();translateQuick()}catch(e){}}
+  function later(){setTimeout(run,40);setTimeout(run,180);setTimeout(run,450)}
+  function safeLaterFromEvent(e){
+    const target=e&&e.target;
+    /* Do not re-translate while Android's native select/file pickers are open.
+       Rewriting option labels during a picker session can make the screen flicker. */
+    if(target && target.closest && target.closest('#modal select,#modal input,#modal textarea')) return;
+    later();
+  }
+  document.addEventListener('DOMContentLoaded',later);
+  window.addEventListener('load',later);
+  document.addEventListener('click',safeLaterFromEvent);
+  window.addEventListener('storage',later);
+  later();
+})();
+}
+
+{
+/* PoultryMaster v2.10.1 – Dashboard Today Tasks I18N Fix
+   Scope: Dashboard "today task" card + Most important today checklist.
+   Languages: Svenska, English, Dansk, Norsk, Suomi.
+   No data changes. No layout changes. */
+(function(){
+  const KEY='egg_manager_v2';
+  const D={
+    sv:{today:'idag',active:'Aktiva',chicks:'Kycklingar',flock:'Flock',todayWork:'Dagens arbete',todaysTip:'Dagens tips',done:'klara',allDoneToday:'Allt klart för idag',stable:'Stabil',hatchClose:'Kläckning nära',lockdownToday:'Lockdown idag',candlingDay:'Lysningsdag',followUp:'Följ upp',stableStopped:'Stabil med avbrott',noActiveHatch:'Ingen aktiv kläckning',allTasksDoneMsg:'Alla planerade uppgifter är genomförda. PoultryMaster fortsätter hålla koll på gården.',stableMsg:'Allt ser stabilt ut idag. Öppna korten för mer detaljer.',hatchCloseMsg:'{n} ägg är vid kläckdag eller passerad beräknad kläckning. Öppna inte kläckaren i onödan.',lockdownTodayMsg:'{n} ägg går in i lockdown idag. Förbered genom att stoppa vändning och höja fukten enligt din plan.',candlingDayMsg:'{n} ägg ska lysas idag. Logga resultatet direkt efter varje ägg.',followUpMsg:'{n} ägg är markerade som osäkra. Planera en extra kontroll innan du fattar beslut.',stableStoppedMsg:'{active} ägg är aktiva och {stopped} har avbrutits. Läget är under kontroll.',noActiveHatchMsg:'Inga ägg är aktiva just nu. Registrera en ny omgång när du startar nästa kläckning.',allTasksDoneTip:'Bra jobbat. Nu återstår normal tillsyn och att hålla kläckaren stabil.',stableTip:'Fortsätt hålla temperatur och vattennivå stabilt.',hatchCloseTip:'Håll luftfuktigheten stabil och låt kycklingarna arbeta i lugn och ro.',lockdownTip:'Efter lockdown ska kläckaren öppnas så lite som möjligt.',candlingTip:'Ta ut ett ägg i taget, lys i mörkt rum och välj hur säker du är på observationen.',followUpTip:'Osäkra ägg ska hellre följas upp en gång extra än kasseras för tidigt.',stableStoppedTip:'Dokumentationen i Livsboken gör att du kan se mönster efter flera kläckningar.',noActiveHatchTip:'Skapa gärna en omgång först, så blir historiken tydligare.',firstCandling:'Första lysning',secondCandling:'Andra lysning',lockdown:'Lockdown',hatchDay:'Kläckdag',savedDone:'Klart och sparat i dagens logg.',undo:'Ångra',complete:'Klar',noTasksToday:'✅ Inga planerade uppgifter idag.'},
+    en:{today:'today',active:'Active',chicks:'Chicks',flock:'Flock',todayWork:'Today’s work',todaysTip:'Today’s tip',done:'done',allDoneToday:'All done for today',stable:'Stable',hatchClose:'Hatch is close',lockdownToday:'Lockdown today',candlingDay:'Candling day',followUp:'Follow up',stableStopped:'Stable with stopped eggs',noActiveHatch:'No active hatch',allTasksDoneMsg:'All planned tasks are completed. PoultryMaster keeps monitoring the farm.',stableMsg:'Everything looks stable today. Open the cards for more details.',hatchCloseMsg:'{n} eggs are at hatch day or past the estimated hatch date. Do not open the incubator unnecessarily.',lockdownTodayMsg:'{n} eggs enter lockdown today. Stop turning and raise humidity according to your plan.',candlingDayMsg:'{n} eggs should be candled today. Log the result directly after each egg.',followUpMsg:'{n} eggs are marked as uncertain. Plan an extra check before making a decision.',stableStoppedMsg:'{active} eggs are active and {stopped} have been stopped. Everything is under control.',noActiveHatchMsg:'No eggs are active right now. Register a new batch when you start the next hatch.',allTasksDoneTip:'Good work. Now normal supervision remains — keep the incubator stable.',stableTip:'Keep temperature and water level stable.',hatchCloseTip:'Keep humidity stable and let the chicks work in peace.',lockdownTip:'After lockdown, open the incubator as little as possible.',candlingTip:'Take one egg at a time, candle in a dark room, and record how certain you are.',followUpTip:'Uncertain eggs are better checked once more than discarded too early.',stableStoppedTip:'The Life book documentation helps you spot patterns across several hatches.',noActiveHatchTip:'Create a batch first so the history becomes clearer.',firstCandling:'First candling',secondCandling:'Second candling',lockdown:'Lockdown',hatchDay:'Hatch day',savedDone:'Done and saved in today’s log.',undo:'Undo',complete:'Done',noTasksToday:'✅ No planned tasks today.'},
+    da:{today:'i dag',active:'Aktive',chicks:'Kyllinger',flock:'Flok',todayWork:'Dagens arbejde',todaysTip:'Dagens tip',done:'klare',allDoneToday:'Alt klart for i dag',stable:'Stabil',hatchClose:'Klækning tæt på',lockdownToday:'Lockdown i dag',candlingDay:'Lysningsdag',followUp:'Følg op',stableStopped:'Stabil med afbrudte æg',noActiveHatch:'Ingen aktiv klækning',allTasksDoneMsg:'Alle planlagte opgaver er udført. PoultryMaster holder fortsat øje med gården.',stableMsg:'Alt ser stabilt ud i dag. Åbn kortene for flere detaljer.',hatchCloseMsg:'{n} æg er på klækkedag eller efter forventet klækning. Åbn ikke rugemaskinen unødigt.',lockdownTodayMsg:'{n} æg går i lockdown i dag. Stop vending og hæv fugten efter din plan.',candlingDayMsg:'{n} æg skal lyses i dag. Log resultatet direkte efter hvert æg.',followUpMsg:'{n} æg er markeret som usikre. Planlæg en ekstra kontrol før du beslutter dig.',stableStoppedMsg:'{active} æg er aktive, og {stopped} er afbrudt. Situationen er under kontrol.',noActiveHatchMsg:'Ingen æg er aktive lige nu. Registrér et nyt hold, når du starter næste klækning.',allTasksDoneTip:'Godt arbejde. Nu mangler kun normalt tilsyn og at holde rugemaskinen stabil.',stableTip:'Hold temperatur og vandniveau stabilt.',hatchCloseTip:'Hold fugten stabil og lad kyllingerne arbejde i ro.',lockdownTip:'Efter lockdown skal rugemaskinen åbnes så lidt som muligt.',candlingTip:'Tag ét æg ad gangen, lys i et mørkt rum, og angiv hvor sikker observationen er.',followUpTip:'Usikre æg bør hellere kontrolleres én gang ekstra end kasseres for tidligt.',stableStoppedTip:'Dokumentationen i Livsbogen hjælper dig med at se mønstre over flere klækninger.',noActiveHatchTip:'Opret gerne et hold først, så historikken bliver tydeligere.',firstCandling:'Første lysning',secondCandling:'Anden lysning',lockdown:'Lockdown',hatchDay:'Klækkedag',savedDone:'Klart og gemt i dagens log.',undo:'Fortryd',complete:'Klar',noTasksToday:'✅ Ingen planlagte opgaver i dag.'},
+    no:{today:'i dag',active:'Aktive',chicks:'Kyllinger',flock:'Flokk',todayWork:'Dagens arbeid',todaysTip:'Dagens tips',done:'klare',allDoneToday:'Alt klart for i dag',stable:'Stabil',hatchClose:'Klekking nærmer seg',lockdownToday:'Lockdown i dag',candlingDay:'Lysingsdag',followUp:'Følg opp',stableStopped:'Stabil med avbrutte egg',noActiveHatch:'Ingen aktiv klekking',allTasksDoneMsg:'Alle planlagte oppgaver er utført. PoultryMaster holder fortsatt oversikt over gården.',stableMsg:'Alt ser stabilt ut i dag. Åpne kortene for flere detaljer.',hatchCloseMsg:'{n} egg er på klekkedag eller forbi beregnet klekking. Ikke åpne rugemaskinen unødvendig.',lockdownTodayMsg:'{n} egg går i lockdown i dag. Stopp vending og øk fuktigheten etter planen din.',candlingDayMsg:'{n} egg skal lyses i dag. Logg resultatet rett etter hvert egg.',followUpMsg:'{n} egg er merket som usikre. Planlegg en ekstra kontroll før du tar en beslutning.',stableStoppedMsg:'{active} egg er aktive, og {stopped} er avbrutt. Situasjonen er under kontroll.',noActiveHatchMsg:'Ingen egg er aktive akkurat nå. Registrer et nytt kull når du starter neste klekking.',allTasksDoneTip:'Godt jobbet. Nå gjenstår normalt tilsyn og å holde rugemaskinen stabil.',stableTip:'Hold temperatur og vannnivå stabilt.',hatchCloseTip:'Hold fuktigheten stabil og la kyllingene arbeide i ro.',lockdownTip:'Etter lockdown skal rugemaskinen åpnes så lite som mulig.',candlingTip:'Ta ett egg om gangen, lys i et mørkt rom og registrer hvor sikker du er.',followUpTip:'Usikre egg bør heller følges opp én gang ekstra enn kasseres for tidlig.',stableStoppedTip:'Dokumentasjonen i Livsboken hjelper deg å se mønstre over flere klekkinger.',noActiveHatchTip:'Opprett gjerne et kull først, så blir historikken tydeligere.',firstCandling:'Første lysing',secondCandling:'Andre lysing',lockdown:'Lockdown',hatchDay:'Klekkedag',savedDone:'Klart og lagret i dagens logg.',undo:'Angre',complete:'Klar',noTasksToday:'✅ Ingen planlagte oppgaver i dag.'},
+    fi:{today:'tänään',active:'Aktiiviset',chicks:'Poikaset',flock:'Parvi',todayWork:'Tämän päivän työ',todaysTip:'Päivän vinkki',done:'valmis',allDoneToday:'Kaikki valmista tänään',stable:'Vakaa',hatchClose:'Kuoriutuminen lähellä',lockdownToday:'Lockdown tänään',candlingDay:'Läpivalaisupäivä',followUp:'Seuraa',stableStopped:'Vakaa, keskeytyksiä mukana',noActiveHatch:'Ei aktiivista haudontaa',allTasksDoneMsg:'Kaikki suunnitellut tehtävät on tehty. PoultryMaster jatkaa tilan seurantaa.',stableMsg:'Kaikki näyttää vakaalta tänään. Avaa kortit nähdäksesi lisätiedot.',hatchCloseMsg:'{n} munaa on kuoriutumispäivässä tai arvioitu päivä on ohitettu. Älä avaa hautomakonetta turhaan.',lockdownTodayMsg:'{n} munaa siirtyy lockdowniin tänään. Lopeta kääntö ja nosta kosteutta suunnitelmasi mukaan.',candlingDayMsg:'{n} munaa tulee läpivalaista tänään. Kirjaa tulos heti jokaisen munan jälkeen.',followUpMsg:'{n} munaa on merkitty epävarmoiksi. Suunnittele lisätarkistus ennen päätöstä.',stableStoppedMsg:'{active} munaa on aktiivisia ja {stopped} on keskeytetty. Tilanne on hallinnassa.',noActiveHatchMsg:'Aktiivisia munia ei ole juuri nyt. Rekisteröi uusi erä, kun aloitat seuraavan haudonnan.',allTasksDoneTip:'Hyvää työtä. Nyt riittää normaali valvonta ja hautomakoneen pitäminen vakaana.',stableTip:'Pidä lämpötila ja veden taso vakaana.',hatchCloseTip:'Pidä kosteus vakaana ja anna poikasten työskennellä rauhassa.',lockdownTip:'Lockdownin jälkeen hautomakonetta tulee avata mahdollisimman vähän.',candlingTip:'Ota yksi muna kerrallaan, läpivalaise pimeässä huoneessa ja kirjaa havaintosi varmuus.',followUpTip:'Epävarmat munat kannattaa tarkistaa vielä kerran ennen liian aikaista hylkäämistä.',stableStoppedTip:'Elämänkirjan dokumentointi auttaa näkemään kuvioita useiden haudontojen välillä.',noActiveHatchTip:'Luo ensin erä, jotta historiasta tulee selkeämpi.',firstCandling:'Ensimmäinen läpivalaisu',secondCandling:'Toinen läpivalaisu',lockdown:'Lockdown',hatchDay:'Kuoriutumispäivä',savedDone:'Valmis ja tallennettu päivän lokiin.',undo:'Kumoa',complete:'Valmis',noTasksToday:'✅ Ei suunniteltuja tehtäviä tänään.'}
+  };
+  function getState(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return {}}}
+  function lang(){return (getState().farmSettings||{}).language||'sv'}
+  function tx(k){const l=lang();return (D[l]&&D[l][k])||D.sv[k]||k}
+  function fmt(s,obj){return String(s).replace(/\{(\w+)\}/g,(_,k)=>obj&&obj[k]!=null?obj[k]:'')}
+  function days(date){const d=new Date(date+'T00:00:00');const n=new Date();const t=new Date(n.getFullYear(),n.getMonth(),n.getDate());return Math.floor((t-d)/86400000)}
+  function numbers(){
+    const st=getState(), eggs=st.eggs||[], settings=st.settings||{};
+    const active=eggs.filter(e=>e.status==='Inkuberas');
+    const stopped=eggs.filter(e=>['Obefruktat','Dött embryo','Kasserat'].includes(e.status)).length;
+    const uncertain=eggs.filter(e=>e.status==='Osäkert').length;
+    let candling=0, lockdown=0, hatch=0;
+    active.forEach(e=>{const d=days(e.dateSet); if(d===settings.candling1||d===settings.candling2)candling++; if(d===settings.lockdown)lockdown++; if(d>=settings.incubationDays)hatch++;});
+    return {active:active.length, stopped, uncertain, candling, lockdown, hatch, chicks:(st.chicks||[]).length, flock:(st.flock||[]).length};
+  }
+  function statusKey(){
+    const status=document.querySelector('.farm-today-status')?.textContent||document.querySelector('.farm-today-chip')?.textContent||'';
+    if(/klart|done|valmista|klart/i.test(status))return 'allDoneToday';
+    if(/Kläckning nära|Hatch is close|Klækning tæt|Klekking nær|Kuoriutuminen lähellä/i.test(status))return 'hatchClose';
+    if(/Lockdown/i.test(status))return 'lockdownToday';
+    if(/Lysningsdag|Candling day|Lysingsdag|Läpivalaisupäivä/i.test(status))return 'candlingDay';
+    if(/Följ upp|Follow up|Følg op|Følg opp|Seuraa/i.test(status))return 'followUp';
+    if(/Stabil med|Stable with|Vakaa, keskeytyksiä/i.test(status))return 'stableStopped';
+    if(/Ingen aktiv|No active hatch|Ei aktiivista/i.test(status))return 'noActiveHatch';
+    return 'stable';
+  }
+  function translateFarmTodayTaskBlock(){
+    const n=numbers(), key=statusKey();
+    const icon=(key==='hatchClose'||key==='noActiveHatch')?'🔴':(key==='stable'||key==='stableStopped'||key==='allDoneToday')?'🟢':'🟡';
+    const label=tx(key);
+    const status=document.querySelector('.farm-today-status'); if(status)status.textContent=`${icon} ${label}`;
+    const chip=document.querySelector('.farm-today-chip'); if(chip)chip.textContent=label;
+    const title=document.querySelector('.farm-today-title');
+    if(title){const farm=(getState().farmSettings||{}).farmName||'PoultryMaster';title.textContent=`🌱 ${farm} ${tx('today')}`;}
+    const msgKey={allDoneToday:'allTasksDoneMsg',stable:'stableMsg',hatchClose:'hatchCloseMsg',lockdownToday:'lockdownTodayMsg',candlingDay:'candlingDayMsg',followUp:'followUpMsg',stableStopped:'stableStoppedMsg',noActiveHatch:'noActiveHatchMsg'}[key]||'stableMsg';
+    const count={hatchClose:n.hatch,lockdownToday:n.lockdown,candlingDay:n.candling,followUp:n.uncertain}[key]||0;
+    const text=document.querySelector('.farm-today-text');
+    if(text)text.textContent=fmt(tx(msgKey),{n:count,active:n.active,stopped:n.stopped});
+    const tips={allDoneToday:'allTasksDoneTip',stable:'stableTip',hatchClose:'hatchCloseTip',lockdownToday:'lockdownTip',candlingDay:'candlingTip',followUp:'followUpTip',stableStopped:'stableStoppedTip',noActiveHatch:'noActiveHatchTip'};
+    const tip=document.querySelector('.farm-today-tip'); if(tip)tip.textContent=`💡 ${tx('todaysTip')}: ${tx(tips[key]||'stableTip')}`;
+    const mini=document.querySelectorAll('.farm-today-mini .status-chip');
+    if(mini[0])mini[0].textContent=`🥚 ${tx('active')}: ${n.active}`;
+    if(mini[1])mini[1].textContent=`🐣 ${tx('chicks')}: ${n.chicks}`;
+    if(mini[2])mini[2].textContent=`🐓 ${tx('flock')}: ${n.flock}`;
+    if(mini[3])mini[3].textContent=`📌 ${tx('todayWork')}: ${(mini[3].textContent.match(/\d+/)||['0'])[0]}`;
+  }
+  function translateChecklist(){
+    const ph=document.querySelector('.today-progress-head');
+    if(ph){const spans=ph.querySelectorAll('span');if(spans[0])spans[0].textContent=tx('todayWork');if(spans[1]){const nums=spans[1].textContent.match(/\d+/g)||['0','0'];spans[1].textContent=`${nums[0]}/${nums[1]} ${tx('done')}`;}}
+    const taskRoot=document.getElementById('tasks');
+    if(taskRoot && /Inga planerade|No planned|Ingen planlagte|Ei suunniteltuja/.test(taskRoot.textContent))taskRoot.innerHTML=`<div class="empty">${tx('noTasksToday')}</div>`;
+    document.querySelectorAll('.task-check-text').forEach(el=>{
+      const id=el.querySelector('b')?.textContent || '';
+      const raw=el.textContent;
+      let k='hatchDay', icon='🐣';
+      if(/Första|First|Første|Ensimmäinen/.test(raw)){k='firstCandling';icon='🔦'}
+      else if(/Andra|Second|Anden|Andre|Toinen/.test(raw)){k='secondCandling';icon='🔦'}
+      else if(/Lockdown/.test(raw)){k='lockdown';icon='🔒'}
+      el.innerHTML=`${icon} ${tx(k)}: <b>${id}</b>`;
+    });
+    document.querySelectorAll('.task-done-note').forEach(el=>el.textContent=tx('savedDone'));
+    document.querySelectorAll('.task-check-item button').forEach(btn=>{
+      if(/Ångra|Undo|Fortryd|Angre|Kumoa/i.test(btn.textContent))btn.textContent=tx('undo');
+      else btn.textContent=tx('complete');
+    });
+  }
+  function run(){
+    const dash=document.getElementById('view-dashboard');
+    if(!dash || dash.classList.contains('hidden'))return;
+    try{translateFarmTodayTaskBlock();translateChecklist();}catch(e){}
+  }
+  let busy=false;function sched(){if(busy)return;busy=true;requestAnimationFrame(()=>{busy=false;run();});}
+  document.addEventListener('DOMContentLoaded',sched);
+  window.addEventListener('load',sched);
+  document.addEventListener('click',()=>setTimeout(sched,60),true);
+  window.addEventListener('storage',sched);
+  new MutationObserver(sched).observe(document.documentElement,{childList:true,subtree:true,characterData:true});
+  setTimeout(sched,50);setTimeout(sched,300);setInterval(sched,1500);
+})();
+}
+
+{
+/* PoultryMaster v2.10.3 – Full I18N Runtime Revision
+   Scope: user-visible text only. No layout, CSS, data model, or app logic changes.
+   Supported languages: sv, en, da, no, fi. */
+(function(){
+  if(window.__PM_FULL_I18N_102__) return;
+  window.__PM_FULL_I18N_102__ = true;
+
+  const STORE_KEY = 'egg_manager_v2';
+
+  const L = {
+    sv:{
+      tagline:'Komplett hantering av inkubering, flock och avel',
+      overview:'Översikt', eggs:'Ägg', candling:'Lysning', chicks:'Kycklingar', flock:'Flock', laying:'Värpning',
+      statistics:'Statistik', settings:'Inställningar', farmJournal:'Gårdsjournal', machines:'Maskiner',
+      reportsTrends:'Rapporter och trender', appSettings:'Appinställningar', farmTimeline:'Gårdens tidslinje', incubatorAccessories:'Kläckare och tillbehör',
+      activeEggs:'Aktiva ägg', incubators:'Kläckare', active:'Aktiva', stopped:'Avbrutna', uncertain:'Osäkra', hatched:'Kläckta',
+      today:'idag', day:'Dag', of:'av', inOperation:'i drift', registered:'registrerade', hatchedLower:'kläckta',
+      registerEvent:'Registrera ny händelse', registerSub:'Ägg, lysning, kycklingar, hälsa, vikt m.m.',
+      mostImportant:'Viktigast idag', upcomingNotDone:'Kommande (ej utförda)', activeHatches:'Aktiva kläckningar',
+      back:'← Tillbaka', add:'Lägg till', edit:'Redigera', delete:'Ta bort', save:'Spara', cancel:'Avbryt', close:'Stäng',
+      lifeBook:'Livsbok', addEgg:'+ Lägg till ägg', manageIncubators:'Hantera kläckare',
+      todayTip:'Dagens tips', keepTempWater:'Håll temperatur och vattennivå stabilt.',
+      candlingDay:'Lysningsdag', candlingTodayMsg:'{n} ägg ska lysas idag. Logga resultatet direkt efter varje ägg.',
+      lockdownToday:'Lockdown idag', lockdownTodayMsg:'{n} ägg går in i lockdown idag. Sluta vända och höj luftfuktigheten enligt plan.',
+      hatchClose:'Kläckning nära', hatchCloseMsg:'{n} ägg är vid kläckdag eller passerad beräknad kläckning. Öppna inte kläckaren i onödan.',
+      stableStopped:'Stabilt med avbrutna ägg', stableStoppedMsg:'{active} ägg är aktiva och {stopped} har avbrutits. Läget är under kontroll.',
+      stable:'Stabilt läge', stableMsg:'Allt ser stabilt ut idag. Öppna korten för mer detaljer.',
+      allDoneToday:'Allt klart för idag', allTasksDoneMsg:'Alla planerade uppgifter är genomförda. PoultryMaster fortsätter hålla koll på gården.',
+      allTasksDoneTip:'Bra jobbat. Nu återstår normal tillsyn och att hålla kläckaren stabil.',
+      firstCandling:'Första lysning', secondCandling:'Andra lysning', lockdown:'Lockdown', hatchDay:'Kläckdag', estimatedHatch:'Beräknad kläckning',
+      nextEvent:'Nästa händelse', candlingToday:'lysning idag', inDays:'om {n} dagar', inOneDay:'om 1 dag', todayLower:'idag',
+      eggsInIncubator:'{n} ägg i kläckare', survivalRate:'Överlevnadsgrad', plannedRoutine:'Planerad rutin',
+      noActiveHatches:'Inga aktiva kläckningar ännu.', noRecords:'Inga registrerade ännu', noHistory:'Ingen historik ännu.',
+      farmJournalIntro:'Här samlas allt som händer på gården. Registrering sker från startsidans gröna knapp, medan journalen visar dagens arbete, kommande rutiner och historiken.',
+      todaySection:'IDAG', upcoming:'KOMMANDE', history:'HISTORIK',
+      statsHatching:'Kläckning', statsLaying:'Värpning', statsBreeding:'Avel', statsHealth:'Hälsa', statsHall:'Hall',
+      hatchBatches:'Kläckomgångar', totalBatches:'Totalt omgångar', activeBatches:'Aktiva omgångar', finishedBatches:'Avslutade omgångar', manual:'Manuella',
+      newBatch:'+ Ny omgång', batchTip:'Tips: skapa en omgång och välj den när du registrerar ägg. Gamla ägg utan omgång grupperas automatiskt efter startdatum.',
+      started:'Startade', totalIncubated:'Totalt inkuberade', activeNow:'Aktiva just nu',
+      hatchAnalysisHistory:'Kläckanalys & historik', lossesByStage:'Förluster per stadium',
+      beforeDay8:'Före / omkring dag 8', day8to14:'Dag 8–14', day14to21:'Dag 14–21',
+      noFinishedBatches:'Inga avslutade omgångar ännu.', noActiveBatches:'Inga aktiva omgångar ännu.',
+      total:'Totalt', hens:'Hönor', roosters:'Tuppar', unknown:'Okända', noBirds:'Inga fåglar ännu.',
+      eggsToday:'Ägg idag', last7:'Senaste 7 dagar', last30:'Senaste 30 dagar', bestHen:'Bästa höna', averageWeight:'Medelvikt', breedingEggs:'Avelsägg', doubleYolks:'Dubbelgulor',
+      noLayingLogs:'Inga värpningar loggade ännu.',
+      breed:'Ras', sex:'Kön', status:'Status', notes:'Anteckningar', origin:'Ursprung', mother:'Mor', father:'Far', ringNumber:'Ringnummer',
+      nameId:'Namn / ID', hatchDate:'Kläckdatum', photoCamera:'Bild / kamera', unknownGender:'Okänt'
+    },
+    en:{
+      tagline:'Complete management of incubation, flock and breeding',
+      overview:'Overview', eggs:'Eggs', candling:'Candling', chicks:'Chicks', flock:'Flock', laying:'Laying',
+      statistics:'Statistics', settings:'Settings', farmJournal:'Farm journal', machines:'Machines',
+      reportsTrends:'Reports and trends', appSettings:'App settings', farmTimeline:'Farm timeline', incubatorAccessories:'Incubators and accessories',
+      activeEggs:'Active eggs', incubators:'Incubators', active:'Active', stopped:'Stopped', uncertain:'Uncertain', hatched:'Hatched',
+      today:'today', day:'Day', of:'of', inOperation:'in operation', registered:'registered', hatchedLower:'hatched',
+      registerEvent:'Register new event', registerSub:'Eggs, candling, chicks, health, weight, etc.',
+      mostImportant:'Most important today', upcomingNotDone:'Upcoming (not completed)', activeHatches:'Active hatches',
+      back:'← Back', add:'Add', edit:'Edit', delete:'Delete', save:'Save', cancel:'Cancel', close:'Close',
+      lifeBook:'Life book', addEgg:'+ Add egg', manageIncubators:'Manage incubators',
+      todayTip:'Today’s tip', keepTempWater:'Keep temperature and water level stable.',
+      candlingDay:'Candling day', candlingTodayMsg:'{n} eggs should be candled today. Log the result immediately after each egg.',
+      lockdownToday:'Lockdown today', lockdownTodayMsg:'{n} eggs enter lockdown today. Stop turning and raise humidity according to plan.',
+      hatchClose:'Hatch is close', hatchCloseMsg:'{n} eggs are at hatch day or past the estimated hatch date. Do not open the incubator unnecessarily.',
+      stableStopped:'Stable with stopped eggs', stableStoppedMsg:'{active} eggs are active and {stopped} have been stopped. Everything is under control.',
+      stable:'Stable status', stableMsg:'Everything looks stable today. Open the cards for more details.',
+      allDoneToday:'All done for today', allTasksDoneMsg:'All planned tasks are completed. PoultryMaster keeps monitoring the farm.',
+      allTasksDoneTip:'Good work. Now normal supervision remains — keep the incubator stable.',
+      firstCandling:'First candling', secondCandling:'Second candling', lockdown:'Lockdown', hatchDay:'Hatch day', estimatedHatch:'Estimated hatch',
+      nextEvent:'Next event', candlingToday:'candling today', inDays:'in {n} days', inOneDay:'in 1 day', todayLower:'today',
+      eggsInIncubator:'{n} eggs in incubator', survivalRate:'Survival rate', plannedRoutine:'Planned routine',
+      noActiveHatches:'No active hatches yet.', noRecords:'No records yet', noHistory:'No history yet.',
+      farmJournalIntro:'Everything that happens on the farm is collected here. Registration is done from the green button on the dashboard, while the journal shows today’s work, upcoming routines and history.',
+      todaySection:'TODAY', upcoming:'UPCOMING', history:'HISTORY',
+      statsHatching:'Hatching', statsLaying:'Laying', statsBreeding:'Breeding', statsHealth:'Health', statsHall:'Hall',
+      hatchBatches:'Hatch batches', totalBatches:'Total batches', activeBatches:'Active batches', finishedBatches:'Finished batches', manual:'Manual',
+      newBatch:'+ New batch', batchTip:'Tip: create a batch and select it when registering eggs. Old eggs without a batch are automatically grouped by start date.',
+      started:'Started', totalIncubated:'Total incubated', activeNow:'Active now',
+      hatchAnalysisHistory:'Hatch analysis & history', lossesByStage:'Losses by stage',
+      beforeDay8:'Before / around day 8', day8to14:'Day 8–14', day14to21:'Day 14–21',
+      noFinishedBatches:'No finished batches yet.', noActiveBatches:'No active batches yet.',
+      total:'Total', hens:'Hens', roosters:'Roosters', unknown:'Unknown', noBirds:'No birds yet.',
+      eggsToday:'Eggs today', last7:'Last 7 days', last30:'Last 30 days', bestHen:'Best hen', averageWeight:'Average weight', breedingEggs:'Breeding eggs', doubleYolks:'Double yolks',
+      noLayingLogs:'No laying logs yet.',
+      breed:'Breed', sex:'Sex', status:'Status', notes:'Notes', origin:'Origin', mother:'Mother', father:'Father', ringNumber:'Ring number',
+      nameId:'Name / ID', hatchDate:'Hatch date', photoCamera:'Photo / camera', unknownGender:'Unknown'
+    },
+    da:{
+      tagline:'Komplet håndtering af rugning, flok og avl',
+      overview:'Oversigt', eggs:'Æg', candling:'Lysning', chicks:'Kyllinger', flock:'Flok', laying:'Æglægning',
+      statistics:'Statistik', settings:'Indstillinger', farmJournal:'Gårdsjournal', machines:'Maskiner',
+      reportsTrends:'Rapporter og trends', appSettings:'Appindstillinger', farmTimeline:'Gårdens tidslinje', incubatorAccessories:'Rugemaskiner og tilbehør',
+      activeEggs:'Aktive æg', incubators:'Rugemaskiner', active:'Aktive', stopped:'Stoppede', uncertain:'Usikre', hatched:'Klækkede',
+      today:'i dag', day:'Dag', of:'af', inOperation:'i drift', registered:'registreret', hatchedLower:'klækket',
+      registerEvent:'Registrér ny hændelse', registerSub:'Æg, lysning, kyllinger, sundhed, vægt m.m.',
+      mostImportant:'Vigtigst i dag', upcomingNotDone:'Kommende (ikke udført)', activeHatches:'Aktive klækninger',
+      back:'← Tilbage', add:'Tilføj', edit:'Redigér', delete:'Slet', save:'Gem', cancel:'Annuller', close:'Luk',
+      lifeBook:'Livsbog', addEgg:'+ Tilføj æg', manageIncubators:'Administrér rugemaskiner',
+      todayTip:'Dagens tip', keepTempWater:'Hold temperatur og vandniveau stabilt.',
+      candlingDay:'Lysningsdag', candlingTodayMsg:'{n} æg skal lyses i dag. Log resultatet direkte efter hvert æg.',
+      lockdownToday:'Lockdown i dag', lockdownTodayMsg:'{n} æg går i lockdown i dag. Stop vending og hæv fugtigheden efter planen.',
+      hatchClose:'Klækning tæt på', hatchCloseMsg:'{n} æg er på klækkedag eller forbi forventet klækning. Åbn ikke rugemaskinen unødigt.',
+      stableStopped:'Stabilt med stoppede æg', stableStoppedMsg:'{active} æg er aktive og {stopped} er stoppede. Situationen er under kontrol.',
+      stable:'Stabil status', stableMsg:'Alt ser stabilt ud i dag. Åbn kortene for flere detaljer.',
+      allDoneToday:'Alt klart for i dag', allTasksDoneMsg:'Alle planlagte opgaver er udført. PoultryMaster holder fortsat øje med gården.',
+      allTasksDoneTip:'Godt arbejde. Nu mangler kun normalt tilsyn — hold rugemaskinen stabil.',
+      firstCandling:'Første lysning', secondCandling:'Anden lysning', lockdown:'Lockdown', hatchDay:'Klækkedag', estimatedHatch:'Forventet klækning',
+      nextEvent:'Næste hændelse', candlingToday:'lysning i dag', inDays:'om {n} dage', inOneDay:'om 1 dag', todayLower:'i dag',
+      eggsInIncubator:'{n} æg i rugemaskine', survivalRate:'Overlevelsesgrad', plannedRoutine:'Planlagt rutine',
+      noActiveHatches:'Ingen aktive klækninger endnu.', noRecords:'Ingen registreringer endnu', noHistory:'Ingen historik endnu.',
+      farmJournalIntro:'Her samles alt, der sker på gården. Registrering sker fra den grønne knap på oversigten, mens journalen viser dagens arbejde, kommende rutiner og historik.',
+      todaySection:'I DAG', upcoming:'KOMMENDE', history:'HISTORIK',
+      statsHatching:'Klækning', statsLaying:'Æglægning', statsBreeding:'Avl', statsHealth:'Sundhed', statsHall:'Hall',
+      hatchBatches:'Klækkehold', totalBatches:'Hold i alt', activeBatches:'Aktive hold', finishedBatches:'Afsluttede hold', manual:'Manuelle',
+      newBatch:'+ Nyt hold', batchTip:'Tip: opret et hold og vælg det, når du registrerer æg. Gamle æg uden hold grupperes automatisk efter startdato.',
+      started:'Startede', totalIncubated:'Rugede i alt', activeNow:'Aktive nu',
+      hatchAnalysisHistory:'Klækkeanalyse & historik', lossesByStage:'Tab pr. stadie',
+      beforeDay8:'Før / omkring dag 8', day8to14:'Dag 8–14', day14to21:'Dag 14–21',
+      noFinishedBatches:'Ingen afsluttede hold endnu.', noActiveBatches:'Ingen aktive hold endnu.',
+      total:'Total', hens:'Høner', roosters:'Haner', unknown:'Ukendte', noBirds:'Ingen fugle endnu.',
+      eggsToday:'Æg i dag', last7:'Sidste 7 dage', last30:'Sidste 30 dage', bestHen:'Bedste høne', averageWeight:'Gennemsnitsvægt', breedingEggs:'Avlsæg', doubleYolks:'Dobbelte blommer',
+      noLayingLogs:'Ingen æglægningslogge endnu.',
+      breed:'Race', sex:'Køn', status:'Status', notes:'Noter', origin:'Oprindelse', mother:'Mor', father:'Far', ringNumber:'Ringnummer',
+      nameId:'Navn / ID', hatchDate:'Klækkedato', photoCamera:'Billede / kamera', unknownGender:'Ukendt'
+    },
+    no:{
+      tagline:'Komplett håndtering av ruging, flokk og avl',
+      overview:'Oversikt', eggs:'Egg', candling:'Lysing', chicks:'Kyllinger', flock:'Flokk', laying:'Egglegging',
+      statistics:'Statistikk', settings:'Innstillinger', farmJournal:'Gårdsjournal', machines:'Maskiner',
+      reportsTrends:'Rapporter og trender', appSettings:'Appinnstillinger', farmTimeline:'Gårdens tidslinje', incubatorAccessories:'Rugemaskiner og tilbehør',
+      activeEggs:'Aktive egg', incubators:'Rugemaskiner', active:'Aktive', stopped:'Stoppet', uncertain:'Usikre', hatched:'Klekket',
+      today:'i dag', day:'Dag', of:'av', inOperation:'i drift', registered:'registrert', hatchedLower:'klekket',
+      registerEvent:'Registrer ny hendelse', registerSub:'Egg, lysing, kyllinger, helse, vekt m.m.',
+      mostImportant:'Viktigst i dag', upcomingNotDone:'Kommende (ikke utført)', activeHatches:'Aktive klekkinger',
+      back:'← Tilbake', add:'Legg til', edit:'Rediger', delete:'Slett', save:'Lagre', cancel:'Avbryt', close:'Lukk',
+      lifeBook:'Livsbok', addEgg:'+ Legg til egg', manageIncubators:'Administrer rugemaskiner',
+      todayTip:'Dagens tips', keepTempWater:'Hold temperatur og vannnivå stabilt.',
+      candlingDay:'Lysingsdag', candlingTodayMsg:'{n} egg skal lyses i dag. Logg resultatet rett etter hvert egg.',
+      lockdownToday:'Lockdown i dag', lockdownTodayMsg:'{n} egg går i lockdown i dag. Stopp vending og øk fuktigheten etter planen.',
+      hatchClose:'Klekking nær', hatchCloseMsg:'{n} egg er på klekkedag eller forbi beregnet klekking. Ikke åpne rugemaskinen unødvendig.',
+      stableStopped:'Stabilt med stoppede egg', stableStoppedMsg:'{active} egg er aktive og {stopped} er stoppet. Situasjonen er under kontroll.',
+      stable:'Stabil status', stableMsg:'Alt ser stabilt ut i dag. Åpne kortene for flere detaljer.',
+      allDoneToday:'Alt klart for i dag', allTasksDoneMsg:'Alle planlagte oppgaver er fullført. PoultryMaster fortsetter å følge med på gården.',
+      allTasksDoneTip:'Godt jobbet. Nå gjenstår normalt tilsyn — hold rugemaskinen stabil.',
+      firstCandling:'Første lysing', secondCandling:'Andre lysing', lockdown:'Lockdown', hatchDay:'Klekkedag', estimatedHatch:'Beregnet klekking',
+      nextEvent:'Neste hendelse', candlingToday:'lysing i dag', inDays:'om {n} dager', inOneDay:'om 1 dag', todayLower:'i dag',
+      eggsInIncubator:'{n} egg i rugemaskin', survivalRate:'Overlevelsesgrad', plannedRoutine:'Planlagt rutine',
+      noActiveHatches:'Ingen aktive klekkinger ennå.', noRecords:'Ingen registreringer ennå', noHistory:'Ingen historikk ennå.',
+      farmJournalIntro:'Her samles alt som skjer på gården. Registrering gjøres fra den grønne knappen på oversikten, mens journalen viser dagens arbeid, kommende rutiner og historikk.',
+      todaySection:'I DAG', upcoming:'KOMMENDE', history:'HISTORIKK',
+      statsHatching:'Klekking', statsLaying:'Egglegging', statsBreeding:'Avl', statsHealth:'Helse', statsHall:'Hall',
+      hatchBatches:'Klekkeomganger', totalBatches:'Totalt omganger', activeBatches:'Aktive omganger', finishedBatches:'Avsluttede omganger', manual:'Manuelle',
+      newBatch:'+ Ny omgang', batchTip:'Tips: opprett en omgang og velg den når du registrerer egg. Gamle egg uten omgang grupperes automatisk etter startdato.',
+      started:'Startet', totalIncubated:'Totalt ruget', activeNow:'Aktive nå',
+      hatchAnalysisHistory:'Klekkeanalyse & historikk', lossesByStage:'Tap per stadium',
+      beforeDay8:'Før / rundt dag 8', day8to14:'Dag 8–14', day14to21:'Dag 14–21',
+      noFinishedBatches:'Ingen avsluttede omganger ennå.', noActiveBatches:'Ingen aktive omganger ennå.',
+      total:'Totalt', hens:'Høner', roosters:'Haner', unknown:'Ukjente', noBirds:'Ingen fugler ennå.',
+      eggsToday:'Egg i dag', last7:'Siste 7 dager', last30:'Siste 30 dager', bestHen:'Beste høne', averageWeight:'Gjennomsnittsvekt', breedingEggs:'Avlsegg', doubleYolks:'Dobbelplommer',
+      noLayingLogs:'Ingen eggleggingslogger ennå.',
+      breed:'Rase', sex:'Kjønn', status:'Status', notes:'Notater', origin:'Opprinnelse', mother:'Mor', father:'Far', ringNumber:'Ringnummer',
+      nameId:'Navn / ID', hatchDate:'Klekkedato', photoCamera:'Bilde / kamera', unknownGender:'Ukjent'
+    },
+    fi:{
+      tagline:'Täydellinen haudonnan, parven ja jalostuksen hallinta',
+      overview:'Yleiskatsaus', eggs:'Munat', candling:'Läpivalaisu', chicks:'Poikaset', flock:'Parvi', laying:'Muninta',
+      statistics:'Tilastot', settings:'Asetukset', farmJournal:'Tilapäiväkirja', machines:'Laitteet',
+      reportsTrends:'Raportit ja trendit', appSettings:'Sovelluksen asetukset', farmTimeline:'Tilan aikajana', incubatorAccessories:'Hautomakoneet ja tarvikkeet',
+      activeEggs:'Aktiiviset munat', incubators:'Hautomakoneet', active:'Aktiiviset', stopped:'Keskeytetyt', uncertain:'Epävarmat', hatched:'Kuoriutuneet',
+      today:'tänään', day:'Päivä', of:'/', inOperation:'käytössä', registered:'rekisteröity', hatchedLower:'kuoriutunut',
+      registerEvent:'Lisää uusi tapahtuma', registerSub:'Munat, läpivalaisu, poikaset, terveys, paino jne.',
+      mostImportant:'Tärkeintä tänään', upcomingNotDone:'Tulossa (ei tehty)', activeHatches:'Aktiiviset kuoriutumiset',
+      back:'← Takaisin', add:'Lisää', edit:'Muokkaa', delete:'Poista', save:'Tallenna', cancel:'Peruuta', close:'Sulje',
+      lifeBook:'Elämänkirja', addEgg:'+ Lisää muna', manageIncubators:'Hallinnoi hautomakoneita',
+      todayTip:'Päivän vinkki', keepTempWater:'Pidä lämpötila ja veden taso vakaana.',
+      candlingDay:'Läpivalaisupäivä', candlingTodayMsg:'{n} munaa pitää läpivalaista tänään. Kirjaa tulos heti jokaisen munan jälkeen.',
+      lockdownToday:'Lockdown tänään', lockdownTodayMsg:'{n} munaa siirtyy lockdown-vaiheeseen tänään. Lopeta kääntö ja nosta kosteus suunnitelman mukaan.',
+      hatchClose:'Kuoriutuminen lähellä', hatchCloseMsg:'{n} munaa on kuoriutumispäivässä tai arvioitu päivä on ohitettu. Älä avaa hautomakonetta turhaan.',
+      stableStopped:'Vakaa, keskeytettyjä munia', stableStoppedMsg:'{active} munaa on aktiivisia ja {stopped} on keskeytetty. Tilanne on hallinnassa.',
+      stable:'Vakaa tila', stableMsg:'Kaikki näyttää vakaalta tänään. Avaa kortit nähdäksesi lisätiedot.',
+      allDoneToday:'Kaikki valmista tänään', allTasksDoneMsg:'Kaikki suunnitellut tehtävät on tehty. PoultryMaster jatkaa tilan seurantaa.',
+      allTasksDoneTip:'Hyvää työtä. Nyt riittää normaali valvonta — pidä hautomakone vakaana.',
+      firstCandling:'Ensimmäinen läpivalaisu', secondCandling:'Toinen läpivalaisu', lockdown:'Lockdown', hatchDay:'Kuoriutumispäivä', estimatedHatch:'Arvioitu kuoriutuminen',
+      nextEvent:'Seuraava tapahtuma', candlingToday:'läpivalaisu tänään', inDays:'{n} päivän kuluttua', inOneDay:'1 päivän kuluttua', todayLower:'tänään',
+      eggsInIncubator:'{n} munaa hautomakoneessa', survivalRate:'Selviytymisaste', plannedRoutine:'Suunniteltu rutiini',
+      noActiveHatches:'Ei aktiivisia kuoriutumisia vielä.', noRecords:'Ei merkintöjä vielä', noHistory:'Ei historiaa vielä.',
+      farmJournalIntro:'Tänne kerätään kaikki tilalla tapahtuva. Rekisteröinti tehdään yleiskatsauksen vihreästä painikkeesta, ja päiväkirja näyttää päivän työt, tulevat rutiinit ja historian.',
+      todaySection:'TÄNÄÄN', upcoming:'TULOSSA', history:'HISTORIA',
+      statsHatching:'Kuoriutuminen', statsLaying:'Muninta', statsBreeding:'Jalostus', statsHealth:'Terveys', statsHall:'Hall',
+      hatchBatches:'Kuoriutumiserät', totalBatches:'Erät yhteensä', activeBatches:'Aktiiviset erät', finishedBatches:'Päättyneet erät', manual:'Manuaaliset',
+      newBatch:'+ Uusi erä', batchTip:'Vinkki: luo erä ja valitse se munia rekisteröidessä. Vanhat munat ilman erää ryhmitellään automaattisesti aloituspäivän mukaan.',
+      started:'Aloitettu', totalIncubated:'Haudottu yhteensä', activeNow:'Aktiiviset nyt',
+      hatchAnalysisHistory:'Kuoriutumisanalyysi ja historia', lossesByStage:'Menetykset vaiheittain',
+      beforeDay8:'Ennen / noin päivä 8', day8to14:'Päivä 8–14', day14to21:'Päivä 14–21',
+      noFinishedBatches:'Ei päättyneitä eriä vielä.', noActiveBatches:'Ei aktiivisia eriä vielä.',
+      total:'Yhteensä', hens:'Kanat', roosters:'Kukot', unknown:'Tuntemattomat', noBirds:'Ei lintuja vielä.',
+      eggsToday:'Munia tänään', last7:'Viimeiset 7 päivää', last30:'Viimeiset 30 päivää', bestHen:'Paras kana', averageWeight:'Keskipaino', breedingEggs:'Siitosmunat', doubleYolks:'Kaksoiskeltuaiset',
+      noLayingLogs:'Munintamerkintöjä ei vielä ole.',
+      breed:'Rotu', sex:'Sukupuoli', status:'Tila', notes:'Muistiinpanot', origin:'Alkuperä', mother:'Emo', father:'Isä', ringNumber:'Rengasnumero',
+      nameId:'Nimi / ID', hatchDate:'Kuoriutumispäivä', photoCamera:'Kuva / kamera', unknownGender:'Tuntematon'
+    }
+  };
+
+  function readState(){
+    try{return JSON.parse(localStorage.getItem(STORE_KEY)||'{}')||{}}catch(e){return {}}
+  }
+  function lang(){
+    const s=readState();
+    const raw=((s.farmSettings||{}).language || (s.settings||{}).language || document.documentElement.lang || 'sv');
+    const v=String(raw).toLowerCase();
+    if(v.startsWith('en')||v==='english')return 'en';
+    if(v.startsWith('da')||v==='dansk')return 'da';
+    if(v.startsWith('no')||v.startsWith('nb')||v.startsWith('nn')||v==='norsk')return 'no';
+    if(v.startsWith('fi')||v==='suomi')return 'fi';
+    return 'sv';
+  }
+  function tx(k){const l=lang();return (L[l]&&L[l][k]) || (L.sv&&L.sv[k]) || k}
+  function fmt(s,o){return String(s||'').replace(/\{(\w+)\}/g,function(_,k){return o&&o[k]!=null?o[k]:''})}
+  function norm(s){return String(s||'').replace(/\s+/g,' ').trim()}
+  function setText(el,val){if(el && typeof val==='string' && el.textContent!==val) el.textContent=val}
+
+  const exactKey = {
+    'Komplett hantering av inkubering, flock och avel':'tagline',
+    'Complete management of incubation, flock and breeding':'tagline',
+    'Översikt':'overview','Overview':'overview','Oversigt':'overview','Yleiskatsaus':'overview',
+    'Ägg':'eggs','Eggs':'eggs','Æg':'eggs','Egg':'eggs','Munat':'eggs',
+    'Lysning':'candling','Candling':'candling','Lysing':'candling','Läpivalaisu':'candling',
+    'Kycklingar':'chicks','Chicks':'chicks','Kyllinger':'chicks','Poikaset':'chicks',
+    'Flock':'flock','Flok':'flock','Flokk':'flock','Parvi':'flock',
+    'Värpning':'laying','Laying':'laying','Æglægning':'laying','Egglegging':'laying','Muninta':'laying',
+    'Statistik':'statistics','Statistics':'statistics','Statistikk':'statistics','Tilastot':'statistics',
+    'Inställningar':'settings','Settings':'settings','Indstillinger':'settings','Innstillinger':'settings','Asetukset':'settings',
+    'Gårdsjournal':'farmJournal','Farm journal':'farmJournal','Tilapäiväkirja':'farmJournal',
+    'Maskiner':'machines','Machines':'machines','Laitteet':'machines',
+    'Aktiva ägg':'activeEggs','Active eggs':'activeEggs','Aktive æg':'activeEggs','Aktive egg':'activeEggs','Aktiiviset munat':'activeEggs',
+    'Kläckare':'incubators','Incubators':'incubators','Rugemaskiner':'incubators','Hautomakoneet':'incubators',
+    'Rapporter och trender':'reportsTrends','Reports and trends':'reportsTrends','Rapporter og trender':'reportsTrends','Raportit ja trendit':'reportsTrends',
+    'Appinställningar':'appSettings','App settings':'appSettings','Appindstillinger':'appSettings','Appinnstillinger':'appSettings','Sovelluksen asetukset':'appSettings',
+    'Gårdens tidslinje':'farmTimeline','Farm timeline':'farmTimeline','Tilan aikajana':'farmTimeline',
+    'Kläckare och tillbehör':'incubatorAccessories','Incubators and accessories':'incubatorAccessories','Rugemaskiner og tilbehør':'incubatorAccessories','Hautomakoneet ja tarvikkeet':'incubatorAccessories',
+    'Registrera ny händelse':'registerEvent','Register new event':'registerEvent','Registrér ny hændelse':'registerEvent','Registrer ny hendelse':'registerEvent','Lisää uusi tapahtuma':'registerEvent',
+    'Ägg, lysning, kycklingar, hälsa, vikt m.m.':'registerSub','Eggs, candling, chicks, health, weight, etc.':'registerSub','Munat, läpivalaisu, poikaset, terveys, paino jne.':'registerSub',
+    'Viktigast idag':'mostImportant','Most important today':'mostImportant','Tärkeintä tänään':'mostImportant',
+    'Kommande (ej utförda)':'upcomingNotDone','Upcoming (not completed)':'upcomingNotDone',
+    'Aktiva kläckningar':'activeHatches','Active hatches':'activeHatches','Aktiiviset kuoriutumiset':'activeHatches',
+    '← Tillbaka':'back','← Back':'back','← Tilbage':'back','← Takaisin':'back',
+    'Lägg till':'add','Add':'add','Tilføj':'add','Legg til':'add','Lisää':'add',
+    'Redigera':'edit','Edit':'edit','Redigér':'edit','Rediger':'edit','Muokkaa':'edit',
+    'Ta bort':'delete','Delete':'delete','Slet':'delete','Poista':'delete',
+    'Spara':'save','Save':'save','Gem':'save','Lagre':'save','Tallenna':'save',
+    'Livsbok':'lifeBook','Life book':'lifeBook','Livsbog':'lifeBook','Elämänkirja':'lifeBook',
+    'Dagens tips':'todayTip','Today’s tip':'todayTip','Today\'s tip':'todayTip','Päivän vinkki':'todayTip',
+    'Håll temperatur och vattennivå stabilt.':'keepTempWater','Keep temperature and water level stable.':'keepTempWater',
+    'Lysningsdag':'candlingDay','Candling day':'candlingDay','Läpivalaisupäivä':'candlingDay',
+    'Stabilt med avbrutna ägg':'stableStopped','Stable with stopped eggs':'stableStopped',
+    'Allt klart för idag':'allDoneToday','All done for today':'allDoneToday',
+    'Första lysning':'firstCandling','First candling':'firstCandling',
+    'Andra lysning':'secondCandling','Second candling':'secondCandling',
+    'Lockdown':'lockdown',
+    'Kläckdag':'hatchDay','Hatch day':'hatchDay',
+    'Beräknad kläckning':'estimatedHatch','Estimated hatch':'estimatedHatch',
+    'Nästa händelse':'nextEvent','Next event':'nextEvent',
+    'Planerad rutin':'plannedRoutine','Planned routine':'plannedRoutine',
+    'Överlevnadsgrad':'survivalRate','Survival rate':'survivalRate',
+    'Inga aktiva kläckningar ännu.':'noActiveHatches','No active hatches yet.':'noActiveHatches',
+    'Inga registrerade ännu':'noRecords','No records yet':'noRecords',
+    'Ingen historik ännu.':'noHistory','No history yet.':'noHistory',
+    'IDAG':'todaySection','TODAY':'todaySection','KOMMANDE':'upcoming','UPCOMING':'upcoming','HISTORIK':'history','HISTORY':'history',
+    'Kläckning':'statsHatching','Hatching':'statsHatching',
+    'Avel':'statsBreeding','Breeding':'statsBreeding',
+    'Hälsa':'statsHealth','Health':'statsHealth',
+    'Hall':'statsHall',
+    'Kläckomgångar':'hatchBatches','Hatch batches':'hatchBatches',
+    'Totalt omgångar':'totalBatches','Total batches':'totalBatches',
+    'Aktiva omgångar':'activeBatches','Active batches':'activeBatches',
+    'Avslutade omgångar':'finishedBatches','Finished batches':'finishedBatches',
+    'Manuella':'manual','Manual':'manual',
+    '+ Ny omgång':'newBatch','+ New batch':'newBatch',
+    'Startade':'started','Started':'started',
+    'Totalt inkuberade':'totalIncubated','Total incubated':'totalIncubated',
+    'Aktiva just nu':'activeNow','Active now':'activeNow',
+    'Kläckanalys & historik':'hatchAnalysisHistory','Hatch analysis & history':'hatchAnalysisHistory',
+    'Förluster per stadium':'lossesByStage','Losses by stage':'lossesByStage',
+    'Före / omkring dag 8':'beforeDay8','Before / around day 8':'beforeDay8',
+    'Dag 8–14':'day8to14','Day 8–14':'day8to14',
+    'Dag 14–21':'day14to21','Day 14–21':'day14to21',
+    'Inga avslutade omgångar ännu.':'noFinishedBatches','No finished batches yet.':'noFinishedBatches',
+    'Inga aktiva omgångar ännu.':'noActiveBatches','No active batches yet.':'noActiveBatches',
+    'Totalt':'total','Total':'total','Hönor':'hens','Hens':'hens','Tuppar':'roosters','Roosters':'roosters','Okända':'unknown','Unknown':'unknown',
+    'Inga fåglar ännu.':'noBirds','No birds yet.':'noBirds',
+    'Ägg idag':'eggsToday','Eggs today':'eggsToday',
+    'Senaste 7 dagar':'last7','Last 7 days':'last7',
+    'Senaste 30 dagar':'last30','Last 30 days':'last30',
+    'Bästa höna':'bestHen','Best hen':'bestHen',
+    'Medelvikt':'averageWeight','Average weight':'averageWeight',
+    'Avelsägg':'breedingEggs','Breeding eggs':'breedingEggs',
+    'Dubbelgulor':'doubleYolks','Double yolks':'doubleYolks',
+    'Inga värpningar loggade ännu.':'noLayingLogs','No laying logs yet.':'noLayingLogs',
+    'Ras':'breed','Breed':'breed','Kön':'sex','Sex':'sex','Status':'status',
+    'Anteckningar':'notes','Notes':'notes','Ursprung':'origin','Origin':'origin',
+    'Mor':'mother','Mother':'mother','Far':'father','Father':'father',
+    'Ringnummer':'ringNumber','Ring number':'ringNumber',
+    'Namn / ID':'nameId','Name / ID':'nameId',
+    'Kläckdatum':'hatchDate','Hatch date':'hatchDate',
+    'Bild / kamera':'photoCamera','Photo / camera':'photoCamera',
+    'Okänt':'unknownGender'
+  };
+
+  function translateExactText(s){
+    const k = exactKey[norm(s)];
+    return k ? tx(k) : null;
+  }
+
+  function translateDynamic(s){
+    let n = norm(s);
+    if(!n) return null;
+
+    let m;
+    if((m=n.match(/^(\d+)\s+ägg ska lysas idag\. Logga resultatet direkt efter varje ägg\.$/))) return fmt(tx('candlingTodayMsg'),{n:m[1]});
+    if((m=n.match(/^(\d+)\s+eggs should be candled today\. Log the result immediately after each egg\.$/))) return fmt(tx('candlingTodayMsg'),{n:m[1]});
+    if((m=n.match(/^(\d+)\s+ägg går in i lockdown idag\..*$/))) return fmt(tx('lockdownTodayMsg'),{n:m[1]});
+    if((m=n.match(/^(\d+)\s+ägg är vid kläckdag.*$/))) return fmt(tx('hatchCloseMsg'),{n:m[1]});
+    if((m=n.match(/^(\d+)\s+ägg är aktiva och\s+(\d+)\s+har avbrutits\. Läget är under kontroll\.$/))) return fmt(tx('stableStoppedMsg'),{active:m[1],stopped:m[2]});
+    if((m=n.match(/^(\d+)\s+active eggs and\s+(\d+)\s+stopped\. Everything is under control\.$/))) return fmt(tx('stableStoppedMsg'),{active:m[1],stopped:m[2]});
+    if((m=n.match(/^Dag\s+(\d+)\s+av\s+(\d+)$/i))) return `${tx('day')} ${m[1]} ${tx('of')} ${m[2]}`;
+    if((m=n.match(/^Day\s+(\d+)\s+of\s+(\d+)$/i))) return `${tx('day')} ${m[1]} ${tx('of')} ${m[2]}`;
+    if((m=n.match(/^(\d+)\s+ägg i kläckare$/i))) return fmt(tx('eggsInIncubator'),{n:m[1]});
+    if((m=n.match(/^(\d+)\s+eggs in incubator$/i))) return fmt(tx('eggsInIncubator'),{n:m[1]});
+    if((m=n.match(/^Kläcks om\s+(\d+)\s+dagar?$/i))) return `${tx('hatched')} ${m[1]==='1'?tx('inOneDay'):fmt(tx('inDays'),{n:m[1]})}`;
+    if((m=n.match(/^Lockdown om\s+(\d+)\s+dagar?$/i))) return `${tx('lockdown')} ${m[1]==='1'?tx('inOneDay'):fmt(tx('inDays'),{n:m[1]})}`;
+    if((m=n.match(/^Beräknad kläckning om\s+(\d+)\s+dagar?$/i))) return `${tx('estimatedHatch')} ${m[1]==='1'?tx('inOneDay'):fmt(tx('inDays'),{n:m[1]})}`;
+    if((m=n.match(/^Andra lysning om\s+(\d+)\s+dagar?$/i))) return `${tx('secondCandling')} ${m[1]==='1'?tx('inOneDay'):fmt(tx('inDays'),{n:m[1]})}`;
+    if((m=n.match(/^Första lysning om\s+(\d+)\s+dagar?$/i))) return `${tx('firstCandling')} ${m[1]==='1'?tx('inOneDay'):fmt(tx('inDays'),{n:m[1]})}`;
+    if((m=n.match(/^Second candling in\s+(\d+)\s+days?$/i))) return `${tx('secondCandling')} ${m[1]==='1'?tx('inOneDay'):fmt(tx('inDays'),{n:m[1]})}`;
+    if((m=n.match(/^First candling in\s+(\d+)\s+days?$/i))) return `${tx('firstCandling')} ${m[1]==='1'?tx('inOneDay'):fmt(tx('inDays'),{n:m[1]})}`;
+    if((m=n.match(/^In\s+(\d+)\s+days?$/i))) return m[1]==='1'?tx('inOneDay'):fmt(tx('inDays'),{n:m[1]});
+    if((m=n.match(/^Om\s+(\d+)\s+dagar?$/i))) return m[1]==='1'?tx('inOneDay'):fmt(tx('inDays'),{n:m[1]});
+    if((m=n.match(/^om\s+(\d+)\s+dagar?$/i))) return m[1]==='1'?tx('inOneDay'):fmt(tx('inDays'),{n:m[1]});
+    if((m=n.match(/^Planerad rutin\s*[·:]\s*(.+)$/i))) return `${tx('plannedRoutine')} · ${m[1]}`;
+    if((m=n.match(/^Planned routine\s*[·:]\s*(.+)$/i))) return `${tx('plannedRoutine')} · ${m[1]}`;
+    if((m=n.match(/^Aktiva:\s*(\d+)$/i))) return `${tx('active')}: ${m[1]}`;
+    if((m=n.match(/^Active:\s*(\d+)$/i))) return `${tx('active')}: ${m[1]}`;
+    if((m=n.match(/^Avbrutna:\s*(\d+)$/i))) return `${tx('stopped')}: ${m[1]}`;
+    if((m=n.match(/^Stopped:\s*(\d+)$/i))) return `${tx('stopped')}: ${m[1]}`;
+    if((m=n.match(/^Överlevnadsgrad:\s*(.+)$/i))) return `${tx('survivalRate')}: ${m[1]}`;
+    if((m=n.match(/^Survival rate:\s*(.+)$/i))) return `${tx('survivalRate')}: ${m[1]}`;
+    if((m=n.match(/^(\d+)\/(\d+)\s+klara$/i))) return lang()==='sv'?`${m[1]}/${m[2]} klara`:`${m[1]}/${m[2]} done`;
+    return null;
+  }
+
+  function translateString(s){
+    return translateExactText(s) || translateDynamic(s);
+  }
+
+  function translateTextNode(node){
+    const raw=node.nodeValue;
+    if(!raw || !raw.trim()) return;
+    const leading=(raw.match(/^\s*/)||[''])[0], trailing=(raw.match(/\s*$/)||[''])[0];
+    const mid=raw.trim();
+    const repl=translateString(mid);
+    if(repl && repl!==mid) node.nodeValue = leading + repl + trailing;
+  }
+
+  function translateAttributes(root){
+    const attrs=['placeholder','title','aria-label','alt'];
+    (root.querySelectorAll?root.querySelectorAll('*'):[]).forEach(el=>{
+      attrs.forEach(a=>{
+        if(el.hasAttribute && el.hasAttribute(a)){
+          const repl=translateString(el.getAttribute(a));
+          if(repl) el.setAttribute(a,repl);
+        }
+      });
+      if(el.tagName==='INPUT' && ['button','submit','reset'].includes((el.type||'').toLowerCase())){
+        const repl=translateString(el.value);
+        if(repl) el.value=repl;
+      }
+    });
+  }
+
+  function walk(root){
+    const skip=new Set(['SCRIPT','STYLE','NOSCRIPT','SVG']);
+    const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{
+      acceptNode:function(n){
+        const p=n.parentElement;
+        if(!p || skip.has(p.tagName)) return NodeFilter.FILTER_REJECT;
+        if(p.closest && p.closest('script,style,svg,noscript')) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    let nodes=[], n;
+    while(n=w.nextNode()) nodes.push(n);
+    nodes.forEach(translateTextNode);
+  }
+
+  function translateKnownLayout(){
+    document.documentElement.lang = lang()==='no' ? 'nb' : lang();
+
+    setText(document.querySelector('.top small'), tx('tagline'));
+
+    const map = [
+      ['.dashboard-kicker','overview'],
+      ['#eggs-title-main','eggs'],
+      ['#candling-title-main','candling'],
+      ['#chicks-title-main','chicks'],
+      ['#flock-title-main','flock'],
+      ['#laying-title-main','laying'],
+      ['#stats-title','statistics'],
+      ['#settings-title-main','settings'],
+      ['#journal-title-main','farmJournal'],
+      ['.dash-title-task','mostImportant'],
+      ['.dash-title-upcoming','upcomingNotDone'],
+      ['.dash-title-hatches','activeHatches'],
+      ['.reg-title','registerEvent'],
+      ['.reg-sub','registerSub']
+    ];
+    map.forEach(([sel,k])=>document.querySelectorAll(sel).forEach(el=>setText(el,tx(k))));
+
+    const navKeys=['overview','eggs','candling','chicks','flock','laying'];
+    document.querySelectorAll('.bottom .nav .nav-label').forEach((el,i)=>{ if(navKeys[i]) setText(el,tx(navKeys[i])); });
+
+    const stats=document.querySelectorAll('#view-dashboard .stat .label');
+    if(stats[0]) stats[0].firstChild && (stats[0].firstChild.nodeValue=tx('activeEggs'));
+    if(stats[1]) stats[1].firstChild && (stats[1].firstChild.nodeValue=tx('incubators'));
+    if(stats[2]) stats[2].firstChild && (stats[2].firstChild.nodeValue=tx('chicks'));
+    if(stats[3]) stats[3].firstChild && (stats[3].firstChild.nodeValue=tx('flock'));
+
+    const quick=document.querySelectorAll('#view-dashboard .quick');
+    const q=[['statistics','reportsTrends'],['settings','appSettings'],['farmJournal','farmTimeline'],['machines','incubatorAccessories']];
+    quick.forEach((el,i)=>{ if(q[i]){ const div=el.querySelector('div'); const small=el.querySelector('small'); setText(div,tx(q[i][0])); setText(small,tx(q[i][1])); }});
+
+    document.querySelectorAll('button').forEach(btn=>{
+      const t=norm(btn.textContent);
+      if(/^\+\s*(Lägg till|Add|Tilføj|Legg til|Lisää)$/.test(t)) btn.textContent='+ '+tx('add');
+      if(/^\+\s*(Logga lysning|Log candling)/.test(t)) btn.textContent='+ '+(lang()==='sv'?'Logga lysning':lang()==='en'?'Log candling':lang()==='da'?'Log lysning':lang()==='no'?'Logg lysing':'Kirjaa läpivalaisu');
+    });
+
+    translateAttributes(document);
+    walk(document.body);
+  }
+
+  let busy=false;
+  function apply(){
+    if(busy) return;
+    busy=true;
+    try{ translateKnownLayout(); }catch(e){ console.warn('PoultryMaster I18N overlay warning:', e); }
+    busy=false;
+  }
+
+  const mo=new MutationObserver(function(){ clearTimeout(apply._t); apply._t=setTimeout(apply,40); });
+  function start(){
+    apply();
+    if(document.body) mo.observe(document.body,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['placeholder','title','aria-label','alt','value']});
+  }
+
+  ['click','change','input'].forEach(ev=>document.addEventListener(ev,()=>setTimeout(apply,80),true));
+  window.addEventListener('storage',()=>setTimeout(apply,80));
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',start); else start();
+  setInterval(apply,1200);
+})();
+}
+
+{
+/* PoultryMaster v2.10.3 – Deep I18N Refactor Guard
+   Extra pass focused on render-generated hardcoded UI text. No CSS/layout/data changes. */
+(function(){
+  if(window.__PM_DEEP_I18N_103__) return;
+  window.__PM_DEEP_I18N_103__=true;
+  const STORE_KEY='egg_manager_v2';
+
+  const D={
+    sv:{
+      myFarm:'Min gård', myFarmHelp:'Här sparas användarens egen gårdsprofil. PoultryMaster behåller sin identitet i apphuvudet, medan gårdsprofilen gör rapporter, livsböcker och utskrifter personliga.',
+      owner:'Ägare', country:'Land', language:'Språk', units:'Enheter', dateFormat:'Datumformat', farmName:'Gårdsnamn',
+      chooseLogo:'Välj logotyp', camera:'Kamera', removeLogo:'Ta bort logotyp', saveFarmProfile:'Spara gårdsprofil',
+      incubation:'Inkubering', incubationHelp:'Globala standarddagar. Temperatur och fuktighet används bara som förslag när en ny kläckare skapas.',
+      incubationTime:'Inkubationstid', firstCandlingDay:'Första lysning dag', secondCandlingDay:'Andra lysning dag', lockdownDay:'Lockdown dag',
+      defaultTemp:'Standardtemperatur för ny kläckare', defaultHumidity:'Standardfuktighet för ny kläckare', saveIncubationRules:'Spara inkuberingsregler',
+      incubators:'Kläckare', incubatorsHelp:'Här hanteras användarens egna kläckare. Varje kläckare får egen kapacitet, temperatur, fuktighet och lockdown-profil.',
+      addIncubator:'Lägg till kläckare', myIncubators:'Mina kläckare', standard:'Standard', capacity:'Kapacitet', temperature:'Temperatur', humidity:'Fuktighet',
+      turning:'Vändning', usedBy:'Används av', yes:'Ja', no:'Nej', active:'Aktiv', reserve:'Reserv', off:'Avstängd', model:'Modell', name:'Namn',
+      save:'Spara', edit:'Redigera', delete:'Ta bort', back:'← Tillbaka', add:'Lägg till',
+      settings:'Inställningar', statistics:'Statistik', farmJournal:'Gårdsjournal', machines:'Maskiner',
+      hatching:'Kläckning', laying:'Värpning', breeding:'Avel', health:'Hälsa', hall:'Hall',
+      hatchBatches:'Kläckomgångar', totalBatches:'Totalt omgångar', activeBatches:'Aktiva omgångar', finishedBatches:'Avslutade omgångar', manual:'Manuella',
+      newBatch:'Ny omgång', batchTip:'Tips: skapa en omgång och välj den när du registrerar ägg. Gamla ägg utan omgång grupperas automatiskt efter startdatum.',
+      activeRounds:'Aktiva omgångar', finishedRounds:'Avslutade omgångar', noFinishedRounds:'Inga avslutade omgångar ännu.',
+      start:'Start', day:'Dag', of:'av', breeds:'Raser', started:'Startade', stopped:'Avbrutna', hatched:'Kläckta',
+      hatchAnalysis:'Kläckanalys & historik', totalIncubated:'Totalt inkuberade', survivalRate:'Överlevnadsgrad', activeNow:'Aktiva just nu',
+      lossesByStage:'Förluster per stadium', beforeAroundDay8:'Före / omkring dag 8', aroundDay:'omkring dag', noData:'Ingen data ännu.',
+      farmJournalIntro:'Här samlas allt som händer på gården. Registrering sker från startsidans gröna knapp, medan journalen visar dagens arbete, kommande rutiner och historiken.',
+      today:'IDAG', upcoming:'KOMMANDE', history:'HISTORIK', noToday:'Inget registrerat för idag ännu.', plannedRoutine:'Planerad rutin',
+      firstCandling:'Första lysning', secondCandling:'Andra lysning', lockdown:'Lockdown', estimatedHatch:'Beräknad kläckning',
+      quickRegister:'Registrera ny händelse', registerEgg:'Registrera ägg', registerBatch:'Registrera omgång', logCandling:'Logga lysning', registerChick:'Registrera kyckling',
+      registerFlock:'Registrera flock', registerLaying:'Registrera värpning', registerHealth:'Registrera hälsa', registerWeight:'Registrera vikt', registerEvent:'Registrera händelse',
+      newPost:'Ny post', lifeBook:'Livsbok', notes:'Anteckningar', status:'Status', breed:'Ras', origin:'Ursprung', eggId:'Ägg-ID', startDate:'Startdatum',
+      eggList:'Ägglista', all:'Alla', critical:'Kritiska', uncertain:'Osäkra', todayLower:'idag', within7:'Inom 7 dagar',
+      noEggs:'Inga ägg ännu.', noChicks:'Inga kycklingar ännu.', noBirds:'Inga fåglar ännu.', noLaying:'Inga värpningar loggade ännu.'
+    },
+    en:{
+      myFarm:'My farm', myFarmHelp:'The user’s farm profile is saved here. PoultryMaster keeps its own identity in the app header, while the farm profile makes reports, life books and printouts personal.',
+      owner:'Owner', country:'Country', language:'Language', units:'Units', dateFormat:'Date format', farmName:'Farm name',
+      chooseLogo:'Choose logo', camera:'Camera', removeLogo:'Remove logo', saveFarmProfile:'Save farm profile',
+      incubation:'Incubation', incubationHelp:'Global default days. Temperature and humidity are only used as suggestions when a new incubator is created.',
+      incubationTime:'Incubation time', firstCandlingDay:'First candling day', secondCandlingDay:'Second candling day', lockdownDay:'Lockdown day',
+      defaultTemp:'Default temperature for new incubator', defaultHumidity:'Default humidity for new incubator', saveIncubationRules:'Save incubation rules',
+      incubators:'Incubators', incubatorsHelp:'Manage the user’s own incubators here. Each incubator has its own capacity, temperature, humidity and lockdown profile.',
+      addIncubator:'Add incubator', myIncubators:'My incubators', standard:'Standard', capacity:'Capacity', temperature:'Temperature', humidity:'Humidity',
+      turning:'Turning', usedBy:'Used by', yes:'Yes', no:'No', active:'Active', reserve:'Reserve', off:'Off', model:'Model', name:'Name',
+      save:'Save', edit:'Edit', delete:'Delete', back:'← Back', add:'Add',
+      settings:'Settings', statistics:'Statistics', farmJournal:'Farm journal', machines:'Machines',
+      hatching:'Hatching', laying:'Laying', breeding:'Breeding', health:'Health', hall:'Hall',
+      hatchBatches:'Hatch batches', totalBatches:'Total batches', activeBatches:'Active batches', finishedBatches:'Finished batches', manual:'Manual',
+      newBatch:'New batch', batchTip:'Tip: create a batch and select it when registering eggs. Old eggs without a batch are grouped automatically by start date.',
+      activeRounds:'Active batches', finishedRounds:'Finished batches', noFinishedRounds:'No finished batches yet.',
+      start:'Start', day:'Day', of:'of', breeds:'Breeds', started:'Started', stopped:'Stopped', hatched:'Hatched',
+      hatchAnalysis:'Hatch analysis & history', totalIncubated:'Total incubated', survivalRate:'Survival rate', activeNow:'Active now',
+      lossesByStage:'Losses by stage', beforeAroundDay8:'Before / around day 8', aroundDay:'around day', noData:'No data yet.',
+      farmJournalIntro:'Everything that happens on the farm is collected here. Registration is done from the green button on the overview, while the journal shows today’s work, upcoming routines and history.',
+      today:'TODAY', upcoming:'UPCOMING', history:'HISTORY', noToday:'Nothing registered for today yet.', plannedRoutine:'Planned routine',
+      firstCandling:'First candling', secondCandling:'Second candling', lockdown:'Lockdown', estimatedHatch:'Estimated hatch',
+      quickRegister:'Register new event', registerEgg:'Register egg', registerBatch:'Register batch', logCandling:'Log candling', registerChick:'Register chick',
+      registerFlock:'Register flock', registerLaying:'Register laying', registerHealth:'Register health', registerWeight:'Register weight', registerEvent:'Register event',
+      newPost:'New entry', lifeBook:'Life book', notes:'Notes', status:'Status', breed:'Breed', origin:'Origin', eggId:'Egg ID', startDate:'Start date',
+      eggList:'Egg list', all:'All', critical:'Critical', uncertain:'Uncertain', todayLower:'today', within7:'Within 7 days',
+      noEggs:'No eggs yet.', noChicks:'No chicks yet.', noBirds:'No birds yet.', noLaying:'No laying logs yet.'
+    },
+    da:{
+      myFarm:'Min gård', myFarmHelp:'Her gemmes brugerens egen gårdsprofil. PoultryMaster beholder sin identitet i appens top, mens gårdsprofilen gør rapporter, livsbøger og udskrifter personlige.',
+      owner:'Ejer', country:'Land', language:'Sprog', units:'Enheder', dateFormat:'Datoformat', farmName:'Gårdsnavn',
+      chooseLogo:'Vælg logo', camera:'Kamera', removeLogo:'Fjern logo', saveFarmProfile:'Gem gårdsprofil',
+      incubation:'Rugning', incubationHelp:'Globale standarddage. Temperatur og fugtighed bruges kun som forslag, når en ny rugemaskine oprettes.',
+      incubationTime:'Rugetid', firstCandlingDay:'Første lysningsdag', secondCandlingDay:'Anden lysningsdag', lockdownDay:'Lockdown-dag',
+      defaultTemp:'Standardtemperatur for ny rugemaskine', defaultHumidity:'Standardfugtighed for ny rugemaskine', saveIncubationRules:'Gem rugeregler',
+      incubators:'Rugemaskiner', incubatorsHelp:'Her håndteres brugerens egne rugemaskiner. Hver rugemaskine har egen kapacitet, temperatur, fugtighed og lockdown-profil.',
+      addIncubator:'Tilføj rugemaskine', myIncubators:'Mine rugemaskiner', standard:'Standard', capacity:'Kapacitet', temperature:'Temperatur', humidity:'Fugtighed',
+      turning:'Vending', usedBy:'Bruges af', yes:'Ja', no:'Nej', active:'Aktiv', reserve:'Reserve', off:'Slukket', model:'Model', name:'Navn',
+      save:'Gem', edit:'Redigér', delete:'Slet', back:'← Tilbage', add:'Tilføj',
+      settings:'Indstillinger', statistics:'Statistik', farmJournal:'Gårdsjournal', machines:'Maskiner',
+      hatching:'Klækning', laying:'Æglægning', breeding:'Avl', health:'Sundhed', hall:'Hall',
+      hatchBatches:'Klækkehold', totalBatches:'Hold i alt', activeBatches:'Aktive hold', finishedBatches:'Afsluttede hold', manual:'Manuelle',
+      newBatch:'Nyt hold', batchTip:'Tip: opret et hold og vælg det, når du registrerer æg. Gamle æg uden hold grupperes automatisk efter startdato.',
+      activeRounds:'Aktive hold', finishedRounds:'Afsluttede hold', noFinishedRounds:'Ingen afsluttede hold endnu.',
+      start:'Start', day:'Dag', of:'af', breeds:'Racer', started:'Startede', stopped:'Stoppede', hatched:'Klækkede',
+      hatchAnalysis:'Klækkeanalyse & historik', totalIncubated:'Rugede i alt', survivalRate:'Overlevelsesgrad', activeNow:'Aktive nu',
+      lossesByStage:'Tab pr. stadie', beforeAroundDay8:'Før / omkring dag 8', aroundDay:'omkring dag', noData:'Ingen data endnu.',
+      farmJournalIntro:'Her samles alt, der sker på gården. Registrering sker fra den grønne knap på oversigten, mens journalen viser dagens arbejde, kommende rutiner og historik.',
+      today:'I DAG', upcoming:'KOMMENDE', history:'HISTORIK', noToday:'Intet registreret for i dag endnu.', plannedRoutine:'Planlagt rutine',
+      firstCandling:'Første lysning', secondCandling:'Anden lysning', lockdown:'Lockdown', estimatedHatch:'Forventet klækning',
+      quickRegister:'Registrér ny hændelse', registerEgg:'Registrér æg', registerBatch:'Registrér hold', logCandling:'Log lysning', registerChick:'Registrér kylling',
+      registerFlock:'Registrér flok', registerLaying:'Registrér æglægning', registerHealth:'Registrér sundhed', registerWeight:'Registrér vægt', registerEvent:'Registrér hændelse',
+      newPost:'Ny post', lifeBook:'Livsbog', notes:'Noter', status:'Status', breed:'Race', origin:'Oprindelse', eggId:'Æg-ID', startDate:'Startdato',
+      eggList:'Ægliste', all:'Alle', critical:'Kritiske', uncertain:'Usikre', todayLower:'i dag', within7:'Inden for 7 dage',
+      noEggs:'Ingen æg endnu.', noChicks:'Ingen kyllinger endnu.', noBirds:'Ingen fugle endnu.', noLaying:'Ingen æglægningslogge endnu.'
+    },
+    no:{
+      myFarm:'Min gård', myFarmHelp:'Her lagres brukerens egen gårdsprofil. PoultryMaster beholder sin identitet i apphodet, mens gårdsprofilen gjør rapporter, livsbøker og utskrifter personlige.',
+      owner:'Eier', country:'Land', language:'Språk', units:'Enheter', dateFormat:'Datoformat', farmName:'Gårdsnavn',
+      chooseLogo:'Velg logo', camera:'Kamera', removeLogo:'Fjern logo', saveFarmProfile:'Lagre gårdsprofil',
+      incubation:'Ruging', incubationHelp:'Globale standarddager. Temperatur og fuktighet brukes bare som forslag når en ny rugemaskin opprettes.',
+      incubationTime:'Rugetid', firstCandlingDay:'Første lysingsdag', secondCandlingDay:'Andre lysingsdag', lockdownDay:'Lockdown-dag',
+      defaultTemp:'Standardtemperatur for ny rugemaskin', defaultHumidity:'Standardfuktighet for ny rugemaskin', saveIncubationRules:'Lagre rugeregler',
+      incubators:'Rugemaskiner', incubatorsHelp:'Her håndteres brukerens egne rugemaskiner. Hver rugemaskin får egen kapasitet, temperatur, fuktighet og lockdown-profil.',
+      addIncubator:'Legg til rugemaskin', myIncubators:'Mine rugemaskiner', standard:'Standard', capacity:'Kapasitet', temperature:'Temperatur', humidity:'Fuktighet',
+      turning:'Vending', usedBy:'Brukes av', yes:'Ja', no:'Nei', active:'Aktiv', reserve:'Reserve', off:'Av', model:'Modell', name:'Navn',
+      save:'Lagre', edit:'Rediger', delete:'Slett', back:'← Tilbake', add:'Legg til',
+      settings:'Innstillinger', statistics:'Statistikk', farmJournal:'Gårdsjournal', machines:'Maskiner',
+      hatching:'Klekking', laying:'Egglegging', breeding:'Avl', health:'Helse', hall:'Hall',
+      hatchBatches:'Klekkeomganger', totalBatches:'Totalt omganger', activeBatches:'Aktive omganger', finishedBatches:'Avsluttede omganger', manual:'Manuelle',
+      newBatch:'Ny omgang', batchTip:'Tips: opprett en omgang og velg den når du registrerer egg. Gamle egg uten omgang grupperes automatisk etter startdato.',
+      activeRounds:'Aktive omganger', finishedRounds:'Avsluttede omganger', noFinishedRounds:'Ingen avsluttede omganger ennå.',
+      start:'Start', day:'Dag', of:'av', breeds:'Raser', started:'Startede', stopped:'Avbrutte', hatched:'Klekket',
+      hatchAnalysis:'Klekkeanalyse & historikk', totalIncubated:'Totalt ruget', survivalRate:'Overlevelsesgrad', activeNow:'Aktive nå',
+      lossesByStage:'Tap per stadium', beforeAroundDay8:'Før / rundt dag 8', aroundDay:'rundt dag', noData:'Ingen data ennå.',
+      farmJournalIntro:'Her samles alt som skjer på gården. Registrering gjøres fra den grønne knappen på oversikten, mens journalen viser dagens arbeid, kommende rutiner og historikk.',
+      today:'I DAG', upcoming:'KOMMENDE', history:'HISTORIKK', noToday:'Ingenting registrert for i dag ennå.', plannedRoutine:'Planlagt rutine',
+      firstCandling:'Første lysing', secondCandling:'Andre lysing', lockdown:'Lockdown', estimatedHatch:'Beregnet klekking',
+      quickRegister:'Registrer ny hendelse', registerEgg:'Registrer egg', registerBatch:'Registrer omgang', logCandling:'Logg lysing', registerChick:'Registrer kylling',
+      registerFlock:'Registrer flokk', registerLaying:'Registrer egglegging', registerHealth:'Registrer helse', registerWeight:'Registrer vekt', registerEvent:'Registrer hendelse',
+      newPost:'Ny post', lifeBook:'Livsbok', notes:'Notater', status:'Status', breed:'Rase', origin:'Opprinnelse', eggId:'Egg-ID', startDate:'Startdato',
+      eggList:'Eggliste', all:'Alle', critical:'Kritiske', uncertain:'Usikre', todayLower:'i dag', within7:'Innen 7 dager',
+      noEggs:'Ingen egg ennå.', noChicks:'Ingen kyllinger ennå.', noBirds:'Ingen fugler ennå.', noLaying:'Ingen eggleggingslogger ennå.'
+    },
+    fi:{
+      myFarm:'Minun tilani', myFarmHelp:'Käyttäjän oma tilaprofiili tallennetaan tähän. PoultryMaster säilyttää oman identiteettinsä sovelluksen otsikossa, ja tilaprofiili tekee raporteista, elämänkirjoista ja tulosteista henkilökohtaisia.',
+      owner:'Omistaja', country:'Maa', language:'Kieli', units:'Yksiköt', dateFormat:'Päivämäärämuoto', farmName:'Tilan nimi',
+      chooseLogo:'Valitse logo', camera:'Kamera', removeLogo:'Poista logo', saveFarmProfile:'Tallenna tilaprofiili',
+      incubation:'Haudonta', incubationHelp:'Yleiset oletuspäivät. Lämpötilaa ja kosteutta käytetään vain ehdotuksina, kun uusi hautomakone luodaan.',
+      incubationTime:'Haudonta-aika', firstCandlingDay:'Ensimmäinen läpivalaisupäivä', secondCandlingDay:'Toinen läpivalaisupäivä', lockdownDay:'Lockdown-päivä',
+      defaultTemp:'Uuden hautomakoneen oletuslämpötila', defaultHumidity:'Uuden hautomakoneen oletuskosteus', saveIncubationRules:'Tallenna haudontasäännöt',
+      incubators:'Hautomakoneet', incubatorsHelp:'Täällä hallitaan käyttäjän omia hautomakoneita. Jokaisella hautomakoneella on oma kapasiteetti, lämpötila, kosteus ja lockdown-profiili.',
+      addIncubator:'Lisää hautomakone', myIncubators:'Omat hautomakoneet', standard:'Oletus', capacity:'Kapasiteetti', temperature:'Lämpötila', humidity:'Kosteus',
+      turning:'Kääntö', usedBy:'Käytössä', yes:'Kyllä', no:'Ei', active:'Aktiivinen', reserve:'Varalla', off:'Pois päältä', model:'Malli', name:'Nimi',
+      save:'Tallenna', edit:'Muokkaa', delete:'Poista', back:'← Takaisin', add:'Lisää',
+      settings:'Asetukset', statistics:'Tilastot', farmJournal:'Tilapäiväkirja', machines:'Laitteet',
+      hatching:'Kuoriutuminen', laying:'Muninta', breeding:'Jalostus', health:'Terveys', hall:'Hall',
+      hatchBatches:'Kuoriutumiserät', totalBatches:'Erät yhteensä', activeBatches:'Aktiiviset erät', finishedBatches:'Päättyneet erät', manual:'Manuaaliset',
+      newBatch:'Uusi erä', batchTip:'Vinkki: luo erä ja valitse se munia rekisteröidessä. Vanhat munat ilman erää ryhmitellään automaattisesti aloituspäivän mukaan.',
+      activeRounds:'Aktiiviset erät', finishedRounds:'Päättyneet erät', noFinishedRounds:'Ei päättyneitä eriä vielä.',
+      start:'Aloitus', day:'Päivä', of:'/', breeds:'Rodut', started:'Aloitetut', stopped:'Keskeytetyt', hatched:'Kuoriutuneet',
+      hatchAnalysis:'Kuoriutumisanalyysi ja historia', totalIncubated:'Haudottu yhteensä', survivalRate:'Selviytymisaste', activeNow:'Aktiiviset nyt',
+      lossesByStage:'Menetykset vaiheittain', beforeAroundDay8:'Ennen / noin päivä 8', aroundDay:'noin päivä', noData:'Ei tietoja vielä.',
+      farmJournalIntro:'Tänne kerätään kaikki tilalla tapahtuva. Rekisteröinti tehdään yleiskatsauksen vihreästä painikkeesta, ja päiväkirja näyttää päivän työt, tulevat rutiinit ja historian.',
+      today:'TÄNÄÄN', upcoming:'TULOSSA', history:'HISTORIA', noToday:'Tänään ei ole vielä merkintöjä.', plannedRoutine:'Suunniteltu rutiini',
+      firstCandling:'Ensimmäinen läpivalaisu', secondCandling:'Toinen läpivalaisu', lockdown:'Lockdown', estimatedHatch:'Arvioitu kuoriutuminen',
+      quickRegister:'Lisää uusi tapahtuma', registerEgg:'Rekisteröi muna', registerBatch:'Rekisteröi erä', logCandling:'Kirjaa läpivalaisu', registerChick:'Rekisteröi poikanen',
+      registerFlock:'Rekisteröi parvi', registerLaying:'Rekisteröi muninta', registerHealth:'Rekisteröi terveys', registerWeight:'Rekisteröi paino', registerEvent:'Rekisteröi tapahtuma',
+      newPost:'Uusi merkintä', lifeBook:'Elämänkirja', notes:'Muistiinpanot', status:'Tila', breed:'Rotu', origin:'Alkuperä', eggId:'Muna-ID', startDate:'Aloituspäivä',
+      eggList:'Munalista', all:'Kaikki', critical:'Kriittiset', uncertain:'Epävarmat', todayLower:'tänään', within7:'7 päivän sisällä',
+      noEggs:'Ei munia vielä.', noChicks:'Ei poikasia vielä.', noBirds:'Ei lintuja vielä.', noLaying:'Munintamerkintöjä ei vielä ole.'
+    }
+  };
+
+  function getState(){try{return JSON.parse(localStorage.getItem(STORE_KEY)||'{}')||{}}catch(e){return {}}}
+  function getLang(){
+    const s=getState();
+    let l=(s.farmSettings&&s.farmSettings.language)||document.documentElement.lang||'sv';
+    return D[l]?l:'sv';
+  }
+  function tr(k){const l=getLang();return (D[l]&&D[l][k])||(D.sv&&D.sv[k])||k}
+  function norm(s){return String(s||'').replace(/\s+/g,' ').trim()}
+  function fmt(s,o){return String(s).replace(/\{(\w+)\}/g,(_,k)=>o[k]??'')}
+
+  const keyByPhrase = {};
+  function add(k, arr){arr.forEach(x=>keyByPhrase[norm(x)]=k)}
+  [
+    ['myFarm',['Min gård','My farm']], ['myFarmHelp',['Här sparas användarens egen gårdsprofil. PoultryMaster behåller sin identitet i apphuvudet, medan gårdsprofilen gör rapporter, livsböcker och utskrifter personliga.']],
+    ['owner',['Ägare','Owner']], ['country',['Land','Country']], ['language',['Språk','Language']], ['units',['Enheter','Units']], ['dateFormat',['Datumformat','Date format']], ['farmName',['Gårdsnamn','Farm name']],
+    ['chooseLogo',['Välj logotyp','Choose logo']], ['camera',['Kamera','Camera']], ['removeLogo',['Ta bort logotyp','Remove logo']], ['saveFarmProfile',['Spara gårdsprofil','Save farm profile']],
+    ['incubation',['Inkubering','Incubation']], ['incubationHelp',['Globala standarddagar. Temperatur och fuktighet används bara som förslag när en ny kläckare skapas.']],
+    ['incubationTime',['Inkubationstid','Incubation time']], ['firstCandlingDay',['Första lysning dag','First candling day']], ['secondCandlingDay',['Andra lysning dag','Second candling day']], ['lockdownDay',['Lockdown dag','Lockdown day']],
+    ['defaultTemp',['Standardtemperatur för ny kläckare','Default temperature for new incubator']], ['defaultHumidity',['Standardfuktighet för ny kläckare','Default humidity for new incubator']], ['saveIncubationRules',['Spara inkuberingsregler','Save incubation rules']],
+    ['incubators',['Kläckare','Incubators']], ['incubatorsHelp',['Här hanteras användarens egna kläckare. Varje kläckare får egen kapacitet, temperatur, fuktighet och lockdown-profil.']],
+    ['addIncubator',['Lägg till kläckare','Add incubator']], ['myIncubators',['Mina kläckare','My incubators']], ['standard',['Standard']], ['capacity',['Kapacitet','Capacity']], ['temperature',['Temperatur','Temperature']], ['humidity',['Fuktighet','Humidity']],
+    ['turning',['Vändning','Turning']], ['usedBy',['Används av','Used by']], ['yes',['Ja','Yes']], ['no',['Nej','No']], ['active',['Aktiv','Active']], ['reserve',['Reserv','Reserve']], ['off',['Avstängd','Off']], ['model',['Modell','Model']], ['name',['Namn','Name']],
+    ['settings',['Inställningar','Settings']], ['statistics',['Statistik','Statistics']], ['farmJournal',['Gårdsjournal','Farm journal']], ['machines',['Maskiner','Machines']],
+    ['hatching',['Kläckning','Hatching']], ['laying',['Värpning','Laying']], ['breeding',['Avel','Breeding']], ['health',['Hälsa','Health']], ['hall',['Hall']],
+    ['hatchBatches',['Kläckomgångar','Hatch batches']], ['totalBatches',['Totalt omgångar','Total batches']], ['activeBatches',['Aktiva omgångar','Active batches']], ['finishedBatches',['Avslutade omgångar','Finished batches']], ['manual',['Manuella','Manual']],
+    ['newBatch',['Ny omgång','New batch']], ['batchTip',['Tips: skapa en omgång och välj den när du registrerar ägg. Gamla ägg utan omgång grupperas automatiskt efter startdatum.']],
+    ['activeRounds',['Aktiva omgångar','Active batches']], ['finishedRounds',['Avslutade omgångar','Finished batches']], ['noFinishedRounds',['Inga avslutade omgångar ännu.','No finished batches yet.']],
+    ['start',['Start']], ['day',['Dag','Day']], ['breeds',['Raser','Breeds']], ['started',['Startade','Started']], ['stopped',['Avbrutna','Stopped']], ['hatched',['Kläckta','Hatched']],
+    ['hatchAnalysis',['Kläckanalys & historik','Hatch analysis & history']], ['totalIncubated',['Totalt inkuberade','Total incubated']], ['survivalRate',['Överlevnadsgrad','Survival rate']], ['activeNow',['Aktiva just nu','Active now']],
+    ['lossesByStage',['Förluster per stadium','Losses by stage']], ['beforeAroundDay8',['Före / omkring dag 8','Before / around day 8']], ['noData',['Ingen data ännu.','No data yet.']],
+    ['farmJournalIntro',['Här samlas allt som händer på gården. Registrering sker från startsidans gröna knapp, medan journalen visar dagens arbete, kommande rutiner och historiken.']],
+    ['today',['IDAG','TODAY']], ['upcoming',['KOMMANDE','UPCOMING']], ['history',['HISTORIK','HISTORY']], ['noToday',['Inget registrerat för idag ännu.','Nothing registered for today yet.']], ['plannedRoutine',['Planerad rutin','Planned routine']],
+    ['firstCandling',['Första lysning','First candling']], ['secondCandling',['Andra lysning','Second candling']], ['lockdown',['Lockdown']], ['estimatedHatch',['Beräknad kläckning','Estimated hatch']],
+    ['quickRegister',['Registrera ny händelse','Register new event']], ['registerEgg',['Registrera ägg','Register egg']], ['registerBatch',['Registrera omgång','Register batch']], ['logCandling',['Logga lysning','Log candling']], ['registerChick',['Registrera kyckling','Register chick']],
+    ['registerFlock',['Registrera flock','Register flock']], ['registerLaying',['Registrera värpning','Register laying']], ['registerHealth',['Registrera hälsa','Register health']], ['registerWeight',['Registrera vikt','Register weight']], ['registerEvent',['Registrera händelse','Register event']],
+    ['newPost',['Ny post','New entry']], ['lifeBook',['Livsbok','Life book']], ['notes',['Anteckningar','Notes']], ['status',['Status']], ['breed',['Ras','Breed']], ['origin',['Ursprung','Origin']], ['eggId',['Ägg-ID','Egg ID']], ['startDate',['Startdatum','Start date']],
+    ['eggList',['Ägglista','Egg list']], ['all',['Alla','All']], ['critical',['Kritiska','Critical']], ['uncertain',['Osäkra','Uncertain']], ['within7',['Inom 7 dagar','Within 7 days']],
+    ['noEggs',['Inga ägg ännu.','No eggs yet.']], ['noChicks',['Inga kycklingar ännu.','No chicks yet.']], ['noBirds',['Inga fåglar ännu.','No birds yet.']], ['noLaying',['Inga värpningar loggade ännu.','No laying logs yet.']],
+    ['save',['Spara','Save']], ['edit',['Redigera','Edit']], ['delete',['Ta bort','Delete']], ['back',['← Tillbaka','← Back']], ['add',['Lägg till','Add']]
+  ].forEach(([k,a])=>add(k,a));
+
+  function translateExact(s){const k=keyByPhrase[norm(s)];return k?tr(k):null}
+  function translateDynamic(s){
+    let n=norm(s), m;
+    if(!n) return null;
+    if((m=n.match(/^(\+ ?)(Lägg till kläckare|Add incubator)$/))) return m[1]+tr('addIncubator');
+    if((m=n.match(/^(\+ ?)(Ny omgång|New batch)$/))) return m[1]+tr('newBatch');
+    if((m=n.match(/^(\+ ?)(Lägg till|Add)$/))) return m[1]+tr('add');
+    if((m=n.match(/^(\+ ?)(Logga lysning|Log candling)$/))) return m[1]+tr('logCandling');
+    if((m=n.match(/^Ägare:\s*(.+)$/))) return tr('owner')+': '+m[1];
+    if((m=n.match(/^Owner:\s*(.+)$/))) return tr('owner')+': '+m[1];
+    if((m=n.match(/^Start:\s*(.+)$/))) return tr('start')+': '+m[1];
+    if((m=n.match(/^Dag\s+(\d+)\s+av\s+(\d+)$/i))) return `${tr('day')} ${m[1]} ${tr('of')} ${m[2]}`;
+    if((m=n.match(/^Day\s+(\d+)\s+of\s+(\d+)$/i))) return `${tr('day')} ${m[1]} ${tr('of')} ${m[2]}`;
+    if((m=n.match(/^Raser:\s*(.+)$/))) return tr('breeds')+': '+m[1];
+    if((m=n.match(/^Breeds:\s*(.+)$/))) return tr('breeds')+': '+m[1];
+    if((m=n.match(/^Kläckare:\s*(.+)$/))) return tr('incubators')+': '+m[1];
+    if((m=n.match(/^Incubator:\s*(.+)$/))) return tr('incubators')+': '+m[1];
+    if((m=n.match(/^(\d+)\s+aktiva ägg$/i))) return `${m[1]} ${tr('active').toLowerCase()} ${tr('eggList').toLowerCase()}`;
+    if((m=n.match(/^(\d+)\s+ägg ska lysas idag\. Logga resultatet direkt efter varje ägg\.$/i))) return getLang()==='en'?`${m[1]} eggs should be candled today. Log the result immediately after each egg.`:null;
+    if((m=n.match(/^Andra lysning om\s+(\d+)\s+dagar?$/i))) return `${tr('secondCandling')} ${inDays(m[1])}`;
+    if((m=n.match(/^Första lysning om\s+(\d+)\s+dagar?$/i))) return `${tr('firstCandling')} ${inDays(m[1])}`;
+    if((m=n.match(/^Lockdown om\s+(\d+)\s+dagar?$/i))) return `${tr('lockdown')} ${inDays(m[1])}`;
+    if((m=n.match(/^Beräknad kläckning om\s+(\d+)\s+dagar?$/i))) return `${tr('estimatedHatch')} ${inDays(m[1])}`;
+    if((m=n.match(/^Planerad rutin\s*·\s*(.+)$/i))) return `${tr('plannedRoutine')} · ${m[1]}`;
+    return null;
+  }
+  function inDays(n){
+    n=String(n);
+    const l=getLang();
+    if(l==='sv') return n==='1'?'om 1 dag':`om ${n} dagar`;
+    if(l==='en') return n==='1'?'in 1 day':`in ${n} days`;
+    if(l==='da') return n==='1'?'om 1 dag':`om ${n} dage`;
+    if(l==='no') return n==='1'?'om 1 dag':`om ${n} dager`;
+    return `${n} päivän kuluttua`;
+  }
+  function translateString(s){return translateExact(s)||translateDynamic(s)}
+  function skipNode(n){
+    if(!n || !n.parentElement) return true;
+    const tag=n.parentElement.tagName;
+    return ['SCRIPT','STYLE','TEXTAREA'].includes(tag);
+  }
+  function translateTextNode(n){
+    if(skipNode(n)) return;
+    const raw=n.nodeValue; if(!raw||!raw.trim()) return;
+    const lead=(raw.match(/^\s*/)||[''])[0], trail=(raw.match(/\s*$/)||[''])[0], mid=raw.trim();
+    const out=translateString(mid);
+    if(out && out!==mid) n.nodeValue=lead+out+trail;
+  }
+  function walk(root){
+    if(!root) return;
+    const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null);
+    let n; const nodes=[];
+    while((n=w.nextNode())) nodes.push(n);
+    nodes.forEach(translateTextNode);
+  }
+  function translateSelects(root){
+    (root||document).querySelectorAll('option').forEach(o=>{
+      const out=translateString(o.textContent);
+      if(out) o.textContent=out;
+    });
+    (root||document).querySelectorAll('input[placeholder],textarea[placeholder]').forEach(el=>{
+      const out=translateString(el.getAttribute('placeholder'));
+      if(out) el.setAttribute('placeholder',out);
+    });
+    (root||document).querySelectorAll('input[type="button"],input[type="submit"]').forEach(el=>{
+      const out=translateString(el.value);
+      if(out) el.value=out;
+    });
+  }
+  function apply(){
+    try{
+      document.documentElement.lang=getLang();
+      const top=document.querySelector('.top small'); if(top) top.textContent = (window.I18N&&window.I18N[getLang()]&&window.I18N[getLang()].tagline)||top.textContent;
+      walk(document.body); translateSelects(document);
+    }catch(e){console.warn('PoultryMaster deep I18N guard:',e)}
+  }
+  const mo=new MutationObserver(()=>{clearTimeout(apply._t);apply._t=setTimeout(apply,30)});
+  function start(){apply();mo.observe(document.body,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['placeholder','value']})}
+  ['click','change','input'].forEach(ev=>document.addEventListener(ev,()=>setTimeout(apply,80),true));
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',start); else start();
+  setInterval(apply,1000);
+})();
 }
